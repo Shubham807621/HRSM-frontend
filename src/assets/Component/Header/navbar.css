@@ -1,0 +1,207 @@
+body {
+    background-image: url("src/assets/Images/tt-work-bg.jpg"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    /* background: linear-gradient(305deg, rgba(203,236,255,1) 0%, rgba(223,199,246,1) 71%); */
+    margin: 0;
+  }
+.header{
+    width: 100%;
+    z-index: 1000;
+    /* margin-left: 22%; */
+    height: 70px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 5px 5px 15px rgba(0 0 0/ 20%);
+    
+}
+
+/* Search Box */
+.search-box {
+    width: 280px;
+    margin-left: 25%;
+    margin-top: 15px;
+    height: 35px;
+    background: #f5f5f5;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+
+.search-box input {
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    width: 200px;
+    
+}
+
+
+.search-icon {
+    color: rgba(0, 0, 0, 0.56);
+    cursor: pointer;
+    margin-left: 40px;
+    background: transparent;
+}
+
+/* Notification Icon */
+
+.bell-icon {
+  
+    color: black;
+    /* margin-left: 900px; */
+    font-size: 35px !important;
+    margin-top: 8px;
+}
+
+
+
+/* User Profile */
+.user-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 50px;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info {
+    width: 115px;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.username {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.status {
+    color: rgb(0, 0, 0);
+    /* display: flex; */
+    align-items: center;
+    font-weight: bold;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    background: rgb(3, 255, 3);
+    border-radius: 50%;
+    margin-right: 5px;
+    
+}
+
+.dropdown-icon {
+    color: rgb(100, 100, 100);
+    /* margin-top: 20px; */
+    /* margin-left: 60px; */
+    font-size: 30px !important ;
+}
+
+
+/* Sidebar */
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    width: 280px;
+    height: 100vh;
+    border-right: 2px solid rgba(0, 0, 0, 0.108);
+    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */
+}
+
+/* Scrollbar Styling (for WebKit browsers) */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* Vertical Line */
+.sub-menu .vertical-line {
+    position: absolute;
+    left: 57px;
+    top: 141px;
+    height: 56px;
+    width: 2px;
+    background-color: #e0e0e0;
+  }
+
+  .submenu-item {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    position: relative;
+    padding-left: 10px;
+    transition: color 0.3s;
+  }
+  .submenu-item.active {
+    color: #f26522;
+    font-weight: bold;
+  }
+  
+  /* Orange Highlight Before Active Submenu Item */
+  .submenu-item.active::before {
+    content: ".";
+    position: absolute;
+    left: -8px;
+    width: 5px;
+    height: 20px;
+    background-color: #f26522;
+    border-radius: 5px;
+  }
+
+.sidebar h1 {
+    width: 250px;
+    font-size: 50px;
+    color: rgb(252, 117, 21);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    padding: 0px 13px;
+   background-color: white;
+}
+.sidebar .main-item1{
+    height: auto;
+}
+
+
+.sidebar .main-item1 .main-title{
+    margin: 0;
+}
+
+.sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.sidebar .main-item1  .sub-menu.open p{
+    margin: 0;
+}
+.sub-menu.open {
+    max-height: 200px; /* Adjust as needed */
+    opacity: 1;
+}

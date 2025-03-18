@@ -1,0 +1,140 @@
+/* Full page background */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background: linear-gradient(to bottom, #CBECFF, #F7EFFF); */
+}
+
+/* Login box with two sections */
+.register-box {
+  display: flex;
+/* background: rgb(234, 85, 85);  */
+  width: 80%;
+  height: auto;
+  border-radius: 10px;
+  /* box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1); */
+  overflow: hidden;
+}
+
+/* Left section for form */
+.left-section {
+   width: 50%; 
+   /* background-color: #007bff; */
+  padding: 20px; /* Reduced padding */
+}
+
+
+.left-section .title {
+  color: #000000;
+  font-size: 28px; /* Reduced font size */
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.left-section .subtitle {
+  color: #444;
+  text-align: center;
+  font-size: 25px; /* Reduced font size */
+  margin-bottom: 15px;
+}
+
+.left-section p {
+  color: #000000ad;
+  font-size: 17px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+
+.left-section  form input {
+  width: 46%;
+  padding: 10px;
+  margin: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f5f7f9;
+}
+
+.left-section .forgot-password {
+  display: block;
+  text-align: right;
+  margin-bottom: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.left-section .signin {
+  width: 100%;
+  padding: 12px 10px !important;
+  background: #007bff !important;
+  color: white !important;
+  border: none;
+  border-radius: 8px !important;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.left-section .signin:hover{
+  background-color: #000 !important;
+}
+
+.left-section .or-login {
+  margin: 20px 0;
+  color: #999;
+}
+
+
+
+.left-section .social-buttons button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #000;
+  text-transform: capitalize;
+}
+.social-buttons button .social-icon{
+  margin: 0 5px;
+}
+.google-login-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.google-login-container > div {
+  width: 100%; /* Adjust width as needed */
+  
+}
+
+.google-btn {
+  background: #fff;
+}
+
+
+.signup-link {
+  width: 100%;
+ text-align: center;
+  margin-top: 20px;
+}
+
+.signup-link a {
+  width: 100%;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.right-section{
+  width: 50% !important;
+  /* background-color: brown; */
+}
+
+.right-section .overlay2{
+  margin-top: 65px;
+}
