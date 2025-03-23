@@ -15,7 +15,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import "./EmployeeDetails.css";
 import { Button } from "@mui/material";
-import BankInfoModal from "../Modal/CustomeModal";
+import CustomeModal from "../Modal/CustomeModal";
 import { getEmployeeDetailsById } from "../../APIService/apiservice";
 
 function EmployeeDetails() {
@@ -321,7 +321,7 @@ function EmployeeDetails() {
           </div>
         </div>
       </div>
-      <BankInfoModal 
+      <CustomeModal 
         show={showModal} 
         handleClose={() => setShowModal(false)} 
         data={bankData} 
@@ -362,7 +362,7 @@ function EmployeeDetails() {
                   </div>
               </div>
             </div>
-            <BankInfoModal 
+            <CustomeModal 
               show={showFamilyModal} 
               handleClose={() => setShowFamilyModal(false)} 
               data={familyData} 
@@ -427,7 +427,7 @@ function EmployeeDetails() {
                 </div>
               </div>
 
-              <BankInfoModal 
+              <CustomeModal 
               show={showEducationModal} 
               handleClose={() => setShowEducationModal(false)} 
               data={educationData} 
@@ -488,7 +488,7 @@ function EmployeeDetails() {
                       </button>
                 </div>
               </div>
-              <BankInfoModal 
+              <CustomeModal 
               show={showExperienceModal} 
               handleClose={() => setShowExperienceModal(false)} 
               data={experienceData} 
@@ -556,7 +556,7 @@ function EmployeeDetails() {
                   </div>
                 ))}
               </div>
-            </div> *
+            </div> 
 
 
       </div>

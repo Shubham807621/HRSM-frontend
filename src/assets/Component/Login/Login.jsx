@@ -30,6 +30,7 @@ export default function Login() {
               localStorage.setItem("token", response.token);
               localStorage.setItem("role", response.role);
               localStorage.setItem('empId', response.empId);
+              
               console.log("Login Successful:", response);
   
               // Navigate based on role

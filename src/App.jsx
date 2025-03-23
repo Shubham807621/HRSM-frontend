@@ -23,7 +23,8 @@ import EmployeeDashboard from './assets/Component/Dashboard/Employee Dashboard/E
 import TrainDash from './assets/Component/Pages/Training/Training Dashboard/TrainDash'
 import TrainList from './assets/Component/Pages/Training/Training List/TrainList'
 import Payroll from './assets/Component/Pages/Salary/Payroll/Payroll'
-
+import KonwledgeBase from './assets/Component/Pages/Support/KnowledgeBase'
+import Users from './assets/Component/Pages/User Mangement/Users/Users'
 
 function App() {
 
@@ -48,9 +49,11 @@ function App() {
           <Route path='/salary/payslip' element={<Payslip/>}/>
           <Route path='/salary/payroll' element={<Payroll/>}/>
           <Route path='/support/add-report' element={<Support/>}/>
+          <Route path='/support/konwledgeBase' element={<KonwledgeBase/>}/>
           <Route path='/attendance/hr-attendance' element={<HrAttendance/>}/>
           <Route path='/attendance/emp-attendance' element={<EmpAttendance/>}/>
           <Route path='/user-management/update-role' element={<Roles/>}/>
+          <Route path='/user-management/update-user-role' element={<Users/>}/>
           <Route path='/training-dashboard' element={<TrainDash/>}/>
           <Route path='/trainings-list' element={<TrainList/>}/>
         </Routes>

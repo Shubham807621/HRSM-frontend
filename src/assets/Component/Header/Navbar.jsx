@@ -411,6 +411,12 @@
                 >
                   <p className="py-1 ps-0">Update Role </p>
                 </Link>
+                <Link to='/user-management/update-user-role'
+                  className={`submenu-item ${location.pathname === "/user-management/update-user-role" ? "active" : ""}`}
+                >
+                  <p className="py-1 ps-0">Update User Role </p>
+                </Link>
+              
               
               </div>
             )}
@@ -439,6 +445,14 @@
                 >
                   <p className="py-1 ps-0">Add Report</p>
                 </Link>
+                <Link to='/support/konwledgeBase'
+                  className={`submenu-item ${location.pathname === "/support/konwledgeBase" ? "active" : ""}`}
+                >
+                  <p className="py-1 ps-0">Konwledge Base</p>
+                </Link>
+
+
+
               
               </div>
             )}

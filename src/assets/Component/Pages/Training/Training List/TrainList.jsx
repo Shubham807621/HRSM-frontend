@@ -52,7 +52,7 @@ export default function TrainList() {
     
       try{
         const respone = await getAllTraining(token);
-
+        console.log(respone)
         setTrainingList(respone)
       }
       catch (error) {
@@ -63,6 +63,8 @@ export default function TrainList() {
     fetchTrainingList();
 
   },[])
+
+
   return (
         <>
              <div className="mainTrainList">
