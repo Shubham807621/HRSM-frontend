@@ -1,0 +1,7 @@
+body{
+    background-image: url("src/assets/Images/tt-work-bg.jpg"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}

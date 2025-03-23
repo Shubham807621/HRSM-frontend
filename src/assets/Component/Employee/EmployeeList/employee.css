@@ -1,14 +1,10 @@
 .maindiv
 {
   width: 78%;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   position: absolute;
   left: 20%;
-
-  overflow-y: scroll;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */  
-  
+  top: 12%;
 }
 
 

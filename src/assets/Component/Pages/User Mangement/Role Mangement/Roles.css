@@ -1,0 +1,197 @@
+.userdetails{
+    width: 78%;
+    margin-top: 10px;
+    position: absolute;
+    left: 20%; 
+    top: 12%;
+}
+
+.userdetails .top{
+  display: flex;
+  justify-content: space-between;
+}
+
+.userdetails .top .adduser{
+  border: none;
+  background-color: orangered;
+  color: white;
+  height: 40px;
+  margin-top: 30px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.userdetails .titleE
+{
+    /* background-color: blueviolet; */
+    margin-top: 10px;
+}
+
+.userdetails .titleE h1{
+    /* margin-left: 320px;
+    margin-top: 30px; */
+    font-size: 30px;
+}
+
+.userdetails .breadcrumb-wrapper .breadcrumb {
+    /* margin-left: 320px; */
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+  }
+  
+.userdetails .breadcrumb-wrapper .breadcrumb li {
+    display: flex;
+    align-items: center;
+  }
+  
+.userdetails .breadcrumb-wrapper .breadcrumb .breadcrumb-link {
+    text-decoration: none;
+    color: gray;
+  }
+  
+.userdetails .breadcrumb-wrapper .breadcrumb .breadcrumb-link:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  
+.userdetails .breadcrumb-wrapper .breadcrumb .breadcrumb-separator {
+    margin: 0 8px;
+    color: black;
+  }
+  
+.userdetails .breadcrumb-wrapper .breadcrumb .breadcrumb-current {
+    font-weight: bold;
+    color: black;
+  }
+  
+.userdetails .breadcrumb-wrapper .breadcrumb .home-icon {
+    font-size: 20px;
+    color: black;
+  }
+
+.userdetails .breadcrumb-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+/*row2*/
+.userdetails .row2{
+  background-color: white;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  padding: 10px 0px 10px 0px;
+  border: 1px solid rgba(128, 128, 128, 0.514);
+}
+
+.userdetails .row2 .emp-list-contrainer{
+display: flex;
+padding: 10px 20px 0px 20px; 
+}
+
+.userdetails .row2 .emp-list-contrainer h6{
+flex: 1;
+padding-top: 5px;
+font-weight: bold;
+}
+.userdetails .row2 .emp-list-contrainer div{
+flex: 1;
+}
+/*filters*/
+.userdetails .row2 .emp-filters {
+width: 98%;
+display: flex;
+gap: 15px;
+margin-bottom: 15px;
+flex-direction: row-reverse;
+justify-content: flex-start;
+}
+
+
+.userdetails .row2 .emp-table{
+width: 100%;
+}
+.userdetails .row2 .emp-table table{
+width: 100%;
+}
+.userdetails .row2 .emp-table table tbody tr td .emp-title{
+color: #000 !important;
+}
+
+.userdetails .row2 .emp-table table th{
+padding-left: 15px;
+border: none;
+background-color: #e5e7eb !important;
+
+}
+
+.userdetails .row2 .emp-table table td{
+padding-left: 15px;
+}
+
+.userdetails .row2 .emp-table th{
+height: 30px !important;
+}
+
+.userdetails .row2 .emp-table table tbody tr{
+height: 30px !important;
+}
+
+/*moral*/
+.userdetails .modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userdetails .modal-box {
+  background-color: white;
+  width: 500px;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.userdetails .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userdetails .modal-header h4 {
+  margin: 0;
+}
+
+.userdetails .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.userdetails .modal-body {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.userdetails .form-input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.userdetails .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}

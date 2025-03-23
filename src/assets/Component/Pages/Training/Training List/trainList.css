@@ -1,0 +1,121 @@
+.mainTrainList
+{
+  width: 78%;
+  /* height: 100%; */
+  margin-top: 10px;
+  margin-bottom: 15px;
+  position: absolute;
+  left: 20%;
+  top: 12%;
+  /* overflow-y: scroll;
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */   
+  /* background-color: rgb(182, 104, 255); */
+}
+
+.mainTrainList .button-wrapper1 .titleE{
+    font-size: 28px !important; 
+}
+
+  /* Right Section: Buttons */
+  .mainTrainList .button-wrapper1 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  }
+
+  .mainTrainList .button-wrapper1 .add-employee-btn {
+  width: 180px;
+  height: 38px;
+    display: flex;
+    align-items: center;
+    background: #f26522;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    margin-left: 25px;
+    margin-top: 5px;
+  }
+
+  .mainTrainList .breadcrumb {
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+  }
+  
+  .mainTrainList .breadcrumb li {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mainTrainList .breadcrumb li .breadcrumb-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.396);
+    font-size: 14px;
+  }
+  
+  .mainTrainList .breadcrumb li .breadcrumb-link:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  
+  .mainTrainList .breadcrumb .breadcrumb-separator {
+    margin: 0 5px;
+    color: black;
+  }
+  
+  .mainTrainList .breadcrumb .breadcrumb-current {
+    font-weight: 600;
+    color: black;
+    font-size: 14px;
+
+  }
+  
+  .mainTrainList .breadcrumb li .home-icon {
+    font-size: 18px;
+    color: black;
+  }
+
+  .mainTrainList .container .card {
+    border-radius: 12px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  } 
+
+  .mainTrainList .container .card .text-orange {
+    color: #ff6600;
+    margin-left: 10px;
+  }
+
+  .mainTrainList .container .card .train{
+    margin-left: 10px;
+  }
+  .mainTrainList .container .card  .duration
+  {
+        width: 300px;
+        /* background-color: aqua; */
+        display: flex;
+        justify-content: space-between;
+        margin-left: 10px;
+  }
+
+  
+  .mainTrainList .container .card .btn-orange {
+    width: 110px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    margin-right: 28px;
+
+  }
+  
+  .mainTrainList .container .card .btn-orange:hover {
+    background-color: #e65c00;
+  }

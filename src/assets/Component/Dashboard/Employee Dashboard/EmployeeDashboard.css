@@ -1,0 +1,387 @@
+.empDashboard{
+    width: 78%;
+    margin-top: 10px;
+    position: absolute;
+    left: 20%;
+    top: 12%;
+  
+  }
+  .empDashboard .titleE
+  {
+      /* background-color: blueviolet; */
+      margin-top: 10px;
+  }
+  
+  .empDashboard .titleE h1{
+      /* margin-left: 320px;
+      margin-top: 30px; */
+      font-size: 30px;
+  }
+  
+  .empDashboard .breadcrumb-wrapper .breadcrumb {
+      /* margin-left: 320px; */
+      font-size: 16px;
+      font-weight: 500;
+      color: black;
+    }
+    
+    .empDashboard .breadcrumb-wrapper .breadcrumb li {
+      display: flex;
+      align-items: center;
+    }
+    
+    .empDashboard .breadcrumb-wrapper .breadcrumb .breadcrumb-link {
+      text-decoration: none;
+      color: gray;
+    }
+    
+    .empDashboard .breadcrumb-wrapper .breadcrumb .breadcrumb-link:hover {
+      text-decoration: underline;
+      color: black;
+    }
+    
+    .empDashboard .breadcrumb-wrapper .breadcrumb .breadcrumb-separator {
+      margin: 0 8px;
+      color: black;
+    }
+    
+    .empDashboard .breadcrumb-wrapper .breadcrumb .breadcrumb-current {
+      font-weight: bold;
+      color: black;
+    }
+    
+    .empDashboard .breadcrumb-wrapper .breadcrumb .home-icon {
+      font-size: 20px;
+      color: black;
+    }
+  
+  
+  .empDashboard .breadcrumb-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  
+  
+  .empDashboard .emp-container{
+      /* margin-left: 21%; */
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+  }
+  
+  .empDashboard .emp-container .emp-cards{
+      display: flex;
+      gap: 20px;
+  
+  }
+  
+  /*first card*/
+  .empDashboard .emp-container .emp-cards .emp-card{
+      flex: 1;
+      border: 1px solid rgba(128, 128, 128, 0.514);
+      border-radius: 10px;
+      background-color: white;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .emp-header{
+      display: flex;
+      background-color: black;
+      color: white;
+      padding: 10px 10px 2px 20px;
+      gap: 30px;
+      border-radius: 10px 10px 0px 0px;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .emp-header p{
+    font-size: small;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .emp-body h6{
+    margin-bottom: 0px;
+    font-weight: bold;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .emp-body{
+    padding: 20px 0px 0px 20px;
+  }
+  
+  
+  /*second card*/
+  .empDashboard .emp-container .emp-cards .emp-card .leave-header{
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 20px 0px 10px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Creates space between legend and chart */
+    padding: 0px 10px 0px 10px;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .chart-container .custom-legend {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .chart-container .custom-legend .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .chart-container .custom-legend .legend-item .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  /*third card*/
+  .empDashboard .emp-container .emp-cards .emp-card .leave-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .leave-summary .summary-grid{
+    display: flex;
+    gap: 60px;
+    margin-bottom: 20px;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .leave-summary .apply-leave-btn {
+    background-color: #00a650;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .empDashboard .emp-container .emp-cards .emp-card .leave-summary .apply-leave-btn:hover {
+    background-color: #008d45;
+  }
+  
+  
+  /*row-2*/
+  /*attendence*/
+  .empDashboard .emp-container .roww-2{
+    display: flex;
+    gap: 10px;
+  } 
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card {
+    width: 300px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+  }
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card h6 {
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card p {
+    margin: 5px 0;
+  }
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card .chart-container1 {
+    display: flex;
+    align-items: center;
+    height: 150px;
+  }
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card .production-info {
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    margin-left: 27px;
+    width: 200px;
+    border-radius: 5px;
+    font-size: 14px;
+  
+    /* margin: 10px 0; */
+  }
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card button {
+    background: #ff6600;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 257px;
+  }
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card .punch-out-btn:hover {
+    background: #e65c00;
+  }
+  
+  .empDashboard .emp-container .roww-2 .emp-card .attendance-card  .piecha{
+    flex: 1;
+    padding-left: 20px;
+  }
+  
+  
+  /*row-2 col-2*/
+  .empDashboard .emp-container .roww-2 .r2-c2{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .empDashboard .emp-container .roww-2 .r2-c2 .insiderow{
+    display: flex;
+    gap: 10px;
+  }
+  
+  /*4 boxes*/
+  .empDashboard .emp-container .roww-2 .r2-c2 .insiderow .emp-card{
+    background-color: white;
+    padding: 10px 0px 5px 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+    flex: 1;
+  }
+  
+  /*timeline*/
+  .empDashboard .emp-container .roww-2 .r2-c2 #timeline {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+    flex: 1;
+  }
+  
+  /*roww-3*/
+  .empDashboard .emp-container .roww-3{
+    display: flex;
+    gap: 20px;
+  } 
+  
+  /*myskills*/
+  .empDashboard .emp-container .roww-3 .myskills{
+    flex: 1;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+    border-radius: 8px;
+  }
+  
+  .empDashboard .emp-container .roww-3 .leave-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 20px 0px 10px;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 1px solid #33333342;
+  }
+  
+  .empDashboard .emp-container .roww-3 .custom-legend {
+    display: flex;
+    padding: 0px 20px 0px 20px;
+    justify-content: space-between;
+  }
+  
+  .empDashboard .emp-container .roww-3 .custom-legend .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .empDashboard .emp-container .roww-3 .custom-legend .legend-item .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  .empDashboard .emp-container .roww-3 .custom-legend .chart-container1 {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
+  
+  .empDashboard .emp-container .roww-3 .custom-legend .chart-container1  .piecha{
+    flex: 1;
+    padding-left: 20px;
+  }
+  
+  
+  /*tasks*/
+  .empDashboard .emp-container .roww-3 table {
+    flex: 1.5;
+    border-radius: 8px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    outline: 1px solid #5555555f; /* Outer outline border */
+  }
+  
+  .empDashboard .emp-container .roww-3 table th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .empDashboard .emp-container .roww-3 table th {
+    background: #f9f9f9;
+    font-weight: bold;
+  }
+  
+  .empDashboard .emp-container .roww-3 table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .empDashboard .emp-container .roww-3 table tbody tr td .checkbox {
+    margin-right: 8px;
+    transform: scale(1.2);
+  }
+  
+  .empDashboard .emp-container .roww-3 table tbody tr td .pin-icon {
+    margin-right: 5px;
+    font-size: 14px;
+  }
+  
+  .empDashboard .emp-container .roww-3 table tbody tr td .status {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  .empDashboard .emp-container .roww-3 table tbody tr td  .avatars img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-left: -8px;
+    border: 2px solid white;
+  }
+  
+  

@@ -24,7 +24,7 @@ export default function Department() {
   };
 
 const data = [
-    { department: "UI/UX", employees: 80 },
+    { department: "UI/UX", employees: 50 },
     { department: "Development", employees: 110 },
     { department: "Management", employees: 90 },
     { department: "HR", employees: 20 },

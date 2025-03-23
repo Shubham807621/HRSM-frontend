@@ -3,10 +3,13 @@ import "./Verify.css";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import bg from '../../Images/reset-password.png'
 import { verifyUserCode } from "../APIService/apiservice";
+import { useNavigate } from "react-router-dom";
 
 export default function Verify({ email }) {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const [values, setValues] = useState({
     userName: email || "",
@@ -50,6 +53,8 @@ export default function Verify({ email }) {
       console.log(response);
       if (response?.code === 200) {
         setMessage("✅ Verification Successful!");
+        navigate('/employeedashboard')
+        
       } else {
         setMessage("❌ Incorrect OTP. Please try again.");
       }

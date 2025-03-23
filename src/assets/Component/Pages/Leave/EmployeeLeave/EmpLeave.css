@@ -1,0 +1,202 @@
+.mainempleave
+{
+  width: 78%;
+  /* height: 100%; */
+  margin-top: 10px;
+  position: absolute;
+  left: 20%;
+  top: 12%;
+  /* overflow-y: scroll; */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */  
+
+}
+
+.mainempleave .button-wrapper1 .titleE{
+    font-size: 28px !important; 
+}
+
+  /* Right Section: Buttons */
+  .mainempleave  .button-wrapper1 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  }
+
+  .mainempleave .button-wrapper1 .add-employee-btn {
+  width: 180px;
+  height: 38px;
+    display: flex;
+    align-items: center;
+    background: #f26522;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    margin-left: 25px;
+    margin-top: 5px;
+  }
+  
+  .mainempleave .button-wrapper1 .add-employee-btn .icon {
+  margin: 0 5px;
+    font-size: 18px;
+  }
+/* Export Button */
+.mainempleave .button-wrapper1 .export-btn {
+  width: 110px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.236);
+  color: #000000 !important;
+  text-transform: capitalize;
+  /* padding: 8px 15px; */
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.mainempleave .button-wrapper1 .export-btn .icon {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.mainempleave .button-wrapper1 .export-btn .expand-icon {
+  font-size:25px;
+  margin: 0 5px;
+  padding-right: 5px;
+}
+
+.mainempleave .breadcrumb {
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+  }
+  
+  .mainempleave .breadcrumb li {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mainempleave .breadcrumb li .breadcrumb-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.396);
+    font-size: 14px;
+  }
+  
+  .mainempleave .breadcrumb li .breadcrumb-link:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  
+  .mainempleave .breadcrumb .breadcrumb-separator {
+    margin: 0 5px;
+    color: black;
+  }
+  
+  .mainempleave .breadcrumb .breadcrumb-current {
+    font-weight: 600;
+    color: black;
+    font-size: 14px;
+
+  }
+  
+  .mainempleave .breadcrumb li .home-icon {
+    font-size: 18px;
+    color: black;
+  }
+
+  .mainempleave .container1 .leave-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .mainempleave .container1 .leave-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mainempleave .container1 .leave-card .count {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .mainempleave .container1 .leave-card .icon-container {
+    font-size: 28px;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+  }
+  
+  /* Custom Colors */
+  .mainempleave .container1 .leave-card .bg-dark {
+    background-color: #03c95a !important;
+  }
+  
+  .mainempleave .container1 .leave-card .bg-blue {
+    background-color: #1b84ff !important;
+  }
+  
+  .mainempleave .container1 .leave-card .bg-purple {
+    background-color: #ab47bc !important;
+  }
+  
+  .mainempleave .container1 .leave-card .bg-pink {
+    background-color: #fd3995 !important;
+  }
+  .mainempleave .container2{
+    background-color: #ffffff;
+    height: 350px;
+  }
+
+  .mainempleave .container2 .table-responsive {
+    /* border-radius: 8px; */
+    overflow: hidden;
+    padding: 10px;
+  }
+  
+  .mainempleave .container2 .table-responsive  thead {
+    background: #f8f9fa;
+  }
+  
+  .mainempleave .container2 .table-responsive  td img {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .mainempleave .container2 .table-responsive  .dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  /* Status Colors */
+  .mainempleave .container2 .table-responsive  .dot-success {
+    background-color: green;
+  }
+  
+  .mainempleave .container2 .table-responsive .dot-danger {
+    background-color: red;
+  }
+  
+  .mainempleave .container2 .table-responsive .dot-primary {
+    background-color: blue;
+  }

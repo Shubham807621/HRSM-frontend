@@ -18,31 +18,38 @@ export default function Login() {
     const navigate = useNavigate();
   
     const handleSubmit = async (e) => {
-           e.preventDefault();
-           setError(""); // Clear previous errors
-   
-          //  if (!validateInput()) return; // Stop if validation fails
-      
-           try {
-               const response = await loginUser(values);
-   
-               // If login is successful, store token and navigate
-               if (response?.token) {
-                   if (rememberMe) {
-                       localStorage.setItem("token", response.token);
-                   } else {
-                       sessionStorage.setItem("token", response.token);
-                   }
-   
-                   console.log("Login Successful:", response);
-                   navigate("/employee"); // Redirect to dashboard
-               } else {
-                   setError(response.message || "Invalid credentials");
-               }
-           } catch (error) {
-               setError(error.response?.data?.message || "Login failed. Please try again.");
-           }
-       };
+      e.preventDefault();
+      setError(""); // Clear previous errors
+  
+      try {
+          const response = await loginUser(values);
+  
+          // If login is successful, store token and role, then navigate
+          if (response?.token && response?.role) {
+              if (rememberMe) {
+                  localStorage.setItem("token", response.token);
+                  localStorage.setItem("role", response.role);
+              } else {
+                  sessionStorage.setItem("token", response.token);
+                  sessionStorage.setItem("role", response.role);
+              }
+  
+              console.log("Login Successful:", response);
+  
+              // Navigate based on role
+              if (response.role === "HR") {
+                  navigate("/hrdashboard");
+              } else {
+                  navigate("/employeedashboard");
+              }
+          } else {
+              setError(response.message || "Invalid credentials");
+          }
+      } catch (error) {
+          setError(error.response?.data?.message || "Login failed. Please try again.");
+      }
+    };
+
 
        const handleChange = (e) => {
         const { name, value } = e.target;

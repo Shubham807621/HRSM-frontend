@@ -10,6 +10,19 @@ import Verify from './assets/Component/Registe/Verify'
 import ResetPassword from './assets/Component/Login/ResetPassword'
 import NewPassword from './assets/Component/Login/NewPassword'
 import HrDashboard from './assets/Component/Dashboard/HRDashboard/hrDashboard'
+import EmployeeDetails from './assets/Component/Employee/Employee Details/EmployeeDetails'
+import Document from './assets/Component/Pages/Document/Document'
+import HRLeave from './assets/Component/Pages/Leave/HRLeave/HRLeave'
+import EmpLeave from './assets/Component/Pages/Leave/EmployeeLeave/EmpLeave'
+import Payslip from './assets/Component/Pages/Salary/PaySlip/Payslip'
+import Support from './assets/Component/Pages/Support/Support'
+import HrAttendance from './assets/Component/Pages/Attendance/HRAttendance/HrAttendance'
+import EmpAttendance from './assets/Component/Pages/Attendance/EmpAttendance/EmpAttendance'
+import Roles from './assets/Component/Pages/User Mangement/Role Mangement/Roles'
+import EmployeeDashboard from './assets/Component/Dashboard/Employee Dashboard/EmployeeDashboard'
+import TrainDash from './assets/Component/Pages/Training/Training Dashboard/TrainDash'
+import TrainList from './assets/Component/Pages/Training/Training List/TrainList'
+
 
 
 
@@ -28,6 +41,18 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/employee" element={<Employee/>}/>
           <Route path='/hrdashboard' element={<HrDashboard/>}/>
+          <Route path='/employeedashboard' element={<EmployeeDashboard/>}/>
+          <Route path='/employee-details' element={<EmployeeDetails/>}/>
+          <Route path='/document' element={<Document/>} />
+          <Route path='/leave/hr-Leave' element={<HRLeave/>}/>
+          <Route path='/leave/emp-Leave' element={<EmpLeave/>}/>
+          <Route path='/salary/payslip' element={<Payslip/>}/>
+          <Route path='/support/add-report' element={<Support/>}/>
+          <Route path='/attendance/hr-attendance' element={<HrAttendance/>}/>
+          <Route path='/attendance/emp-attendance' element={<EmpAttendance/>}/>
+          <Route path='/user-management/update-role' element={<Roles/>}/>
+          <Route path='/training-dashboard' element={<TrainDash/>}/>
+          <Route path='/training-list' element={<TrainList/>}/>
         </Routes>
     
     </BrowserRouter>

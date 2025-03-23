@@ -1,0 +1,94 @@
+.document-wrap{
+    position: absolute;
+    left: 21%;
+    top: 12%;
+}
+.document-wrap .header-container{
+    padding: 10px;
+    margin-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.document-wrap .header-container .header-right-left{
+    display: flex;
+    justify-content: space-between;
+}
+.document-wrap .header-container .header-container-right .homeicon-document{
+    display: flex;
+    gap: 10px;
+}
+.document-wrap .header-container .header-right-left .header-container-right .homeicon-document .document{
+    color: gray;
+}
+.document-wrap .header-container .header-right-left .header-container-left  .document-btn{
+    padding: 10px;
+    color: white;
+    background-color: orangered;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.171);
+}
+.document-wrap .body-container .container .table-container{
+
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.171);
+    margin-bottom: 30px;
+    
+}
+.document-wrap .body-container .container .table-container .document-table-controls{
+    font-weight: bold;
+}
+.document-wrap .body-container .container .table-container .table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.document-wrap .body-container .container .table-container .table .table-light th{
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.document-wrap .body-container .container .table-container .table tbody,thead tr{
+    /* border-bottom: black; */
+}
+.document-wrap .body-container .container .table-container .table td{
+    padding: 18px 10px;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: black;
+}
+.document-wrap .body-container .container .table-container .table tbody .action-icon{
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+
+}
+.document-wrap .body-container .container .table-container .table tbody .action-icon:hover{
+    color: #007bff;
+}
+.document-wrap .body-container .container .table-container .table tbody .action-icon .delete-icon{
+    color: orangered;
+}
+.document-wrap .body-container .container .table-container .table tbody .action-icon .delete-icon:hover{
+    color: #007bff;
+}
+
+.document-wrap .body-container .container .d-flex .prev-next-btn{
+    display: flex;
+    gap: 20px;
+
+}
+.document-wrap .body-container .container .d-flex .prev-next-btn .btn{
+    color: black;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.171);
+
+}

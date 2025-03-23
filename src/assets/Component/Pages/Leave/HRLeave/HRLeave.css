@@ -1,0 +1,192 @@
+.mainhrleave
+{
+  width: 78%;
+  /* height: 100%; */
+  margin-top: 10px;
+  position: absolute;
+  left: 20%;
+  top: 12%;
+  overflow-y: scroll;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */  
+  /* background-color: rgb(182, 104, 255); */
+}
+
+.mainhrleave .button-wrapper1 .titleE{
+    font-size: 28px !important; 
+}
+
+  /* Right Section: Buttons */
+  .mainhrleave  .button-wrapper1 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  }
+
+  .mainhrleave .button-wrapper1 .add-employee-btn {
+  width: 180px;
+  height: 38px;
+    display: flex;
+    align-items: center;
+    background: #f26522;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    margin-left: 25px;
+    margin-top: 5px;
+  }
+  
+  .mainhrleave .button-wrapper1 .add-employee-btn .icon {
+  margin: 0 5px;
+    font-size: 18px;
+  }
+/* Export Button */
+.mainhrleave .button-wrapper1 .export-btn {
+  width: 110px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.236);
+  color: #000000 !important;
+  text-transform: capitalize;
+  /* padding: 8px 15px; */
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.mainhrleave .button-wrapper1 .export-btn .icon {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.mainhrleave .button-wrapper1 .export-btn .expand-icon {
+  font-size:25px;
+  margin: 0 5px;
+  padding-right: 5px;
+}
+
+.mainhrleave .breadcrumb {
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+  }
+  
+  .mainhrleave .breadcrumb li {
+    display: flex;
+    align-items: center;
+  }
+  
+.mainhrleave .breadcrumb li .breadcrumb-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.396);
+    font-size: 14px;
+  }
+  
+  .mainhrleave .breadcrumb li .breadcrumb-link:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  
+  .mainhrleave .breadcrumb .breadcrumb-separator {
+    margin: 0 5px;
+    color: black;
+  }
+  
+  .mainhrleave .breadcrumb .breadcrumb-current {
+    font-weight: 600;
+    color: black;
+    font-size: 14px;
+
+  }
+  
+  .mainhrleave.breadcrumb li .home-icon {
+    font-size: 18px;
+    color: black;
+  }
+  
+  .mainhrleave .container .stats-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .mainhrleave .container .stats-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .mainhrleave .container .stats-card .stats-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+  }
+  
+  .mainhrleave .container .stats-card .stats-content {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .mainhrleave .container .stats-card .stats-content .stats-title {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .mainhrleave .container .stats-card .stats-content .stats-count {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  .mainhrleave .container1{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  .mainhrleave .container1 .table-responsive .table-light{
+    background-color: #f8f9fa;
+    font-weight: bold;
+  }
+  
+  .mainhrleave .container1 .table-responsive .table .table-light  th,
+  .table td {
+    text-align: center;
+  }
+  
+  .mainhrleave .container1 .table-responsive  .table .table-light img {
+    border: 2px solid #ddd;
+  }
+  
+  
+  .mainhrleave .container1 .table-responsive  .table .table-light .fw-semibold {
+    font-weight: 600;
+  }
+
+  .mainhrleave .container1 .pagination .page-item.active .page-link {
+    /* background-color: #ff6600; */
+    /* border-color: #cc5b10; */
+  }
+  
+  .mainhrleave .container1 .pagination .page-link {
+    color: #ffffff;
+  }
+  
+  .mainhrleave .container1 .pagination .page-item .page-link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }

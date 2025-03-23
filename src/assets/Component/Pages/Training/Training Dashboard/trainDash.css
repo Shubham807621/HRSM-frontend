@@ -1,0 +1,225 @@
+.mainTrainDash
+{
+  width: 78%;
+  /* height: 100%; */
+  margin-top: 10px;
+  position: absolute;
+  left: 20%;
+  top: 12%;
+  /* overflow-y: scroll; */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */  
+  /* background-color: rgb(182, 104, 255); */
+}
+
+.mainTrainDash .button-wrapper1 .titleE{
+    font-size: 28px !important; 
+}
+
+  /* Right Section: Buttons */
+  .mainTrainDash  .button-wrapper1 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  }
+
+  .mainTrainDash .button-wrapper1 .add-employee-btn {
+  width: 180px;
+  height: 38px;
+    display: flex;
+    align-items: center;
+    background: #f26522;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    margin-left: 25px;
+    margin-top: 5px;
+  }
+  
+  .mainTrainDash .button-wrapper1 .add-employee-btn .icon {
+  margin: 0 5px;
+    font-size: 18px;
+  }
+
+.mainTrainDash .breadcrumb {
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+  }
+  
+  .mainTrainDash .breadcrumb li {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mainTrainDash .breadcrumb li .breadcrumb-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.396);
+    font-size: 14px;
+  }
+  
+  .mainTrainDash .breadcrumb li .breadcrumb-link:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  
+  .mainTrainDash .breadcrumb .breadcrumb-separator {
+    margin: 0 5px;
+    color: black;
+  }
+  
+  .mainTrainDash .breadcrumb .breadcrumb-current {
+    font-weight: 600;
+    color: black;
+    font-size: 14px;
+
+  }
+  
+  .mainTrainDash .breadcrumb li .home-icon {
+    font-size: 18px;
+    color: black;
+  }
+
+  .mainTrainDash .container1 .stats-card {
+    width: 280px;
+    height: 90px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 12px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  .mainTrainDash .container1 .stats-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mainTrainDash .container1 .stats-card .icon-wrapper {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #ffffff;
+    /* margin-right: 15px; */
+  }
+  
+  .mainTrainDash .container1 .stats-card .stats-title {
+    font-size: 14px;
+    color: #666 ;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  .mainTrainDash .container1 .stats-card .stats-value {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+
+
+  .mainTrainDash .container2 .training-table {
+    background: #ffffff;
+    width: 1400px;
+    border-radius: 10px;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+
+  }
+  .mainTrainDash .container2 .training-table thead tr th{
+    padding: 15px 5px !important;
+    font-size: 18px;
+  }
+  
+  .mainTrainDash .container2 .training-table .table th, .table td {
+    vertical-align: middle;
+    /* text-align: center; */
+  }
+  
+  .mainTrainDash .container2 .training-table .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mainTrainDash .container2 .training-table tbody tr td {
+    padding: 10px 8px !important; /* Reduce padding */
+    font-size: 16px; /* Adjust font size if needed */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(1){
+    width: 20px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(1){
+    width: 20px !important;
+} 
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(2){
+    width: 350px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(2){
+    width: 350px !important;
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(2), /* Training Title */
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(3) { /* Trainer */
+    padding-right: 15px !important; /* Reduce space between columns */
+}
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(3){
+    width: 150px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(3){
+    width: 150px !important;
+} 
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(4){
+    width: 225px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(4){
+    width: 225px !important;
+} 
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(5){
+    width: 170px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(5){
+    width: 170px !important;
+} 
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(6){
+    width: 70px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(6){
+    width: 70px !important;
+} 
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(7){
+    width: 100px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(7){
+    width: 100px !important;
+} 
+
+.mainTrainDash .container2 .training-table thead tr th:nth-child(8){
+    width: 100px !important;
+
+}
+.mainTrainDash .container2 .training-table tbody tr td:nth-child(8){
+    width: 100px !important;
+}

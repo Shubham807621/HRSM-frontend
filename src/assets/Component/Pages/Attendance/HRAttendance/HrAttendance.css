@@ -1,0 +1,162 @@
+.hr-attendance{
+    width: 78%;
+    margin-top: 10px;
+    position: absolute;
+    left: 20%; 
+    top: 12%;
+}
+
+.hr-attendance .titleE
+{
+    /* background-color: blueviolet; */
+    margin-top: 10px;
+}
+
+.hr-attendance .titleE h1{
+    /* margin-left: 320px;
+    margin-top: 30px; */
+    font-size: 30px;
+}
+
+.hr-attendance .breadcrumb-wrapper .breadcrumb {
+    /* margin-left: 320px; */
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+  }
+  
+.hr-attendance .breadcrumb-wrapper .breadcrumb li {
+    display: flex;
+    align-items: center;
+  }
+  
+.hr-attendance .breadcrumb-wrapper .breadcrumb .breadcrumb-link {
+    text-decoration: none;
+    color: gray;
+  }
+  
+.hr-attendance .breadcrumb-wrapper .breadcrumb .breadcrumb-link:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  
+.hr-attendance .breadcrumb-wrapper .breadcrumb .breadcrumb-separator {
+    margin: 0 8px;
+    color: black;
+  }
+  
+.hr-attendance .breadcrumb-wrapper .breadcrumb .breadcrumb-current {
+    font-weight: bold;
+    color: black;
+  }
+  
+.hr-attendance .breadcrumb-wrapper .breadcrumb .home-icon {
+    font-size: 20px;
+    color: black;
+  }
+
+.hr-attendance .breadcrumb-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+/*container*/
+.hr-attendance .hr-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.hr-attendance .hr-container .row1{
+    background-color: white;
+    padding: 15px;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+    border-radius: 8px;
+}
+.hr-attendance .hr-container .row1 .cards{
+    display: flex;
+    gap: 10px;
+}
+
+.hr-attendance .hr-container .row1 .cards .card1{
+    flex: 1;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.hr-attendance .hr-container .row1 .cards .card1 .insideCard1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.hr-attendance .hr-container .row1 .cards .card1 .insideCard1 span{
+    color: white;
+    border-radius: 5px;
+    font-size: 13px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/*row2*/
+.hr-attendance .hr-container .row2{
+    background-color: white;
+    font-family: Arial, sans-serif;
+    border-radius: 8px;
+    padding: 10px 0px 10px 0px;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+}
+
+.hr-attendance .hr-container .row2 .emp-list-contrainer{
+  display: flex;
+  padding: 10px 20px 0px 20px; 
+}
+
+.hr-attendance .hr-container .row2 .emp-list-contrainer h6{
+  flex: 1;
+  padding-top: 5px;
+  font-weight: bold;
+}
+.hr-attendance .hr-container .row2 .emp-list-contrainer div{
+  flex: 1;
+}
+/*filters*/
+.hr-attendance .hr-container .row2 .emp-filters {
+  width: 98%;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+  
+
+.hr-attendance .hr-container .row2 .emp-table{
+  width: 100%;
+}
+.hr-attendance .hr-container .row2 .emp-table table{
+  width: 100%;
+}
+.hr-attendance .hr-container .row2 .emp-table table tbody tr td .emp-title{
+color: #000 !important;
+}
+
+.hr-attendance .hr-container .row2 .emp-table table th{
+padding-left: 15px;
+border: none;
+background-color: #e5e7eb !important;
+
+}
+
+.hr-attendance .hr-container .row2 .emp-table table td{
+padding-left: 15px;
+}
+
+.hr-attendance .hr-container .row2 .emp-table th{
+height: 30px !important;
+}
+
+.hr-attendance .hr-container .row2 .emp-table table tbody tr{
+height: 30px !important;
+}

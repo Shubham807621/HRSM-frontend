@@ -1,0 +1,313 @@
+/* Container */
+.employeedetails-wrapper{
+  width: 78%;
+    position: absolute;
+    left: 20%;
+    top:12%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* Back Button */
+  .employeedetails-wrapper .header-container {
+      display: flex;
+      align-items: center;
+      gap: 10px; 
+    
+  }
+
+  .employeedetails-wrapper .header-container .page-title {
+    font-size: 20px;
+    font-weight: bold;
+    /* Remove extra margins */
+}
+
+  .back-button {
+    color: black; /* Makes the arrow black */
+}
+  /* Styling for the title */
+ 
+  .employeedetails-wrapper  .button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns button to the right */
+    padding: 10px;
+    width: 100%;
+   
+  }
+  
+  .employeedetails-wrapper  .button-container .bank-button {
+    background-color: #3f51b5;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    border-radius: 10px;
+    gap: 5px;
+    margin-left: 20%;
+    }
+  
+     
+.employeedetails-wrapper  .main-content {
+  display: flex;
+  height: 440px;
+} 
+  
+  /* Profile Card */
+  .employeedetails-wrapper .main-content .profile-card {
+      /* flex: 1; Takes equal space */
+      width: 390px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border: 1px solid rgba(0, 0, 0, 0.171);
+  }
+
+  .employeedetails-wrapper .main-content .profile-card  .profile-header {
+    /* background-color: #FF7F00; */
+    background: linear-gradient(305deg, rgba(229,87,0,1) 25%, rgba(255,167,0,1) 50%, rgba(229,87,0,1) 75%);
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+  
+  .employeedetails-wrapper .main-content .profile-card  .profile-header .profile-avatar {
+      width: 80px !important;
+      height: 80px !important;
+      border: 3px solid white;
+      position: absolute;
+      bottom: -40px;
+      margin-top: -20px;
+  }
+  .employeedetails-wrapper .main-content .profile-card .profile-content{
+      margin-top: 20px;
+  }
+  
+
+  .employeedetails-wrapper .main-content .profile-card .profile-content .employee-name { 
+      font-weight: bold;
+      font-size: 18px;
+      margin-left: 20px;
+      text-align: center;
+      margin-top: 12%;
+  }
+  
+  /* Status Dot */
+  .employeedetails-wrapper .main-content .profile-card .profile-content .employee-name .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: green;
+      border-radius: 50%;
+      display: inline-block;
+     
+  }
+  
+  /* Badges */
+  .employeedetails-wrapper .main-content .profile-card .profile-content .badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+  }
+  
+  .employeedetails-wrapper .main-content .profile-card .profile-content .badges .badge {
+      background-color: #ddd;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 15px;
+  }
+  
+  .employeedetails-wrapper .main-content .profile-card .profile-content .badges .experience {
+      background-color: #ddd;
+      padding: 5px 10px;
+      color: black;
+      border-radius: 8px;
+      font-size: 15px;
+  }
+  
+  /* Employee Details */
+  
+  .employeedetails-wrapper .main-content .profile-card  .profile-content .employee-details .detail-box {
+
+    width: 370px;
+    height: 30px;
+    margin: 5px 0;
+  }
+  
+.employeedetails-wrapper .main-content .profile-card  .profile-content .employee-details .detail-box .box-left p{
+      font-size: 14px;
+    color: #00000096;
+
+  }
+
+
+  .employeedetails-wrapper .main-content .profile-card  .profile-content .employee-details .detail-box .box-left p .icon{
+    font-size: 18px;
+    color: #00000096;
+  }
+  .employeedetails-wrapper .main-content .profile-card  .profile-content .employee-details .detail-box .box-right  p {
+      font-size: 14px;
+     
+  }
+  
+  /* Buttons */
+  .employeedetails-wrapper .main-content .profile-card .profile-content .button-group {
+      display: flex;
+     
+      margin-top: 5px;
+      justify-content: space-around;
+  }
+  
+  .employeedetails-wrapper .main-content .profile-card .profile-content .button-group  .edit-button {
+      background-color: black !important;
+      color: white !important;
+      padding: 2px 45px !important;
+      border-radius: 8px !important;
+  }
+  
+  .employeedetails-wrapper .main-content .profile-card .profile-content .button-group  .message-button {
+      background-color: #FF7F00 !important;
+      color: white !important;
+      padding: 7px 40px !important;
+      border-radius: 8px !important;
+  }
+  
+  /* Personal Info Card */
+  
+  .employeedetails-wrapper .main-content .profile-card .personal-info-card {
+    
+    margin-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.296);
+  }
+  /* Section Header */
+  .employeedetails-wrapper .main-content .profile-card .personal-info-card .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    
+   
+  }
+
+  .employeedetails-wrapper .main-content .profile-card .personal-info-card .section-header h5{
+
+    font-size: 22px;
+  }
+  
+  .employeedetails-wrapper .main-content .profile-card .personal-info-card .section-header .edit-icon {
+      cursor: pointer;
+      color: rgba(2, 2, 2, 0.66);
+  }
+  
+ 
+  
+  .employeedetails-wrapper .main-content .profile-card .personal-info-card  .personal-info .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 3px;
+  }
+  
+
+  
+  .employeedetails-wrapper .main-content .profile-card .personal-info-card .personal-info .info-row .info-label{ 
+      font-size: 14px;
+      margin: 2px;
+      /* font-weight: 600; */
+      color: #00000083;
+      /* width: 100px !important; */
+  }
+
+  .employeedetails-wrapper .main-content .profile-card .personal-info-card  .personal-info .info-row .info-value{
+    font-size: 14px;
+    margin: 2px;
+    /* font-weight: 600; */
+    color: #000000ff;
+    /* width: 100px !important; */
+  }
+
+   
+.employeedetails-wrapper .right-side {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 740px;
+    
+}
+
+.employeedetails-wrapper .right-side .right-custom {
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; Space between accordions */
+}
+
+.employeedetails-wrapper .right-side .right-custom .accordion .accordion-item {
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.112)
+}
+
+.employeedetails-wrapper .right-side .right-custom .accordion .accordion-item .accordion-header button{
+  font-weight: 600;
+  font-size: 17px;
+}
+
+
+.accordion-button:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.accordion-button:not(.collapsed) {
+  /* color: var(--bs-accordion-active-color); */
+  background-color: transparent !important;
+  box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+}
+
+
+
+.save-btn{
+  background-color: #FF7F00 !important;
+  color: white !important;
+  text-transform: capitalize !important;
+
+}
+
+.bank-info{
+  font-size: 14px;
+  color: #000000a1;
+}
+
+.bank-info-value{
+  font-size: 15px;
+font-weight: 600 !important;
+font-family: "Roboto", sans-serif !important;
+}
+
+.employeedetails-wrapper .basic-info-p{
+  width: 100px;
+}
+.employeedetails-wrapper .values{
+  width: 100px;
+}
+
+.employeedetails-wrapper .personal-info-card{
+  width: 47.5%;
+  background-color: #ffffff;
+  border-radius: 8px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.112);
+}
+
+.employeedetails-wrapper .personal-info-card .section-header{
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.232);
+}
+
+.employeedetails-wrapper .personal-info-card .section-header h5{
+  font-weight: 600;
+  font-size: 22px;
+}
+.employeedetails-wrapper .personal-info-card .section-header button{
+ color: #000;
+}
