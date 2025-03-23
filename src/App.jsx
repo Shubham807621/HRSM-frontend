@@ -22,6 +22,7 @@ import Roles from './assets/Component/Pages/User Mangement/Role Mangement/Roles'
 import EmployeeDashboard from './assets/Component/Dashboard/Employee Dashboard/EmployeeDashboard'
 import TrainDash from './assets/Component/Pages/Training/Training Dashboard/TrainDash'
 import TrainList from './assets/Component/Pages/Training/Training List/TrainList'
+import Payroll from './assets/Component/Pages/Salary/Payroll/Payroll'
 
 
 
@@ -47,6 +48,7 @@ function App() {
           <Route path='/leave/hr-Leave' element={<HRLeave/>}/>
           <Route path='/leave/emp-Leave' element={<EmpLeave/>}/>
           <Route path='/salary/payslip' element={<Payslip/>}/>
+          <Route path='/salary/payroll' element={<Payroll/>}/>
           <Route path='/support/add-report' element={<Support/>}/>
           <Route path='/attendance/hr-attendance' element={<HrAttendance/>}/>
           <Route path='/attendance/emp-attendance' element={<EmpAttendance/>}/>

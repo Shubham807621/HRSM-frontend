@@ -1,0 +1,70 @@
+.payroll-wrap{
+    position: absolute;
+    left:21%;
+    top: 12%;
+}
+.payroll-wrap .header-container{
+    margin-top: 15px;
+}
+.payroll-wrap .header-container .header-right-left .homeicon-document{
+    display: flex;
+    gap: 10px;
+}
+.payroll-wrap .header-container .header-right-left{
+    display: flex;
+    justify-content: space-between;
+}
+.payroll-wrap .header-container .header-right-left .download-btn{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.171);
+}
+.payroll-wrap .year-wrap{
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.171);
+    margin-right: 30px;
+    width: 1150px;
+    height: auto;
+    margin-top: 10px;
+}
+.payroll-wrap .year-wrap button{
+    background-color: transparent;
+    margin-right: 25px;
+    padding: 10px;
+    color: black;
+    border-radius: 10px;
+    font-size: 18px;
+    
+    
+}
+
+.payroll-wrap .body-container{
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.171);
+    margin-right: 30px;
+    width: 1150px;
+    height: auto;
+}
+.Month-wrap{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.file{
+    width:120px;
+    height: 120px;
+    border-radius: 0;
+}
+.payroll-wrap .body-container .Month-wrap a{
+    text-decoration: none;
+    color: black;
+
+}
