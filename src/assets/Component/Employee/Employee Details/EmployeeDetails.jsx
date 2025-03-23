@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 import BadgeIcon from "@mui/icons-material/Badge";
@@ -16,6 +16,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import "./EmployeeDetails.css";
 import { Button } from "@mui/material";
 import BankInfoModal from "../Modal/CustomeModal";
+import { getEmployeeDetailsById } from "../../APIService/apiservice";
 
 function EmployeeDetails() {
   const employee = {
@@ -129,6 +130,30 @@ function EmployeeDetails() {
     setBankData(updatedData);
     setShowModal(false);
   };
+
+
+  const empID = localStorage.getItem('empId');
+    console.log(empID);
+
+    const token = localStorage.getItem('token');
+    
+    useEffect(()=>{
+
+    const fetchEmployeeDetails = async () =>{
+    
+        try{
+        const respone = await getEmployeeDetailsById(empID, token);
+        console.log(respone);
+          
+        }
+        catch (error) {
+        console.log(error)
+    }
+
+    };
+    fetchEmployeeDetails();
+
+    },[])
   
 
   return (
@@ -241,52 +266,6 @@ function EmployeeDetails() {
               </div>
             </div>
 
-            {/* <div className="personal-info-card px-3 py-2">
-              <div className="section-header">
-                <h5 >Basic Information</h5>
-                <Button className="edit-icon mb-3">
-                    <EditOutlinedIcon />
-                </Button>
-              </div>
-
-              <div className="personal-info">
-                {Object.entries(employee.basicInfo).map(([key, value], idx) => (
-                  <div key={idx} className="info-row">
-                 <p variant="body2" className="info-label">
-                    {key.replace(/([A-Z])/g, " $1")}:
-                  </p>
-                  <p  className="info-value">
-                    {value}
-                  </p>
-                  </div>
-                ))}
-              </div>
-            </div> */}
-
-            {/* <div className="personal-info-card px-3 py-2">
-              <div className="section-header mt-3">
-                <h5 >Personal Information</h5>
-                <Button className="edit-icon">
-                  <ModeIcon />
-                </Button>
-              </div>
-
-              <div className="personal-info">
-
-                {Object.entries(employee.personalInfo).map(([key, value], idx) => (
-                  <div key={idx} className="info-row">
-                    <p  className="info-label">
-                    
-                      {key.replace(/([A-Z])/g, " $1")}
-                    </p>
-                    <p className="info-value">
-                      {value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div> */}
-
           </div>
         </div>
 
@@ -309,18 +288,18 @@ function EmployeeDetails() {
           </div>  
 
           <div className="accordion-item mb-3 p-2">
-      <h2 className="accordion-header">
-        <button
-          className="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseTwo"
-          aria-expanded="false"
-          aria-controls="collapseTwo"
-        >
-          Bank Information
-        </button>
-      </h2>
+            <h2 className="accordion-header">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Bank Information
+              </button>
+            </h2>
       <div id="collapseTwo" className="accordion-collapse collapse">
         <div className="accordion-body">
           <div className="row mb-2">

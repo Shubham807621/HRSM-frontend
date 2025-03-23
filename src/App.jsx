@@ -25,8 +25,6 @@ import TrainList from './assets/Component/Pages/Training/Training List/TrainList
 import Payroll from './assets/Component/Pages/Salary/Payroll/Payroll'
 
 
-
-
 function App() {
 
 
@@ -54,7 +52,7 @@ function App() {
           <Route path='/attendance/emp-attendance' element={<EmpAttendance/>}/>
           <Route path='/user-management/update-role' element={<Roles/>}/>
           <Route path='/training-dashboard' element={<TrainDash/>}/>
-          <Route path='/training-list' element={<TrainList/>}/>
+          <Route path='/trainings-list' element={<TrainList/>}/>
         </Routes>
     
     </BrowserRouter>

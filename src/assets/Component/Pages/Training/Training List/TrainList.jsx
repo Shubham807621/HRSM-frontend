@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./trainList.css";
 import {Button } from "react-bootstrap";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
+import { getAllTraining } from '../../../APIService/apiservice';
 
 
 const trainingData = [
@@ -35,10 +36,33 @@ const trainingData = [
       price: "Free",
     },
   ];
+
+
+
   
 export default function TrainList() {
 
+  const token = localStorage.getItem('token');
 
+  const [trainingList, setTrainingList] = useState([])
+
+  useEffect(()=>{
+
+    const fetchTrainingList = async () =>{
+    
+      try{
+        const respone = await getAllTraining(token);
+
+        setTrainingList(respone)
+      }
+      catch (error) {
+        console.log(error)
+    }
+
+    };
+    fetchTrainingList();
+
+  },[])
   return (
         <>
              <div className="mainTrainList">
@@ -73,7 +97,7 @@ export default function TrainList() {
                 </div>
 
                 <div className="container my-4">
-                {trainingData.map((course) => (
+                {trainingList.map((course) => (
                     <div key={course.id} className="card  mb-3">
                     <div className="card-body d-flex justify-content-between align-items-center">
                         <div>

@@ -65,5 +65,111 @@ export const confirmPassword= async (body) =>{
     } catch (error) {
         console.error('Error:', error.response || error.message);
         throw error;
-    }
+    }
 }
+
+export const getDocument = async (token)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.GETDOC}`
+
+    console.log(url)
+
+    try{
+
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+        console.log(response);
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+
+export const getAllTraining = async (token) =>{
+
+    const url = `${API_BASE_URL}${API_URLs.GETTRAINING}`
+
+
+    console.log("Fetching Training Data from:", url); // Debugging
+
+    console.log(token)
+
+    try{
+
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        );
+
+        console.log(response);
+        return response.data;
+
+    }catch(error){
+        console.error('Error:', error.response || error.message);
+        return [];
+    }
+
+}
+
+
+export const getEmployeeDetailsById = async (empId , token )=>{
+
+    let url = `${API_BASE_URL}${API_URLs.GETEMPDETAILS}/${empId}`
+
+    console.log(url);
+    console.log(token);
+
+    try{
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+         );
+         return response.data;
+    }
+    catch(error){
+        console.error('Error:', error.response || error.message);
+        return [];
+    }
+}
+
+export const getEmployeesList = async (token) =>{
+   
+    const url = `${API_BASE_URL}${API_URLs.GETEMPLIST}`
+
+    console.log(url);
+    console.log(token);
+
+    try{
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+         );
+         return response.data;
+
+    }catch(error){
+        console.error('Error:', error.response || error.message);
+        return [];
+    }
+}
+

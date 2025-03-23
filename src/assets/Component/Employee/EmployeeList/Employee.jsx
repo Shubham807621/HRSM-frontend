@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './employee.css';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from '@mui/material';
+import { getEmployeesList } from '../../APIService/apiservice';
 
 
 export default function Employee() {
@@ -59,6 +60,29 @@ const employees = [
   },
 ];
 
+
+    // const empID = localStorage.getItem('empId');
+    // console.log(empID);
+
+    const token = localStorage.getItem('token');
+    
+    useEffect(()=>{
+
+    const fetchEmployeesList = async () =>{
+    
+        try{
+        const respone = await getEmployeesList(token);
+        console.log(respone);
+          
+        }
+        catch (error) {
+        console.log(error)
+    }
+
+    };
+    fetchEmployeesList();
+
+    },[])
 
 
 

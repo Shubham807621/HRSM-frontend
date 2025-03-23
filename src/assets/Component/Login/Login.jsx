@@ -9,7 +9,7 @@ export default function Login() {
 
     const [values, setValues] = useState({
       userName: '',
-            password: '',
+      password: '',
          
         });
     const [error, setError] = useState('');
@@ -26,14 +26,10 @@ export default function Login() {
   
           // If login is successful, store token and role, then navigate
           if (response?.token && response?.role) {
-              if (rememberMe) {
-                  localStorage.setItem("token", response.token);
-                  localStorage.setItem("role", response.role);
-              } else {
-                  sessionStorage.setItem("token", response.token);
-                  sessionStorage.setItem("role", response.role);
-              }
-  
+     
+              localStorage.setItem("token", response.token);
+              localStorage.setItem("role", response.role);
+              localStorage.setItem('empId', response.empId);
               console.log("Login Successful:", response);
   
               // Navigate based on role
@@ -76,10 +72,10 @@ export default function Login() {
             </div>
 
             <div className="remember-forgot">
-                <div className="remember-me">
+                {/* <div className="remember-me">
                     <input type="checkbox" id="rememberMe" />
                     <label htmlFor="rememberMe" className="mt-2">Remember Me</label>
-                </div>
+                </div> */}
                 <Link to="/reset-password" className="forgot-password">Forgot Password?</Link>
             </div>
 

@@ -315,8 +315,8 @@
                 >
                   <p className="py-1 ps-0">Training Dashboard</p>
                 </Link>
-                <Link to='/training-list'
-                  className={`submenu-item ${location.pathname === "/training-list" ? "active" : ""}`}
+                <Link to='/trainings-list'
+                  className={`submenu-item ${location.pathname === "/trainings-list" ? "active" : ""}`}
                 >
                   <p className="py-1 ps-0">Training List</p>
                 </Link>

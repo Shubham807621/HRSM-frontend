@@ -1,21 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import HomeIcon from "@mui/icons-material/Home";
 import './Document.css';
+import axios from "axios";
+import { getDocument } from "../../APIService/apiservice";
 
 
 const Document = () => {
+
+
   const entries = 10;
-    const documents = [
-        { fileName: "Training_Schedule.pdf", role: "Training Coordinator", description: "Timetable for employee training sessions and workshops." },
-        { fileName: "Project_Plan.pdf", role: "Project Manager", description: "Comprehensive plan outlining project objectives, timeline, and deliverables." },
-        { fileName: "Employee_Handbook.pdf", role: "HR", description: "Guidelines and policies for employees to follow in the workplace." },
-        { fileName: "Client_Contract.xlsx", role: "Finance", description: "Agreement detailing terms and conditions for client services." },
-        { fileName: "Annual_Report_2024.pdf", role: "Legal", description: "Financial performance and key milestones achieved in 2024." }
-    ];
+    // const documents = [
+    //     { fileName: "Training_Schedule.pdf", role: "Training Coordinator", description: "Timetable for employee training sessions and workshops." },
+    //     { fileName: "Project_Plan.pdf", role: "Project Manager", description: "Comprehensive plan outlining project objectives, timeline, and deliverables." },
+    //     { fileName: "Employee_Handbook.pdf", role: "HR", description: "Guidelines and policies for employees to follow in the workplace." },
+    //     { fileName: "Client_Contract.xlsx", role: "Finance", description: "Agreement detailing terms and conditions for client services." },
+    //     { fileName: "Annual_Report_2024.pdf", role: "Legal", description: "Financial performance and key milestones achieved in 2024." }
+    // ];
+
+    const [documents, SetDocuments] = useState([]);
+      const [error, setError] = useState('');
+    
+
+ const token = localStorage.getItem('token');
+
+  useEffect(()=>{
+
+    const fetchDocumentList = async () =>{
+    
+      try{
+        const respone = await getDocument(token);
+
+        SetDocuments(respone);
+      }
+      catch (error) {
+        console.log(error)
+    }
+
+    };
+    fetchDocumentList();
+
+  },[])
 
   return (
     <div className="document-wrap">

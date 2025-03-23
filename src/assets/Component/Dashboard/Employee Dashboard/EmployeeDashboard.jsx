@@ -1,5 +1,5 @@
 import "./EmployeeDashboard.css"
-import React from 'react'
+import React, { useEffect } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
 import profilePic from "../../../Images/profilePic.jpeg"
@@ -11,6 +11,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import PushPinIcon from '@mui/icons-material/PushPin';
+import { getEmployeeDetailsById } from "../../APIService/apiservice";
 
 const data = [
     { name: "On Time", value: 1254, color: "#002D3C" },
@@ -23,6 +24,9 @@ const data = [
 function EmployeeDashboard(){
     const [isOpen, setIsOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState(2024);
+
+
+
   
     const years = Array.from({ length: 5 }, (_, i) => 2023 + i); // Years from 2020 to 2029
 
@@ -58,6 +62,8 @@ function EmployeeDashboard(){
         { name: "Go-live and post support", status: "In Progress", statusColor: "#FFAB91", pinned: false },
         { name: "Private chat", status: "On hold", statusColor: "#E1BEE7", pinned: false },
     ];
+
+    
 
     return(<div className="empDashboard">
                 <div className="titleE">
@@ -299,19 +305,31 @@ function EmployeeDashboard(){
                                     ></div>
                                     <div
                                         className="progress-bar bg-body-secondary "
-                                        style={{ width: "5%" }}
+                                        style={{ width: "2%" }}
                                     ></div>
                                     <div
                                         className="progress-bar bg-warning"
                                         style={{ width: "10%" }}
                                     ></div>
+                                     <div
+                                        className="progress-bar bg-body-secondary "
+                                        style={{ width: "2%" }}
+                                    ></div>
                                     <div
                                         className="progress-bar bg-success"
                                         style={{ width: "20%" }}
                                     ></div>
+                                     <div
+                                        className="progress-bar bg-body-secondary "
+                                        style={{ width: "2%" }}
+                                    ></div>
                                     <div
                                         className="progress-bar bg-warning"
                                         style={{ width: "5%" }}
+                                    ></div>
+                                     <div
+                                        className="progress-bar bg-body-secondary "
+                                        style={{ width: "2%" }}
                                     ></div>
                                     <div
                                         className="progress-bar bg-primary"
@@ -361,7 +379,7 @@ function EmployeeDashboard(){
                             </div>
                             {/*skill-body*/}
                             {skills.map((entry, index) => (
-                                <div className="custom-legend">
+                                <div className="custom-legend" key={index}>
                                     
                                     <div key={index} className="legend-item">
                                         <span className="legend-dot" style={{ backgroundColor: entry.color }}></span>                                        
