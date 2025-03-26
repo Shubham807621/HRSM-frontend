@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./EmpAttendance.css"
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
@@ -8,38 +8,87 @@ import TodayIcon from '@mui/icons-material/Today';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { punchIn, punchOut } from '../../../APIService/apiservice';
 
 function EmpAttendance(){
 
-    const punchInTime = "08:35 AM, 11 March 2025";
-    const productionHours = 3.45;
-;
-    const employees = [
-        {
-          date: "02 Sep 2024",
-          CheckIn: "09:00 AM",
-          Status: "Present",
-          CheckOut: "09:17 PM",
-          Production: "8.35Hrs",
-        },
-        // Duplicate entries for display (mock data)
-        {
-            date: "02 Sep 2024",
-            CheckIn: "09:00 AM",
-            Status: "Present",
-            CheckOut: "09:17 PM",
-            Production: "8.35Hrs",
-          },
-          {
-            date: "02 Sep 2024",
-            CheckIn: "09:00 AM",
-            Status: "Present",
-            CheckOut: "09:17 PM",
-            Production: "8.35Hrs",
-          },
-      ];
+const token = localStorage.getItem('token');
+const empId = localStorage.getItem('empId')
+const [punchInDate, setPunchInDate] = useState(null);
 
-    return(<div className='emp-attendance'>
+const [isPunchedIn, setIsPunchedIn] = useState(false);
+const [punchInTime, setPunchInTime] = useState(null);
+const [productionHours, setProductionHours] = useState(0);
+
+const formatDateTime = (timestamp) => {
+    const dateObj = new Date(timestamp);
+
+    // Convert to DD-Month-YYYY format
+    const formattedDate = dateObj.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+    });
+
+    // Extract time in HH:MM AM/PM format
+    const formattedTime = dateObj.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    });
+
+    return { formattedDate, formattedTime };
+};
+
+const employees = [
+    {
+    date: "02 Sep 2024",
+    CheckIn: "09:00 AM",
+    Status: "Present",
+    CheckOut: "09:17 PM",
+    Production: "8.35Hrs",
+    },
+    // Duplicate entries for display (mock data)
+    {
+        date: "02 Sep 2024",
+        CheckIn: "09:00 AM",
+        Status: "Present",
+        CheckOut: "09:17 PM",
+        Production: "8.35Hrs",
+    },
+    {
+        date: "02 Sep 2024",
+        CheckIn: "09:00 AM",
+        Status: "Present",
+        CheckOut: "09:17 PM",
+        Production: "8.35Hrs",
+    },
+];
+
+const handlePunch = async () => {
+    try {
+        if(!isPunchedIn){
+            const response = await punchIn(token, empId);
+           // Format response timestamp
+           const { formattedDate, formattedTime } = formatDateTime(response.message);
+           setPunchInDate(formattedDate); // Store date separately
+           setPunchInTime(formattedTime); // Store time separately
+           setIsPunchedIn(true);
+
+        }else {
+            const response = await punchOut(token, empId);
+            console.log(response);
+            setProductionHours(response.totalHours);
+            setIsPunchedIn(false);
+        }
+
+    } catch (error) {
+        console.error("Punch In failed", error);
+    }
+};
+
+    return(
+    <div className='emp-attendance'>
                 <div className="titleE">
                     <h1>Employee</h1>
                 </div>
@@ -60,18 +109,20 @@ function EmpAttendance(){
                 </div>
                 <div className='emp-container'>
                     <div className='row1'>
-                        <div className='emp-card'>
-
-                            {/*attendance*/}
-                            <div className="attendance-card">
-                                <h6>Good Morning, Adrian</h6>
-                                <p><b>{punchInTime}</b></p>
-                                <img src={profilePic} alt='error' width={100} height={100}/>
-                                <p className="production-info">Production: {productionHours} hrs</p>
-                                <p style={{fontSize:'14px', paddingBottom:'5px'}}>Punch In at 10:00 AM</p>
-                                <button className="punch-out-btn">Punch out</button>
-                            </div>
+                    <div className='emp-card'>
+                        <div className="attendance-card">
+                            <h6>Good Morning, Adrian</h6>
+                            <p><b>{punchInDate || "Not Punched In"}</b></p>
+                            <img src={profilePic} alt='Profile' width={100} height={100} />
+                            <p className="production-info">Production: {productionHours} hrs</p>
+                            <p style={{ fontSize: '14px', paddingBottom: '5px' }}>
+                                {isPunchedIn ? `Punched In at ${punchInTime}` : "Not Punched In"}
+                            </p>
+                            <button className="punch-out-btn" onClick={handlePunch}>
+                                {isPunchedIn ? "Punch Out" : "Punch In"}
+                            </button>
                         </div>
+                    </div>
 
                         {/*row1 col2*/}
                         <div className='r1-c2'>

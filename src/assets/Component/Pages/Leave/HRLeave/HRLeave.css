@@ -163,12 +163,7 @@
     background-color: #f8f9fa;
     font-weight: bold;
   }
-  
-  .mainhrleave .container1 .table-responsive .table .table-light  th,
-  .table td {
-    text-align: center;
-  }
-  
+
   .mainhrleave .container1 .table-responsive  .table .table-light img {
     border: 2px solid #ddd;
   }

@@ -3,18 +3,20 @@ import { MdGroups } from "react-icons/md";
 import { HiBriefcase } from "react-icons/hi2";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { MdCalendarMonth } from "react-icons/md";
 import './department.css'
 import { Link } from "react-router-dom";
+import { getEmployeesCount, getEmployeesCountByDepartment, getProjectAndClientCount } from "../../../APIService/apiservice";
 
 
 
 
 export default function Department() {
-    
+    const [totalEMP , setTotalEMP] = useState();
+    const [count, setCount] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,6 +24,29 @@ export default function Department() {
     setSelectedDate(date);
     setIsOpen(false);
   };
+
+
+  const [empCount, setEmpCount] = useState([]);
+  const token = localStorage.getItem('token');
+
+  useEffect(()=>{
+  
+      const fetchEmpCount = async () =>{
+      
+        try{
+          const respone = await getEmployeesCountByDepartment(token);
+          console.log(respone)
+          setEmpCount(respone);
+        }
+        catch (error) {
+          console.log(error)
+      }
+  
+      };
+      fetchEmpCount();
+  
+    },[])
+
 
 const data = [
     { department: "UI/UX", employees: 50 },
@@ -33,13 +58,52 @@ const data = [
   ];
   
   const stats = [
-    { title: "Total Employee", value: 100 },
+    { title: "Total Employee", value: totalEMP },
     { title: "On Leave Employee", value: 10 },
-    { title: "Total Project", value: 20 },
+    { title: "Total Project", value: count.totalProjectCount},
     { title: "Total Jobs", value: 55 },
-    { title: "Total Client", value: 20 },
+    { title: "Total Client", value: count.totalClientCount },
     { title: "Total Employee", value: 100 },
   ];
+
+useEffect(()=>{
+
+      const fetchEmployeesCount = async () =>{
+      
+          try{
+          const respone = await getEmployeesCount(token);
+          setTotalEMP(respone)
+          
+        }
+        catch (error) {
+          console.log(error)
+        }
+        
+      };
+      fetchEmployeesCount();
+      
+    },[])
+
+    useEffect(()=>{
+
+      const fetchProjectAndClient = async () =>{
+      
+          try{
+          const respone = await getProjectAndClientCount(token);
+          setCount(respone)
+          console.log(respone)
+        }
+        catch (error) {
+          console.log(error)
+        }
+        
+      };
+      fetchProjectAndClient();
+      
+    },[])
+
+
+
   return (
     <>
     <div className="department-container">
@@ -98,7 +162,7 @@ const data = [
         <ResponsiveContainer className="bar-chart p-0" width="100%" height={250}>
           <BarChart
             layout="vertical"
-            data={data}
+            data={empCount}
             margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
           >
               <XAxis  
@@ -106,13 +170,13 @@ const data = [
                   tick={{ fontSize: 12 }}  />
               <YAxis 
                   type="category" 
-                  dataKey="department" 
+                  dataKey="team" 
                   width={80}  // Increase width for better visibility
                   tick={{ fontSize: 12 }} 
                 />
               <Tooltip />
               <Bar 
-                dataKey="employees" 
+                dataKey="count" 
                 fill="#ff7300" 
                 barSize={10} 
                 isAnimationActive={false} 

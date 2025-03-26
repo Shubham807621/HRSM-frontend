@@ -163,8 +163,8 @@ border: 1px solid rgba(0, 0, 0, 0.17);
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
+    /* flex-direction: row-reverse; */
+    justify-content: space-between;
   }
     
 

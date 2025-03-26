@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './Roles.css'
+import { addRole,updateRole } from "../../../APIService/apiservice";
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,60 +10,90 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 function Roles(){
 
     const [showModal, setShowModal] = useState(false);
-    const [roleName, setRoleName] = useState("");
-    const [status, setStatus] = useState("");
+    const [roleName, setRoleName] = useState('');
+    const [description, setDescription] = useState('');
+    const [status, setStatus] = useState('');
+    const [editIndex, setEditIndex] = useState(null);
+    const [statusFilter, setStatusFilter] = useState('All');
 
-    const handleSubmit = () => {
-        const today = new Date().toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          }); // e.g., "21 Mar 2025"
-      
-          const newEmployee = {
-            role: roleName,
-            date: today,
-            Status: status,
-          };
-      
-          setEmployees([...employees, newEmployee]);
-      
-          // Reset form + close modal
-          setRoleName("");
-          setStatus("");
-          setShowModal(false);
+    const [roles, setRoles] = useState([
+        {
+        role: 'HR Manager',
+        description: 'Handles HR-related activities',
+        date: '01 Mar 2025',
+        status: 'Active',
+        },
+        {
+        role: 'Admin',
+        description: 'Administrator role',
+        date: '05 Mar 2025',
+        status: 'Inactive',
+        },
+    ]);
+
+    const username = 'demo.user@email.com'; // required for API
+
+    const handleSubmit = async () => {
+        const today = new Date().toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        });
+
+        const newRole = {
+        role: roleName,
+        description: description,
+        date: today,
+        status: status,
+        };
+
+        try {
+        if (editIndex !== null) {
+            await updateRole({
+            roleName,
+            description,
+            userName: username,
+            toEcode: 'HR',
+            });
+            const updated = [...roles];
+            updated[editIndex] = { ...newRole };
+            // setRoles(updated);
+        } else {
+            await addRole({
+            roleName,
+            description,
+            userName: username,
+            });
+            setRoles([...roles, newRole]);
+        }
+        } catch (err) {
+        console.error('API Error:', err);
+        }
+
+        setRoleName('');
+        setDescription('');
+        setStatus('');
+        setEditIndex(null);
+        setShowModal(false);
     };
 
-    const [employees, setEmployees] = useState([
-        {
-          role: "HR Management",
-          date: "03 Nov 2024",
-          Status: "Active",
-        },
-        // Duplicate entries for display (mock data)
-        {
-            role: "Admin",
-            date: "03 Nov 2024",
-            Status: "Inactive",
-          },
-          {
-            role: "HR Management",
-            date: "03 Nov 2024",
-            Status: "Active",
-          },
-          {
-            role: "HR Management",
-            date: "03 Nov 2024",
-            Status: "Active",
-          },
-          {
-            role: "HR Management",
-            date: "03 Nov 2024",
-            Status: "Active",
-          },
-        ]);
+    const handleEdit = (index) => {
+        const role = roles[index];
+        setRoleName(role.role);
+        setDescription(role.description);
+        setStatus(role.status);
+        setEditIndex(index);
+        setShowModal(true);
+    };
 
-    return(<div className='userdetails'>
+    const handleDelete = (index) => {
+        const updated = [...roles];
+        updated.splice(index, 1);
+        setRoles(updated);
+    };
+
+    return(
+    <div className='userdetails'>
                 <div className='top'>
                     <div>
                         <div className="titleE">
@@ -90,7 +121,7 @@ function Roles(){
                     <div className="modal-backdrop">
                     <div className="modal-box">
                         <div className="modal-header">
-                        <h4>Add Role</h4>
+                        <h4>{editIndex !== null ? 'Edit Role' : 'Add Role'}</h4>
                         <button className="close-btn" onClick={() => setShowModal(false)}>
                             &times;
                         </button>
@@ -105,16 +136,11 @@ function Roles(){
                             onChange={(e) => setRoleName(e.target.value)}
                         />
 
-                        <label>Status</label>
-                        <select
-                            className="form-input"
-                            value={status}
-                            onChange={(e) => setStatus(e.target.value)}
-                        >
-                            <option value="">Select</option>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                        </select>
+                        <label>Description</label>
+                            <input
+                            type="text" className="form-input" value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            />
                         </div>
 
                         <div className="modal-footer">
@@ -122,7 +148,7 @@ function Roles(){
                             Cancel
                         </button>
                         <button className="btn btn-orange" onClick={handleSubmit}>
-                            Add Role
+                        {editIndex !== null ? 'Update Role' : 'Add Role'}
                         </button>
                         </div>
                     </div>
@@ -130,17 +156,22 @@ function Roles(){
                 )}
                 </div>
 
-                {/*table*/}
+                
                 <div className="container row2">
                         <div className='emp-list-contrainer'>
                             <h6>Roles List</h6>
                             {/* Filters & Sorting */}
                             <div className=" mb-3 emp-filters">
-                                <select className='form-select w-auto' style={{fontSize:'14px'}}>
-                                    <option>Select Status</option>
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                </select>
+                            <select
+                                    className='form-select w-auto'
+                                    style={{ fontSize: '14px' }}
+                                    value={statusFilter}
+                                    onChange={(e) => setStatusFilter(e.target.value)}
+                                    >
+                                    <option value="All">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                    </select>
                                 <select className="form-select w-auto" style={{fontSize:'14px'}}>
                                     <option>Role</option>
                                 </select>
@@ -164,20 +195,33 @@ function Roles(){
                                 </tr>
                                 </thead>
                             <tbody>
-                            {employees.map((emp, index) => (
-                                <tr key={index}>
+                            {roles
+                                .filter((r) => statusFilter === 'All' || r.status === statusFilter)
+                                .map((r, index) => (
+                                    <tr key={index}>
                                     <td><input type="checkbox" /></td>
-                                    <td style={{color:'gray'}}>{emp.role}</td>
-                                    <td style={{color:'gray'}}>{emp.date}</td>
-                                    <td><span style={{backgroundColor: emp.Status === "Active" ? "green" : "red", color: "white", padding:'5px',borderRadius:'5px', fontSize:'13px', fontWeight:'bold'}}>
-                                         {emp.Status}</span></td>
+                                    <td style={{ color: 'gray' }}>{r.role}</td>
+                                    <td style={{ color: 'gray' }}>{r.date}</td>
                                     <td>
-                                        <EditIcon className="fs-5 me-2 cursor-pointer" />
-                                        <DeleteIcon className="fs-5 me-2 cursor-pointer"/>
+                                        <span
+                                        style={{
+                                            backgroundColor: r.status === 'Active' ? 'green' : 'red',
+                                            color: 'white',
+                                            padding: '5px',
+                                            borderRadius: '5px',
+                                            fontSize: '13px',
+                                            fontWeight: 'bold'
+                                        }}
+                                        >
+                                        {r.status}
+                                        </span>
                                     </td>
-                                    
-                                </tr>
-                            ))}
+                                    <td>
+                                        <EditIcon className="fs-5 me-2 cursor-pointer" onClick={() => handleEdit(index)} style={{ cursor: 'pointer' }} />
+                                        <DeleteIcon className="fs-5 me-2 cursor-pointer" onClick={() => handleDelete(index)} />
+                                    </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                         </div>

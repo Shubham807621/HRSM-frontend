@@ -4,8 +4,10 @@
     position: absolute;
     left: 20%;
     top: 12%;
+   
   
   }
+
   .empDashboard .titleE
   {
       /* background-color: blueviolet; */
@@ -383,5 +385,28 @@
     margin-left: -8px;
     border: 2px solid white;
   }
+
+  
+.empDashboard .emp-container .roww-3 .team-member{
+  flex: 1;
+  border: 1px solid rgba(128, 128, 128, 0.514);
+  border-radius: 8px;
+}
+.empDashboard .emp-container .roww-3 .team-member .custom-legend .chart-container1 {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-top: 5px;
+}
+.empDashboard .emp-container .roww-3 .team-member .custom-legend .chart-container1 .icon{
+  margin-right: 1px;
+  padding: 5px;
+}
+.empDashboard .emp-container .roww-3 .team-member .custom-legend .chart-container1 .icon:hover{
+  background-color: rgba(50, 226, 103, 0.541);
+  border-radius: 40px;
+  height: 30px;
+  width: 30px;
+}
   
   

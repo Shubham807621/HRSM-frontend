@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Department from './Department/Department.jsx'
 import HomeIcon from '@mui/icons-material/Home';
 import "./hrStyle.css"
 import AttendanceDashboard from './Attendance/AttendanceDashboard.jsx';
 import { Link } from 'react-router-dom';
 
-
 export default function HrDashboard() {
+
   return (
     <>
            <div className='HR-dashboard-wrapper'>

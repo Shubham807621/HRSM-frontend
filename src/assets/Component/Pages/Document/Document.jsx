@@ -5,123 +5,136 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import HomeIcon from "@mui/icons-material/Home";
 import './Document.css';
-import axios from "axios";
-import { getDocument } from "../../APIService/apiservice";
-
+import { getDocument, sendDocument } from "../../APIService/apiservice";
+import CustomeModal from "../../Employee/Modal/CustomeModal";
 
 const Document = () => {
+  const token = localStorage.getItem('token');
+  const [showModal, setShowModal] = useState(false);
+  const [documents, SetDocuments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
+  const [formData, setFormData] = useState({
+    fileName: "",
+    documenttype: "",
+    role: "",
+    description: "",
+  });
 
-  const entries = 10;
-    // const documents = [
-    //     { fileName: "Training_Schedule.pdf", role: "Training Coordinator", description: "Timetable for employee training sessions and workshops." },
-    //     { fileName: "Project_Plan.pdf", role: "Project Manager", description: "Comprehensive plan outlining project objectives, timeline, and deliverables." },
-    //     { fileName: "Employee_Handbook.pdf", role: "HR", description: "Guidelines and policies for employees to follow in the workplace." },
-    //     { fileName: "Client_Contract.xlsx", role: "Finance", description: "Agreement detailing terms and conditions for client services." },
-    //     { fileName: "Annual_Report_2024.pdf", role: "Legal", description: "Financial performance and key milestones achieved in 2024." }
-    // ];
-
-    const [documents, SetDocuments] = useState([]);
-      const [error, setError] = useState('');
-    
-
- const token = localStorage.getItem('token');
-
-  useEffect(()=>{
-
-    const fetchDocumentList = async () =>{
-    
-      try{
-        const respone = await getDocument(token);
-
-        SetDocuments(respone);
+  useEffect(() => {
+    const fetchDocumentList = async () => {
+      try {
+        const response = await getDocument(token);
+        SetDocuments(response);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
       }
-      catch (error) {
-        console.log(error)
-    }
-
     };
     fetchDocumentList();
+  }, []);
 
-  },[])
+  const handleShowModal = () => {
+    setFormData({ fileName: "", documenttype: "", role: "", description: "" }); // Reset form
+    setShowModal(true);
+  };
+
+  const handleSave = (updatedData) => {
+    setFormData(updatedData);
+    setShowModal(false);
+    handleSubmit(updatedData);
+  };
+
+  const handleSubmit = async (data) => {
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      const response = await sendDocument(data, token);
+      setSuccess("Document added successfully!");
+      setFormData({ fileName: "", documenttype: "", role: "", description: "" }); // Reset form after submit
+      setShowModal(false); // Close modal after submission
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to add document.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="document-wrap">
-       <div className="header-container">
-              <h3 className="page-title">Document</h3>
-              <div className="header-right-left">
-                      <div className="header-container-right">
-                             <div className="homeicon-document">
-                             <p>
-                                <Link to="/" style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}>
-                                <HomeIcon /> /
-                                </Link>
-                             </p>
-                             <p className="document">Document</p>
-                             </div>
-                      </div>
-                      <div className="header-container-left">
-                        <button className="document-btn">Add Document</button>
-                      </div>
-                </div>
-       </div>
-    <div className="body-container">
+      <div className="header-container">
+        <h3 className="page-title">Document</h3>
+        <div className="header-right-left">
+          <div className="header-container-right">
+            <div className="homeicon-document">
+              <p>
+                <Link to="/" style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}>
+                  <HomeIcon /> /
+                </Link>
+              </p>
+              <p className="document">Document</p>
+            </div>
+          </div>
+          <div className="header-container-left">
+            <button className="document-btn" onClick={handleShowModal}>
+              Add Document
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="body-container">
         <div className="container mt-4">
-            <div className="table-container">
-                       <div colSpan={5} className="document-table-controls p-4">
-                            <div className="d-flex justify-content-between">
-                            <div className="d-flex align-items-center">
-                             <label htmlFor="entries" className="form-label me-2 mb-0">Show</label>
-                                <select id="entries" className="form-select w-auto me-2" defaultValue={entries}>
-                                  <option>10</option>
-                                  <option>25</option>
-                                  <option>50</option>
-                                 </select>
-                               <span>Entries</span>
-                            </div>   
-                                 <div className="document-table-search d-flex align-items-center">
-                                 <label htmlFor="search" className="form-label me-2">Search:</label>
-                                 <input id="search" type="text" className="form-control w-auto" placeholder="Search" />
-                                </div>
-                            </div>
-                        </div>
+          <div className="table-container">
             <table className="table">
-
-                    <thead className="table-light">
-                    <tr>
-                        <th>File Name</th>
-                        <th>Document</th>
-                        <th>Role</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                   </thead>
-                <tbody>
-                    {documents.map((doc, index) => (
-                        <tr key={index}>
-                            <td>{doc.fileName}</td>
-                            <td><InsertDriveFileIcon/></td>
-                            <td>{doc.role}</td>
-                            <td>{doc.description}</td>
-                            <td className="action-icon pe-4">
-                                <EditIcon/>
-                                <div className="delete-icon mx-2"><DeleteIcon/></div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
+              <thead className="table-light">
+                <tr>
+                  <th>File Name</th>
+                  <th>Document</th>
+                  <th>Role</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {documents.map((doc, index) => (
+                  <tr key={index}>
+                    <td>{doc.fileName}</td>
+                    <td><InsertDriveFileIcon /></td>
+                    <td>{doc.role}</td>
+                    <td>{doc.description}</td>
+                    <td className="action-icon pe-4">
+                      <EditIcon />
+                      <div className="delete-icon mx-2"><DeleteIcon /></div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
-            </div>
+          </div>
 
-            <div className="d-flex justify-content-between">
-                <span>Showing 1 to {documents.length} of {documents.length} entries</span>
-                <div className="prev-next-btn">
-                    <button className="btn">← Previous</button>
-                    <button className="btn">Next →</button>
-                </div>
-            </div>
+          <div className="d-flex justify-content-between">
+            <span>Showing 1 to {documents.length} of {documents.length} entries</span>
+          </div>
         </div>
-        </div>
+      </div>
+
+      <CustomeModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        data={formData}
+        handleSave={handleSave}
+        title="Add New Document"
+        fields={[
+          { name: "fileName", label: "File Name", required: true },
+          { name: "documenttype", label: "Document Type", required: true },
+          { name: "role", label: "Role", required: true },
+          { name: "description", label: "Description", required: true },
+        ]}
+      />
     </div>
   );
 };
