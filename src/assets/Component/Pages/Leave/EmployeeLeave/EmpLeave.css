@@ -5,6 +5,7 @@
   margin-top: 10px;
   position: absolute;
   left: 20%;
+  top: 12%;
   /* overflow-y: scroll; */
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */  

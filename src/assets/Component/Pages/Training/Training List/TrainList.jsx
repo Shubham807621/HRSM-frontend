@@ -38,6 +38,9 @@ const trainingData = [
   ];
 
 
+  const userRole = localStorage.getItem("role");
+
+
 
   
 export default function TrainList() {
@@ -71,14 +74,15 @@ export default function TrainList() {
                 <div className="button-wrapper1 mt-2">
                     <h1 className="titleE">Training List</h1>
                     {/* Right Section: Buttons */}
-                    <div className="button-wrapper d-flex">
-                    <Button className="add-employee-btn">
-                        Add New Trainee
-                    </Button>
-                    <Button className="add-employee-btn">
-                        Add New Training
-                    </Button>
-                    </div>
+        
+
+                    {userRole === "HR" && (
+                      <div  className="button-wrapper d-flex">
+                        <Button className="add-employee-btn">Add New Trainee</Button>
+                        <Button className="add-employee-btn">Add New Training</Button>
+                      </div>
+                    )} 
+                    
                 </div>
 
                 {/* Breadcrumb Navigation */}

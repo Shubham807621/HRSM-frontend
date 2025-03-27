@@ -1,56 +1,91 @@
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import DownloadIcon from '@mui/icons-material/Download';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import './Payslip.css'
+import DownloadIcon from "@mui/icons-material/Download";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { getPayslip, getEmployeeDetailsById } from "../../../APIService/apiservice";
+import "./Payslip.css";
 
 const Payslip = () => {
-  // Data stored in constants
   const payslipRef = useRef();
-  const payslipData = {
-    payslipNo: '#MZ-116',
-    date: '2025-01-08',
-    employee: {
-      name: 'Ethan Mitchell',
-      position: 'Business Intelligence Analyst',
-      department: 'Information Technology Department',
-      email: 'ethanmitchell@namez.com',
-      phone: '+1(800) 642 7676',
-      address: '100 Terminal, Fort Lauderdale, Miami 33315, United States',
-    },
-    earnings: [
-      { label: 'Basic Salary', amount: 3000 },
-      { label: 'House Rent Allowance (H.R.A.)', amount: 1000 },
-      { label: 'Conveyance', amount: 200 },
-      { label: 'Other Allowance', amount: 100 },
-    ],
-    deductions: [
-      { label: 'Tax Deducted at Source (T.D.S.)', amount: 200 },
-      { label: 'Provident Fund', amount: 300 },
-      { label: 'ESI', amount: 150 },
-      { label: 'Loan', amount: 50 },
-    ],
+  const [payslipData, setPayslipData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [searchParams] = useSearchParams();
+  const year = searchParams.get("year");
+  const month = searchParams.get("month");
+
+  const token = localStorage.getItem("token");
+  const empID = localStorage.getItem("empID");
+
+  const defaultEarnings = [
+    { label: "Basic Salary", amount: 3000 },
+    { label: "House Rent Allowance (H.R.A.)", amount: 1000 },
+    { label: "Conveyance", amount: 200 },
+    { label: "Other Allowance", amount: 100 },
+  ];
+
+  const defaultDeductions = [
+    { label: "Tax Deducted at Source (T.D.S.)", amount: 200 },
+    { label: "Provident Fund", amount: 300 },
+    { label: "ESI", amount: 150 },
+    { label: "Loan", amount: 50 },
+  ];
+
+  useEffect(() => {
+    if (!token || !empID || !year || !month) {
+      setError("Missing required parameters.");
+      setLoading(false);
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        const [employeeResponse, payslipResponse] = await Promise.all([
+          getEmployeeDetailsById(empID, token),
+          getPayslip(token, empID, year, month),
+        ]);
+
+        setPayslipData({
+          employee: employeeResponse,
+          earnings: payslipResponse.earnings || defaultEarnings,
+          deductions: payslipResponse.deductions || defaultDeductions,
+          payslipNo: payslipResponse.payslipNo,
+          date: payslipResponse.date,
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError("Failed to fetch payslip data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [token, empID, year, month]);
+
+  const downloadPDF = () => {
+    if (!payslipRef.current) return;
+
+    html2canvas(payslipRef.current, { scale: window.devicePixelRatio }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`payslip_${month}_${year}.pdf`);
+    });
   };
 
-  // Calculate totals
+  if (loading) return <p>Loading payslip...</p>;
+  if (error) return <p className="error-message">Error: {error}</p>;
+  if (!payslipData) return <p>No payslip available for {month} {year}.</p>;
+
   const totalEarnings = payslipData.earnings.reduce((sum, item) => sum + item.amount, 0);
   const totalDeductions = payslipData.deductions.reduce((sum, item) => sum + item.amount, 0);
   const netSalary = totalEarnings - totalDeductions;
-
-
-  const downloadPDF = () => {
-    const input = payslipRef.current;
-    html2canvas(input, { scale: 2 }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('payslip.pdf');
-    });
-  };
 
   return (
    <>

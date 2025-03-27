@@ -1,7 +1,7 @@
 import "./EmployeeDashboard.css"
 import React, { useEffect } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profilePic from "../../../Images/profilePic.jpeg"
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
@@ -14,11 +14,17 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
+import { useAttendance } from "../../Pages/Attendance/AttendanceProvider";
 import { getEmployeeDetails, getEmployeeDetailsById, getLeaveCount, punchIn, punchOut } from "../../APIService/apiservice";
 
 
 function EmployeeDashboard(){
+
+        const { isPunchedIn, punchInTime, punchInDate, totalHours1, handlePunch } = useAttendance();
     
+        console.log("Attendance Context:", useAttendance());
+   
+      
     
     const [isOpen, setIsOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState(2024);
@@ -75,31 +81,10 @@ function EmployeeDashboard(){
 
     const token = localStorage.getItem('token');
     const empId = localStorage.getItem('empId')
-    const [punchInDate, setPunchInDate] = useState(null);
+  
+
+    const navigate = useNavigate();
     
-    const [isPunchedIn, setIsPunchedIn] = useState(false);
-    const [punchInTime, setPunchInTime] = useState(null);
-    const [productionHours, setProductionHours] = useState(0);
-    
-    const formatDateTime = (timestamp) => {
-        const dateObj = new Date(timestamp);
-    
-        // Convert to DD-Month-YYYY format
-        const formattedDate = dateObj.toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-        });
-    
-        // Extract time in HH:MM AM/PM format
-        const formattedTime = dateObj.toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-        });
-    
-        return { formattedDate, formattedTime };
-    };
 
     useEffect(()=>{
 
@@ -120,55 +105,17 @@ function EmployeeDashboard(){
     },[empId, token])
     
 
-    const handlePunch = async () => {
-        try {
-            if(!isPunchedIn){
-                const response = await punchIn(token, empId);
-               // Format response timestamp
-               const { formattedDate, formattedTime } = formatDateTime(response.message);
-               setPunchInDate(formattedDate); // Store date separately
-               setPunchInTime(formattedTime); // Store time separately
-               setIsPunchedIn(true);
-    
-            }else {
-                // const response = await punchOut(token, empId);
-                // console.log(response);
-                // setProductionHours(response.totalHours);
-                // setIsPunchedIn(false);
-            }
-    
-        } catch (error) {
-            console.error("Punch In failed", error);
-        }
-    };
-
-    useEffect(()=>{
-
-        const fetchLeaveCountDetails = async () =>{
-    
-            try{
-                const respone = await getLeaveCount(empId, token);
-                // setData(respone);
-                console.log(respone);
-
-            }
-            catch (error) {
-                console.log(error)
-            }
-
-        };
-        fetchLeaveCountDetails();
-
-    },[empId, token])
-
+    const handleButtonSubmit = ()=>{
+        navigate('/leave/emp-Leave')
+    }
 
     return(
         <div className="empDashboard">
             <div className="titleE">
-                <h1>Employee</h1>
+                <h1>Employee Dashboard</h1>
             </div>
 
-            <div className="breadcrumb-wrapper">
+            <div className="breadcrumb-wrapper mb-2">
                 <ul className="breadcrumb">
                     <li>
                         <Link to="/" className="breadcrumb-link">
@@ -177,10 +124,10 @@ function EmployeeDashboard(){
                     </li>
                     <li className="breadcrumb-separator">/</li>
                     <li>
-                    <Link to="/empDashboard" className="breadcrumb-link">Employee</Link>
+                    <Link to="/empDashboard" className="breadcrumb-link">Dashboard</Link>
                     </li>
                     <li className="breadcrumb-separator">/</li>
-                    <li className="breadcrumb-current">Employee</li>
+                    <li className="breadcrumb-current">Employee Dashboard</li>
                 </ul>
             </div>
             <div className="emp-container">
@@ -315,7 +262,7 @@ function EmployeeDashboard(){
                             </div>
 
                             {/* Apply Leave Button */}
-                            <button className="apply-leave-btn" >Apply New Leave</button>
+                            <button className="apply-leave-btn" onClick={handleButtonSubmit}>Apply New Leave</button>
                         </div>                            
                     </div>
                 </div>
@@ -344,13 +291,18 @@ function EmployeeDashboard(){
                         
                             
                         </div>
-                        <p className="production-info">Production: {productionHours} hrs</p>
+                        <p className="production-info">Production: {totalHours1} hrs</p>
                         <p style={{ fontSize: '14px', paddingBottom: '5px' }}>
                             {isPunchedIn ? `Punched In at ${punchInTime}` : "Not Punched In"}
                         </p>
-                        <button className="punch-out-btn" onClick={handlePunch}>
-                            {isPunchedIn ? "Punch Out" : "Punch In"}
-                        </button>
+                        {isPunchedIn ? (
+                            <>
+                          
+                                <button onClick={handlePunch}>Punch Out</button>
+                            </>
+                        ) : (
+                            <button onClick={handlePunch}>Punch In</button>
+                        )}
                     </div>
                     </div>
                     {/*row2 col2*/}

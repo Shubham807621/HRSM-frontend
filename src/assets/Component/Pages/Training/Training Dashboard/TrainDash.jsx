@@ -37,6 +37,9 @@ const statsData = [
     Cancel: "danger",
   };
 
+  const userRole = localStorage.getItem("role");
+  console.log(userRole)
+
 export default function TrainDash() {
   return (
     <>
@@ -45,10 +48,15 @@ export default function TrainDash() {
                 <h1 className="titleE">Training Dashboard</h1>
                 {/* Right Section: Buttons */}
                 <div className="button-wrapper d-flex">
-                <Button className="add-employee-btn">
-                    <AddIcon className="icon" />
-                    Add Training
-                </Button>
+
+                {userRole === "HR" && (
+                        <Button className="add-employee-btn">
+                            <AddIcon className="icon" />
+                            Add Training
+                        </Button>
+                )}
+
+            
                 </div>
             </div>
 

@@ -89,7 +89,9 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
     },[])
     
     
-    console.log(employeeList);
+    // console.log(employeeList);
+    const userRole = localStorage.getItem("role");
+
 
   return (
     <>
@@ -103,10 +105,14 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
                 <FileDownloadIcon className="icon" />
                 Export <ExpandMoreIcon className="expand-icon"/>
               </Button>
-              <Button className="add-employee-btn">
+
+              {userRole === "HR" && (
+                <Button className="add-employee-btn">
                 <AddIcon className="icon" />
                 Add Employee
               </Button>
+              )}
+            
             </div>
         </div>
         <div className="breadcrumb-wrapper">
@@ -177,7 +183,10 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
                     <th>Phone</th>
                     <th>Designation</th>
                     <th>Status</th>
+                    {userRole === "HR" && (
+
                     <th>Actions</th>
+                    )}
                   </tr>
                 </thead>
             <tbody>
@@ -216,10 +225,14 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
                         {emp.status}
                       </span>
                   </td>
+                  {userRole === "HR" && (
+
                   <td>
                     <EditIcon className="fs-5 me-2 cursor-pointer" />
                     <DeleteIcon className=" fs-5 cursor-pointer" />
                   </td>
+
+                  )}
                 </tr>
               ))}
             </tbody>

@@ -25,11 +25,31 @@
   import LoginIcon from '@mui/icons-material/Login';
   import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
   import LockResetIcon from '@mui/icons-material/LockReset';
+  import { FaCircle } from "react-icons/fa";
 
 
 
   export default function Navbar({ variant = "default" }) {
 
+
+    const [selectedStatus, setSelectedStatus] = useState("Available");
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [statusMenuOpen, setStatusMenuOpen] = useState(false);
+    const [openMenu, setOpenMenu] = useState(null);
+    const [isScrolling, setIsScrolling] = useState(false);
+    const scrollTimeoutRef = useRef(null);
+    const location = useLocation();
+    const sidebarRef = useRef(null);
+    const hideElement = ["/", "/register", "/reset-password", "/verify", "/NewPassword"].includes(location.pathname);
+    const userRole = localStorage.getItem("role");
+
+
+    
+    const toggleMenu = (menu) => {
+      setOpenMenu(openMenu === menu ? null : menu);
+    };
+    
+    
     const StyledBadge = styled(Badge)(({ theme }) => ({
       '& .MuiBadge-badge': {
         right: 7,
@@ -40,19 +60,10 @@
       },
     }));
 
-    const location = useLocation();
-    const hideElement = ["/", "/register", "/reset-password", "/verify", "/NewPassword"].includes(location.pathname);
-
-    const [openMenu, setOpenMenu] = useState(null);
-
-    const toggleMenu = (menu) => {
-      setOpenMenu(openMenu === menu ? null : menu);
-    };
 
 
-    const [isScrolling, setIsScrolling] = useState(false);
-    const scrollTimeoutRef = useRef(null);
-    const sidebarRef = useRef(null);
+
+   
 
     const handleScroll = () => {
         setIsScrolling(true);
@@ -81,6 +92,16 @@
         };
     }, []);
 
+
+  const statuses = [
+    { label: "Available", color: "success" },
+    { label: "Busy", color: "danger" },
+    { label: "Do not disturb", color: "dark" },
+    { label: "Be right back", color: "warning" },
+    { label: "Appear away", color: "secondary" },
+    { label: "Appear offline", color: "muted" },
+  ];
+
     return (
       <>
         {variant === "default" && !hideElement && (
@@ -90,67 +111,77 @@
               <span><SearchIcon className="search-icon" /></span>
             </div>
             <div className="user-profile">
-              <div className="notification mx-4">
+              <div className="notification mx-4 mt-2">
                 <StyledBadge badgeContent=" ">
                   <NotificationsNoneIcon className="bell-icon" />
                 </StyledBadge>
               </div>
+              <div className="profile-dropdown">
+                      {/* Profile Button */}
+                      <button className="profile-btn" onClick={() => setMenuOpen(!menuOpen)}>
+                        <img
+                          src="https://randomuser.me/api/portraits/women/44.jpg"
+                          alt="User"
+                          className="profile-img"
+                        />
+                        <div className="profile-info">
+                          <p className="fw-bold mb-0 d-none d-md-inline">Kevin Larry</p>
+                          <div className="d-flex align-items-center">
+                            <FaCircle className={`text-${statuses.find(s => s.label === selectedStatus)?.color} me-2`} />
+                            <span>{selectedStatus}</span>
+                          </div>
+                        </div>
+                      </button>
+
+                      {/* Profile Dropdown Menu */}
+                      {menuOpen && (
+                        <div className="dropdown-menu show">
+                          <div className="user-info">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" className="user-img" />
+                            <div>
+                              <h6 className="mb-0 fw-bold">Kevin Larry</h6>
+                              <p className="text-muted small mb-0">warren@example.com</p>
+                            </div>
+                          </div>
+
+                          <button className="dropdown-item">
+                            <AccountCircleOutlinedIcon className="me-2" /> My Profile
+                          </button>
+                          <button className="dropdown-item">
+                            <SettingsOutlinedIcon className="me-2" /> Settings
+                          </button>
+
+                          {/* Status Dropdown */}
+                          <div className="dropdown-item" onClick={() => setStatusMenuOpen(!statusMenuOpen)}>
+                            <MoveUpOutlinedIcon className="me-2" /> Status
+                          </div>
+
+                          {statusMenuOpen && (
+                            <ul className="status-menu">
+                              {statuses.map(({ label, color }) => (
+                                <li key={label} onClick={() => { setSelectedStatus(label); setStatusMenuOpen(false); }}>
+                                  <FaCircle className={`text-${color} me-2`} /> {label}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+
+                          <button className="dropdown-item">
+                            <ArrowCircleUpOutlinedIcon className="me-2" /> My Account
+                          </button>
+                          <button className="dropdown-item">
+                            <QuestionMarkOutlinedIcon className="me-2" /> Knowledge Base
+                          </button>
+
+                          <hr />
+                          <button className="dropdown-item text-danger">
+                            <ExitToAppOutlinedIcon className="me-2" /> Logout
+                          </button>
+                        </div>
+                      )}
+                    </div>
     
-              <Dropdown align="end">
-          {/* Profile Image Button */}
-              <Dropdown.Toggle variant="light" id="profile-dropdown" className="d-flex align-items-center border-0">
-              <img
-              src="https://randomuser.me/api/portraits/women/44.jpg" // Replace with user image
-              alt="User"
-              className="rounded-circle me-2"
-              width="40"
-              height="40"
-              />
-                  <p className="d-none d-md-inline fw-bold">Kevin Larry</p>
-        </Dropdown.Toggle>
-
-        {/* Dropdown Menu */}
-        <Dropdown.Menu className="shadow-sm p-2">
-          {/* User Info */}
-          <div className="d-flex align-items-center p-3 border-bottom">
-            <img
-              src="https://randomuser.me/api/portraits/women/44.jpg"
-              alt="User"
-              className="rounded-circle me-3"
-              width="50"
-              height="50"
-            />
-            <div>
-              <h6 className="mb-0 fw-bold">Kevin Larry</h6>
-              <p className="text-muted small mb-0">warren@example.com</p>
-            </div>
-          </div>
-
-          {/* Menu Items */}
-          <Dropdown.Item href="#">
-            <AccountCircleOutlinedIcon className="me-2" /> My Profile
-          </Dropdown.Item>
-          <Dropdown.Item href="#">
-            <SettingsOutlinedIcon className="me-2" /> Settings
-          </Dropdown.Item>
-          <Dropdown.Item href="#">
-            <MoveUpOutlinedIcon className="me-2" /> Status
-          </Dropdown.Item>
-          <Dropdown.Item href="#">
-            <ArrowCircleUpOutlinedIcon className="me-2" /> My Account
-          </Dropdown.Item>
-          <Dropdown.Item href="#">
-            <QuestionMarkOutlinedIcon className="me-2" /> Knowledge Base
-          </Dropdown.Item>
-
-          {/* Logout */}
-          <Dropdown.Divider />
-          <Dropdown.Item href="#" className="text-danger">
-            <ExitToAppOutlinedIcon className="me-2" /> Logout
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-            </div>
+            </div> 
           </div>
         )}
 
@@ -179,15 +210,20 @@
                 {openMenu === "dashboard" && (
                   <div className="ms-5 sub-menu open">
                       
-                    <Link to='/hrdashboard'
-                          className={`submenu-item ${location.pathname === "/hrdashboard" ? "active" : ""}`}
-                    >
-                      <p className="py-1">HR Dashboard</p>
-                    </Link>
+                      {userRole === "HR" && (
+                        <Link
+                          to="/hrdashboard"
+                          className={`submenu-item ${
+                            location.pathname === "/hrdashboard" ? "active" : ""
+                          }`}
+                        >
+                          <p className="py-1">HR Dashboard</p>
+                        </Link>
+                      )}
                     <Link to='/employeedashboard'
                           className={`submenu-item ${location.pathname === "/employeedashboard" ? "active" : ""}`}
                     >
-                      <p className="py-1">Employee Dashboard</p>
+                      <p className="py-1 mt-2">Employee Dashboard</p>
                     </Link>
                   </div>
               )}
@@ -248,11 +284,15 @@
             </div>
             {openMenu === "attendance" && (
               <div className="ms-5 sub-menu open">
-               <Link to='/attendance/hr-attendance'
-                  className={`submenu-item ${location.pathname === "/attendance/hr-attendance" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">HR Attendance</p>
-                </Link>
+
+                    {userRole === "HR" && (
+                      <Link to='/attendance/hr-attendance'
+                                      className={`submenu-item ${location.pathname === "/attendance/hr-attendance" ? "active" : ""}`}
+                                    >
+                                      <p className="py-1 ps-0">HR Attendance</p>
+                                    </Link>
+                    )}
+               
                 <Link to='/attendance/emp-attendance'
                   className={`submenu-item ${location.pathname === "/attendance/emp-attendance" ? "active" : ""}`}
                 >
@@ -279,11 +319,16 @@
             </div>
             {openMenu === "Leave" && (
               <div className="ms-5 sub-menu open">
-                <Link to='/leave/hr-Leave'
-                  className={`submenu-item ${location.pathname === "/leave/hr-Leave" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">HR Leave</p>
-                </Link>
+
+                  {userRole === "HR" && (
+                    <Link to='/leave/hr-Leave'
+                                    className={`submenu-item ${location.pathname === "/leave/hr-Leave" ? "active" : ""}`}
+                                  >
+                                    <p className="py-1 ps-0">HR Leave</p>
+                                  </Link>
+                  )}
+            
+                
                 <Link to='/leave/emp-Leave'
                   className={`submenu-item ${location.pathname === "/leave/emp-Leave" ? "active" : ""}`}
                 >
@@ -323,7 +368,7 @@
               </div>
             )}
           </div>
-          <div className='main-item1'>
+          {/* <div className='main-item1'>
           <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "performance" ? "bg-body-secondary" : ""}`} 
             >
               <div className="d-flex align-items-center">
@@ -344,7 +389,7 @@
                 <p className="py-1">Card</p>   
               </div>
             )}
-          </div>
+          </div> */}
           <div className='main-item1'>
           <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "payroll" ? "bg-body-secondary" : ""}`} 
             >
@@ -387,11 +432,11 @@
 
           <div className='main-item1'>
           <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-4">ADMININSTRATION</h3>
-          <div className='main-item1'>
+
+          {userRole === "HR" && (
+            <div className='main-item1'>
             <div
-              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "user-management" ? "bg-body-secondary" : ""}`} 
-              
-            >
+              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "user-management" ? "bg-body-secondary" : ""}`} >
               <div className="d-flex align-items-center">
               <ManageAccountsIcon className="fs-5 me-2" />
                 <p className="fw-semibold main-title">User Management</p>
@@ -416,11 +461,12 @@
                 >
                   <p className="py-1 ps-0">Update User Role </p>
                 </Link>
-              
-              
               </div>
             )}
           </div>
+
+          )}
+          
           <div className='main-item1'>
             <div
               className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "support" ? "bg-body-secondary" : ""}`} 

@@ -63,6 +63,9 @@ const Document = () => {
     }
   };
 
+  const userRole = localStorage.getItem("role");
+
+
   return (
     <div className="document-wrap">
       <div className="header-container">
@@ -79,9 +82,12 @@ const Document = () => {
             </div>
           </div>
           <div className="header-container-left">
-            <button className="document-btn" onClick={handleShowModal}>
+          {userRole === "HR" && (
+              <button className="document-btn" onClick={handleShowModal}>
               Add Document
             </button>
+          )}
+            
           </div>
         </div>
       </div>

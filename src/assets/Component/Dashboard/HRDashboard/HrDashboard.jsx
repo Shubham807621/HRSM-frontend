@@ -20,10 +20,10 @@ export default function HrDashboard() {
                   </li>
                   <li className="breadcrumb-separator mx-2">/</li>
                   <li>
-                    <Link to="/employee" className="breadcrumb-link">Employee</Link>
+                    <Link to="/employee" className="breadcrumb-link">Dashboard</Link>
                   </li>
                   <li className="breadcrumb-separator mx-2">/</li>
-                  <li className="breadcrumb-current">Employee List</li>
+                  <li className="breadcrumb-current">HR Dasboard</li>
                 </ul>
               </div>
 

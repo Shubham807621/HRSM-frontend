@@ -17,13 +17,13 @@
   .empDashboard .titleE h1{
       /* margin-left: 320px;
       margin-top: 30px; */
-      font-size: 30px;
+      font-size: 25px;
   }
   
   .empDashboard .breadcrumb-wrapper .breadcrumb {
       /* margin-left: 320px; */
       font-size: 16px;
-      font-weight: 500;
+      /* font-weight: 500; */
       color: black;
     }
     
@@ -48,7 +48,7 @@
     }
     
     .empDashboard .breadcrumb-wrapper .breadcrumb .breadcrumb-current {
-      font-weight: bold;
+      /* font-weight: bold; */
       color: black;
     }
     

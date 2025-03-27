@@ -359,7 +359,7 @@ export const sendDocument = async (body,token)=>{
 export const punchIn = async (token,empId)=>{
 
     const url = `${API_BASE_URL}${API_URLs.Punch_In}/${empId}`;
-    // console.log(url);
+    console.log(url);
     // console.log(token);
     // console.log(empId);
 
@@ -386,8 +386,8 @@ export const punchIn = async (token,empId)=>{
 export const punchOut = async (token,empId)=>{
 
     const url = `${API_BASE_URL}${API_URLs.Punch_Out}/${empId}`;
-    // console.log(url);
-    // console.log(token);
+    console.log(url);
+    console.log(token);
     // console.log(empId);
 
     try{
@@ -400,7 +400,7 @@ export const punchOut = async (token,empId)=>{
                 }
             }
         )
-        // console.log(response);
+        console.log(response);
         return response.data;
 
     } catch(error){
@@ -469,5 +469,24 @@ export const addRole = async (roleData, token) => {
     }
   };
 
+export const getPayslip = async (token,year, month) => {
+    const url = `${API_BASE_URL}${API_URLs.GETPAYROLLPAYSLIP}/${empId}/${year}/${month}`
+    try{
 
+       const response = await axios .get(url,
+           {headers:
+               {
+                   Authorization: `Bearer ${token}`,
+                   "Content-Type": "application/json",
+               }
+           }
+       )
+       console.log(response);
+       return response.data;
+
+   } catch(error){
+       console.error('Error:', error.response || error.message);
+       throw error;
+    }
+  }
 

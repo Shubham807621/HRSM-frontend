@@ -25,6 +25,7 @@ import TrainList from './assets/Component/Pages/Training/Training List/TrainList
 import Payroll from './assets/Component/Pages/Salary/Payroll/Payroll'
 import KonwledgeBase from './assets/Component/Pages/Support/KnowledgeBase'
 import Users from './assets/Component/Pages/User Mangement/Users/Users'
+import { AttendanceProvider } from './assets/Component/Pages/Attendance/AttendanceProvider'
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
     <>
     <BrowserRouter>
       <Navbar variant="default"/>
-
+     <AttendanceProvider>
         <Routes>
           <Route path="/"element={<Login/>}/>
           <Route path="/reset-password" element={<ResetPassword/>}/>
@@ -46,7 +47,7 @@ function App() {
           <Route path='/document' element={<Document/>} />
           <Route path='/leave/hr-Leave' element={<HRLeave/>}/>
           <Route path='/leave/emp-Leave' element={<EmpLeave/>}/>
-          <Route path='/salary/payslip' element={<Payslip/>}/>
+          <Route path='/salary/payslip/:year/:month' element={<Payslip/>}/>
           <Route path='/salary/payroll' element={<Payroll/>}/>
           <Route path='/support/add-report' element={<Support/>}/>
           <Route path='/support/konwledgeBase' element={<KonwledgeBase/>}/>
@@ -57,7 +58,7 @@ function App() {
           <Route path='/training-dashboard' element={<TrainDash/>}/>
           <Route path='/trainings-list' element={<TrainList/>}/>
         </Routes>
-    
+      </AttendanceProvider>
     </BrowserRouter>
   
     </>

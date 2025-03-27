@@ -75,42 +75,42 @@ function HrAttendance(){
                 </div>
                 <div className='hr-container'>
                     <div className='row1'>
-                        <h6>Attendance Details Today</h6>
-                        <p style={{fontSize:'14px'}}>Data from the 800+ total no of employees</p>
+                        {/* <h6>Attendance Details Today</h6>
+                        <p style={{fontSize:'14px'}}>Data from the 800+ total no of employees</p> */}
                         <div className='cards'>
                             <div className='card1'>
                                 <h6>Present</h6>
                                 <div className='insideCard1'>
                                     <b>250</b>
-                                    <span style={{backgroundColor:'green'}}><TrendingUpIcon fontSize="inhert" /> +1%</span>
+                                    <span style={{backgroundColor:'#03c95a'}}><TrendingUpIcon fontSize="inhert" /> +1%</span>
                                 </div>
                             </div>
                             <div className='card1'>
                                 <h6>Late Login</h6>
                                 <div className='insideCard1'>
                                     <b>45</b>
-                                    <span style={{backgroundColor:'red'}}><TrendingDownIcon fontSize="inhert" /> +1%</span>
+                                    <span style={{backgroundColor:'#ff0000cf'}}><TrendingDownIcon fontSize="inhert" /> +1%</span>
                                 </div>
                             </div>
                             <div className='card1'>
                                 <h6>Uninformed</h6>
                                 <div className='insideCard1'>
                                     <b>15</b>
-                                    <span style={{backgroundColor:'red'}}><TrendingDownIcon fontSize="inhert" /> +12%</span>
+                                    <span style={{backgroundColor:'#ff0000cf'}}><TrendingDownIcon fontSize="inhert" /> +12%</span>
                                 </div>
                             </div>
                             <div className='card1'>
                                 <h6>Permisson</h6>
                                 <div className='insideCard1'>
                                     <b>03</b>
-                                    <span style={{backgroundColor:'green'}}><TrendingUpIcon fontSize="inhert" /> +1%</span>
+                                    <span style={{backgroundColor:'#03c95a'}}><TrendingUpIcon fontSize="inhert" /> +1%</span>
                                 </div>
                             </div>
                             <div className='card1'>
                                 <h6>Absent</h6>
                                 <div className='insideCard1'>
                                     <b>12</b>
-                                    <span style={{backgroundColor:'red'}}><TrendingDownIcon fontSize="inhert" /> +19%</span>
+                                    <span style={{backgroundColor:'#ff0000cf'}}><TrendingDownIcon fontSize="inhert" /> +19%</span>
                                 </div>
                             </div>
                         </div>

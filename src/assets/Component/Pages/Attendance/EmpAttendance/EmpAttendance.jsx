@@ -9,36 +9,22 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { punchIn, punchOut } from '../../../APIService/apiservice';
+import { useAttendance } from "../AttendanceProvider";
+
 
 function EmpAttendance(){
 
-const token = localStorage.getItem('token');
-const empId = localStorage.getItem('empId')
-const [punchInDate, setPunchInDate] = useState(null);
+    const { isPunchedIn, punchInTime, punchInDate, totalHours, handlePunch } = useAttendance();
+    const [localPunchInTime, setLocalPunchInTime] = useState(localStorage.getItem("punchInTime"));
+    const [localPunchInDate, setLocalPunchInDate] = useState(localStorage.getItem("punchInDate"));
 
-const [isPunchedIn, setIsPunchedIn] = useState(false);
-const [punchInTime, setPunchInTime] = useState(null);
-const [productionHours, setProductionHours] = useState(0);
+   // Sync local state with context whenever context updates
+   useEffect(() => {
+    setLocalPunchInTime(punchInTime || localStorage.getItem("punchInTime"));
+    setLocalPunchInDate(punchInDate || localStorage.getItem("punchInDate"));
+}, [punchInTime, punchInDate]);
 
-const formatDateTime = (timestamp) => {
-    const dateObj = new Date(timestamp);
-
-    // Convert to DD-Month-YYYY format
-    const formattedDate = dateObj.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-    });
-
-    // Extract time in HH:MM AM/PM format
-    const formattedTime = dateObj.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-    });
-
-    return { formattedDate, formattedTime };
-};
+        console.log(isPunchedIn)
 
 const employees = [
     {
@@ -65,28 +51,6 @@ const employees = [
     },
 ];
 
-const handlePunch = async () => {
-    try {
-        if(!isPunchedIn){
-            const response = await punchIn(token, empId);
-           // Format response timestamp
-           const { formattedDate, formattedTime } = formatDateTime(response.message);
-           setPunchInDate(formattedDate); // Store date separately
-           setPunchInTime(formattedTime); // Store time separately
-           setIsPunchedIn(true);
-
-        }else {
-            const response = await punchOut(token, empId);
-            console.log(response);
-            setProductionHours(response.totalHours);
-            setIsPunchedIn(false);
-        }
-
-    } catch (error) {
-        console.error("Punch In failed", error);
-    }
-};
-
     return(
     <div className='emp-attendance'>
                 <div className="titleE">
@@ -112,15 +76,19 @@ const handlePunch = async () => {
                     <div className='emp-card'>
                         <div className="attendance-card">
                             <h6>Good Morning, Adrian</h6>
-                            <p><b>{punchInDate || "Not Punched In"}</b></p>
+                            <p><b>{localPunchInDate  || "Not Punched In"}</b></p>
                             <img src={profilePic} alt='Profile' width={100} height={100} />
-                            <p className="production-info">Production: {productionHours} hrs</p>
+                            <p className="production-info">Production: {totalHours} hrs</p>
                             <p style={{ fontSize: '14px', paddingBottom: '5px' }}>
-                                {isPunchedIn ? `Punched In at ${punchInTime}` : "Not Punched In"}
+                                {isPunchedIn ? `Punched In at ${localPunchInTime}` : "Not Punched In"}
                             </p>
-                            <button className="punch-out-btn" onClick={handlePunch}>
-                                {isPunchedIn ? "Punch Out" : "Punch In"}
-                            </button>
+                            {isPunchedIn ? (
+                                <>
+                                    <button onClick={handlePunch}>Punch Out</button>
+                                </>
+                            ) : (
+                                <button onClick={handlePunch}>Punch In</button>
+                            )}
                         </div>
                     </div>
 
