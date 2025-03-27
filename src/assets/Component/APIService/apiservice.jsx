@@ -18,8 +18,6 @@ export const registerUser = async (body) =>{
         throw error;
     }
 }
-
-
 export const loginUser = async (body) =>{
 
     const url = `${API_BASE_URL}${API_URLs.Login}`
@@ -34,8 +32,6 @@ export const loginUser = async (body) =>{
         throw error;
     }
 }
-
-
 export const verifyUserCode= async (body) =>{
 
     const url = `${API_BASE_URL}${API_URLs.Verify}`
@@ -51,7 +47,6 @@ export const verifyUserCode= async (body) =>{
         throw error;
     }
 }
-
 export const confirmPassword= async (body) =>{
 
     const url = `${API_BASE_URL}${API_URLs.New_Password}`
@@ -67,7 +62,6 @@ export const confirmPassword= async (body) =>{
         throw error;
     }
 }
-
 export const getDocument = async (token)=>{
 
     const url = `${API_BASE_URL}${API_URLs.GETDOC}`
@@ -92,7 +86,6 @@ export const getDocument = async (token)=>{
     }
 
 }
-
 export const getAllTraining = async (token) =>{
 
     const url = `${API_BASE_URL}${API_URLs.GETTRAINING}`
@@ -122,7 +115,6 @@ export const getAllTraining = async (token) =>{
     }
 
 }
-
 export const createEmployee = async (employeeData, token) => {
     const url = `${API_BASE_URL}${API_URLs.CREATEEMP}`;
     try {
@@ -138,7 +130,6 @@ export const createEmployee = async (employeeData, token) => {
         throw error;
     }
 };
-
 export const updateEmployee = async (empId, employeeData, token) => {
     const url = `${API_BASE_URL}${API_URLs.UPDATEEMP}/${empId}`;
     try {
@@ -154,7 +145,6 @@ export const updateEmployee = async (empId, employeeData, token) => {
         throw error;
     }
 };
-
 export const deleteEmployee = async (empId, token) => {
     const url = `${API_BASE_URL}${API_URLs.DELETEEMP}/${empId}`;
     try {
@@ -170,7 +160,6 @@ export const deleteEmployee = async (empId, token) => {
         throw error;
     }
 };
-
 export const getEmployeeDetailsById = async (empId , token )=>{
 
     let url = `${API_BASE_URL}${API_URLs.GETEMPDETAILS}/${empId}`
@@ -194,7 +183,6 @@ export const getEmployeeDetailsById = async (empId , token )=>{
         return [];
     }
 }
-
 export const getEmployeesList = async (token) =>{
    
     const url = `${API_BASE_URL}${API_URLs.GETEMPLIST}`
@@ -218,7 +206,6 @@ export const getEmployeesList = async (token) =>{
         return [];
     }
 }
-
 export const getEmployeesCount = async(token) =>{
 
     const url = `${API_BASE_URL}${API_URLs.EMPCOUNT}`
@@ -261,7 +248,6 @@ export const getEmployeesCountByDepartment = async(token) =>{
     }
 
 }
-
 export const getProjectAndClientCount = async(token) =>{
 
     const url = `${API_BASE_URL}${API_URLs.GETTOTALCOUNT}`
@@ -348,7 +334,6 @@ export const sendSupportRequest = async (body, token) => {
     //     throw error;
     // }
 }
-
 export const sendDocument = async (body,token)=>{
 
     const url = `${API_BASE_URL}${API_URLs.SENDDOC}`;
@@ -376,7 +361,6 @@ export const sendDocument = async (body,token)=>{
     // }
 
 }
-
 export const punchIn = async (token,empId)=>{
 
     const url = `${API_BASE_URL}${API_URLs.Punch_In}/${empId}`;
@@ -403,7 +387,6 @@ export const punchIn = async (token,empId)=>{
     }
 
 }
-
 export const punchOut = async (token,empId)=>{
 
     const url = `${API_BASE_URL}${API_URLs.Punch_Out}/${empId}`;
@@ -430,7 +413,6 @@ export const punchOut = async (token,empId)=>{
     }
 
 }
-
 export const getLeaveCount = async (empId,token)=>{
 
     const url = `${API_BASE_URL}${API_URLs.Leave_Count}/${empId}`;
@@ -457,7 +439,6 @@ export const getLeaveCount = async (empId,token)=>{
     }
 
 }
-
 export const addRole = async (roleData, token) => {
     const url = `${API_BASE_URL}${API_URLs.ADDROLE}`;
     try {
@@ -472,9 +453,8 @@ export const addRole = async (roleData, token) => {
       console.error('Error adding role:', error.response || error.message);
       throw error;
     }
-  };
-  
-  export const updateRole = async (updateData, token) => {
+};
+export const updateRole = async (updateData, token) => {
     const url = `${API_BASE_URL}${API_URLs.EDITROLE}`;
     try {
       const response = await axios.put(url, updateData, {
@@ -488,8 +468,7 @@ export const addRole = async (roleData, token) => {
       console.error('Error updating role:', error.response || error.message);
       throw error;
     }
-  };
-
+};
 export const getPayslip = async (token,year, month) => {
     const url = `${API_BASE_URL}${API_URLs.GETPAYROLLPAYSLIP}/${empId}/${year}/${month}`
     try{
@@ -509,5 +488,52 @@ export const getPayslip = async (token,year, month) => {
        console.error('Error:', error.response || error.message);
        throw error;
     }
-  }
+}
+export const getAttendanceList = async (token)=>{
 
+    const url = `${API_BASE_URL}${API_URLs.Attendance_list}`
+    console.log(token)
+
+    try{
+
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+export const getAttendanceListById = async (token, empId)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.Attendance_list}/${empId}`
+    console.log(token)
+
+    try{
+
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}

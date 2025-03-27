@@ -22,7 +22,8 @@ export const API_URLs = {
     UPDATEEMP: '/api/employee',
     DELETEEMP: '/api/employee',
     ADDROLE: '/auth/addrole',
-    EDITROLE: '/auth/updaterole'
+    EDITROLE: '/auth/updaterole',
+    Attendance_list:'/api/attendance/attendance-list',
 };
 
 export const API_BASE_URL = "http://localhost:8080"

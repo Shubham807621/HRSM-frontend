@@ -8,12 +8,13 @@ import TodayIcon from '@mui/icons-material/Today';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { punchIn, punchOut } from '../../../APIService/apiservice';
+import { getAttendanceListById, punchIn, punchOut } from '../../../APIService/apiservice';
 import { useAttendance } from "../AttendanceProvider";
 
 
 function EmpAttendance(){
-
+    const token = localStorage.getItem('token')
+    const empId = localStorage.getItem('empId')
     const { isPunchedIn, punchInTime, punchInDate, totalHours, handlePunch } = useAttendance();
     const [localPunchInTime, setLocalPunchInTime] = useState(localStorage.getItem("punchInTime"));
     const [localPunchInDate, setLocalPunchInDate] = useState(localStorage.getItem("punchInDate"));
@@ -50,6 +51,18 @@ const employees = [
         Production: "8.35Hrs",
     },
 ];
+
+ useEffect(() => {
+        const fetchAttendanceListById = async () => {
+        try {
+            const response = await getAttendanceListById(token, empId);
+            console.log(response);
+        } catch (error) {
+            console.error("Error fetching documents:", error);
+        }
+        };
+        fetchAttendanceListById();
+    }, []);
 
     return(
     <div className='emp-attendance'>
@@ -184,10 +197,6 @@ const employees = [
                             <h6>Leave List</h6>
                             {/* Filters & Sorting */}
                             <div className=" mb-3 emp-filters">
-                            
-                            <select className="form-select w-auto" style={{fontSize:'14px'}}>
-                                <option>Designation</option>
-                            </select>
                             <select className="form-select w-auto" style={{fontSize:'14px'}}>
                                 <option>Sort by: Last 7 Days</option>
                             </select>
@@ -202,8 +211,8 @@ const employees = [
                                 <tr>
                                     <th>Date</th>
                                     <th>Check In</th>
-                                    <th>Status</th>
                                     <th>Check Out</th>
+                                    <th>Status</th>
                                     <th>Production Hours</th>
                                 </tr>
                                 </thead>
@@ -212,6 +221,8 @@ const employees = [
                                 <tr key={index}>
                                     <td style={{color:'gray', paddingTop:'10px'}}>{emp.date}</td>
                                     <td style={{color:'gray'}}>{emp.CheckIn}</td>
+                                    <td style={{color:'gray'}}>{emp.CheckOut}</td>
+
                                     <td><span
                                             className="badge"
                                             style={{ backgroundColor: emp.Status === "Present" ? "#62d59d7f" : "#dc3545", color: emp.Status === "Present" ? "#2c6e4ed5" : "white" }}
@@ -219,7 +230,6 @@ const employees = [
                                             {emp.Status}
                                         </span>
                                         </td>
-                                    <td style={{color:'gray'}}>{emp.CheckOut}</td>
                                     <td><span style={{backgroundColor:"#03c95a", color: "white", padding:'5px',borderRadius:'5px', fontSize:'13px', fontWeight:'bold'}}>
                                         <AccessTimeIcon fontSize="inhert" style={{paddingBottom:'1px'}}/> {emp.Production}</span></td>
                                 
