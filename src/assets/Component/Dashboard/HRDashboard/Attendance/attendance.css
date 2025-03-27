@@ -1,8 +1,4 @@
-/* Dashboard Container */
-.dashboard-container {
-  padding: 20px;
-  display: block;
-}
+
 
 /* Cards Container */
 .cards-container {
@@ -58,7 +54,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
-  background-color: white;
+  background-color: white !important;
 }
 
 .card-header2 {
@@ -153,17 +149,17 @@
   background: hsla(0, 0%, 83%, 0.539);
   color:orangered;
   border: none;
-  padding-left: 25px;
-  padding-right: 25px;
+padding: 8px 25px;
   border-radius: 50px;
   cursor: pointer;
   margin-left: 20px;
   margin-right: 10px;
-  font-size: small;
+  font-size: 15px;
 }
 
 .view-details-small:hover{
-  background-color: hsla(0, 0%, 83%, 0.92);
+  background-color:orangered;
+  color: white;
 }
 .view-details:hover {
   background: orangered;
@@ -262,7 +258,7 @@ li:nth-child(3)::marker {
 }
 
 .opening{
-  background-color: lightgrey;
+  background-color: #e5e7eb;
   padding: 5px;
   padding-left: 90px;
   padding-right: 90px;
@@ -271,6 +267,7 @@ li:nth-child(3)::marker {
 
 .applicants{
   background-color: orangered;
+  color: white;
   padding: 5px;
   padding-left: 90px;
   padding-right: 90px;
@@ -304,28 +301,42 @@ li:nth-child(3)::marker {
   padding-top: 7px;
 }
 
-.employee-data{
+ .card .employee-data{
   display: flex;
-  background-color: lightgrey;
-  padding-top: 10px;
+  justify-content: space-between;
+  background-color: #e5e7eb;
+  padding-top: 5px;
   height: 40px;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 18px;
   border-top: 1px solid lightgrey;
   margin-bottom: 15px;
 }
-.name{
-  padding-left: 30px;
-  padding-right: 220px;
+
+
+.card .employee-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
 }
 
-.dept-box{
-  background-color: #e639474c;
-  color: red;
-  font-size: 13px;
-  padding: 3px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 5px;
-  margin-right: 60px;
-  margin-top: 5px;
+.employee-item .employee-details .emp-title{
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 ;
+}
+
+.employee-item .employee-details .designation{
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.employee-item .department-badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 15px;
+  color: white;
+  text-align: center;
 }

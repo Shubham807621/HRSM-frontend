@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import './employee.css';
+import React, { useEffect, useState,useRef } from 'react'
+import './employee.css';  
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -7,20 +7,25 @@ import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PersonIcon from "@mui/icons-material/Person";
+import { Form } from "react-bootstrap";
 import PersonOffIcon from "@mui/icons-material/PersonOff";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from '@mui/material';
 import { getEmployeesCount, getEmployeesList } from '../../APIService/apiservice';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 
 export default function Employee() {
+  const employeeRef = useRef();
 
   const [employeeList, setEmployeeList] = useState([]);
+  const [statusFilter, setStatusFilter] = useState('All');
   const [totalEMP , setTotalEMP] = useState();
   const token = localStorage.getItem('token');
-  const [statusFilter, setStatusFilter] = useState('All');
+  const userRole = localStorage.getItem("role");
 
 const activeEmployees = employeeList.filter(emp => emp.status === "ACTIVE").length;
 const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").length;
@@ -90,7 +95,18 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
     
     
     // console.log(employeeList);
-    const userRole = localStorage.getItem("role");
+      const downloadPDF = () => {
+        if (!employeeRef.current) return;
+    
+        html2canvas(employeeRef.current, { scale: window.devicePixelRatio }).then((canvas) => {
+          const imgData = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("p", "mm", "a4");
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+          pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+          pdf.save('employee_list.pdf');
+        });
+      };
 
 
   return (
@@ -101,10 +117,17 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
             {/* Right Section: Buttons */}
           
             <div className="button-wrapper d-flex">
-              <Button className="export-btn">
-                <FileDownloadIcon className="icon" />
-                Export <ExpandMoreIcon className="expand-icon"/>
-              </Button>
+            <Form.Select
+              onChange={(e) => {
+                if (e.target.value === 'pdf') {
+                  downloadPDF();
+                  e.target.value = '';
+                }
+              }}
+            >
+              <option value="">Export</option>
+              <option value="pdf">PDF</option>
+            </Form.Select>
 
               {userRole === "HR" && (
                 <Button className="add-employee-btn">
@@ -173,7 +196,7 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
               </select>
             </div>
           </div>
-          <div className="table-responsive emp-table">
+          <div className="table-responsive emp-table" ref={employeeRef}>
               <table className="table table-hover align-middle">
                 <thead>
                   <tr>
@@ -195,16 +218,13 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
                 .map((emp, index) => (
                 <tr key={index}>
                
-                  <td>{emp.empId}</td>
+                  <td>
+                  <Link to={`/employee-details/${emp.empId}`}>
+                    {emp.empId}
+                  </Link>
+                  </td>
                   <td>
                     <div className="d-flex align-items-center">
-                      {/* <img
-                        src={emp.profileImg}
-                        alt="Profile"
-                        className="rounded-circle me-2"
-                        width="40"
-                        height="40"
-                      /> */}
                       <div>
                         <p className='emp-title my-0'>{emp.name}</p>
                         <p className="text-muted my-0">{emp.role}</p>
@@ -249,5 +269,3 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
       </>
 )
 }
-
-

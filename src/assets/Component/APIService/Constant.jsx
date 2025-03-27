@@ -14,6 +14,7 @@ export const API_URLs = {
     SENDDOC:'/api/document',
     GETTOTALCOUNT:'/api/project/getCounts',
     Get_EMP_DashBoard_Details :'/api/emp-dashboard-details',
+    Get_HR_Dashboard_Details:'/api/hr-dashboard-details',
     Punch_In :'/api/attendance/punch-in',
     Punch_Out :'/api/attendance/punch-out',
     Leave_Count:'/api/leave/leave_count',

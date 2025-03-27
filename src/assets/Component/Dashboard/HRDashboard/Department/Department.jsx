@@ -2,7 +2,6 @@ import { FaFolder,FaPeopleGroup } from "react-icons/fa6";
 import { MdGroups } from "react-icons/md";
 import { HiBriefcase } from "react-icons/hi2";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -29,24 +28,6 @@ export default function Department() {
   const [empCount, setEmpCount] = useState([]);
   const token = localStorage.getItem('token');
 
-  useEffect(()=>{
-  
-      const fetchEmpCount = async () =>{
-      
-        try{
-          const respone = await getEmployeesCountByDepartment(token);
-          console.log(respone)
-          setEmpCount(respone);
-        }
-        catch (error) {
-          console.log(error)
-      }
-  
-      };
-      fetchEmpCount();
-  
-    },[])
-
 
 const data = [
     { department: "UI/UX", employees: 50 },
@@ -59,14 +40,14 @@ const data = [
   
   const stats = [
     { title: "Total Employee", value: totalEMP },
-    { title: "On Leave Employee", value: 10 },
+    { title: "On Leave Employee", value: 3 },
     { title: "Total Project", value: count.totalProjectCount},
-    { title: "Total Jobs", value: 55 },
+    { title: "Total Jobs", value: 5 },
     { title: "Total Client", value: count.totalClientCount },
-    { title: "Total Employee", value: 100 },
+    { title: "Total Training", value: count.totalTrainingCount},
   ];
 
-useEffect(()=>{
+    useEffect(()=>{
 
       const fetchEmployeesCount = async () =>{
       
@@ -82,6 +63,24 @@ useEffect(()=>{
       };
       fetchEmployeesCount();
       
+    },[])
+
+    useEffect(()=>{
+  
+      const fetchEmpCount = async () =>{
+      
+        try{
+          const respone = await getEmployeesCountByDepartment(token);
+          console.log(respone)
+          setEmpCount(respone);
+        }
+        catch (error) {
+          console.log(error)
+      }
+  
+      };
+      fetchEmpCount();
+  
     },[])
 
     useEffect(()=>{

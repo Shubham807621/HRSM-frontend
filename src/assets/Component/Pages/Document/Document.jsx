@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import HomeIcon from "@mui/icons-material/Home";
 import './Document.css';
+import { Form } from "react-bootstrap";
 import { getDocument, sendDocument } from "../../APIService/apiservice";
 import CustomeModal from "../../Employee/Modal/CustomeModal";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const Document = () => {
+  const documentRef = useRef();
   const token = localStorage.getItem('token');
   const [showModal, setShowModal] = useState(false);
   const [documents, SetDocuments] = useState([]);
@@ -64,6 +68,18 @@ const Document = () => {
   };
 
   const userRole = localStorage.getItem("role");
+               const downloadPDF = () => {
+                  if (!documentRef.current) return;
+              
+                  html2canvas(documentRef.current, { scale: window.devicePixelRatio }).then((canvas) => {
+                    const imgData = canvas.toDataURL("image/png");
+                    const pdf = new jsPDF("p", "mm", "a4");
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+                    pdf.save('document.pdf');
+                  });
+                };
 
 
   return (
@@ -81,9 +97,22 @@ const Document = () => {
               <p className="document">Document</p>
             </div>
           </div>
-          <div className="header-container-left">
+          <div className="header-container-left  d-flex mx-2">
+          <div className="export-btn">
+            <Form.Select
+              onChange={(e) => {
+                if (e.target.value === 'pdf') {
+                  downloadPDF();
+                  e.target.value = '';
+                }
+              }}
+            >
+              <option value="">Export</option>
+              <option value="pdf">PDF</option>
+            </Form.Select>
+          </div>
           {userRole === "HR" && (
-              <button className="document-btn" onClick={handleShowModal}>
+              <button className="document-btn ms-4" onClick={handleShowModal}>
               Add Document
             </button>
           )}
@@ -92,7 +121,7 @@ const Document = () => {
         </div>
       </div>
 
-      <div className="body-container">
+      <div className="body-container" ref={documentRef}>
         <div className="container mt-4">
           <div className="table-container">
             <table className="table">

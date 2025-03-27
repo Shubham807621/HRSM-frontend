@@ -15,17 +15,13 @@ import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import { useAttendance } from "../../Pages/Attendance/AttendanceProvider";
-import { getEmployeeDetails, getEmployeeDetailsById, getLeaveCount, punchIn, punchOut } from "../../APIService/apiservice";
+import { getEmployeeDetails, getLeaveCount } from "../../APIService/apiservice";
 
 
 function EmployeeDashboard(){
 
         const { isPunchedIn, punchInTime, punchInDate, totalHours1, handlePunch } = useAttendance();
-    
-        console.log("Attendance Context:", useAttendance());
-   
-      
-    
+ 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState(2024);
     const years = Array.from({ length: 5 }, (_, i) => 2023 + i); // Years from 2020 to 2029
@@ -33,14 +29,8 @@ function EmployeeDashboard(){
     
     const totalHours = 9;
     const workedHours = 5.45;
-    
-    const [data, setData]  = useState([
-        { name: "Causal Leave", value: 12, color: "#002D3C" },
-        { name: "Earned Leave", value: 15, color: "#00C853" },
-        { name: "Planned Leave", value: 18, color: "#F57C00" },
-        { name: "Sick Leave", value: 14, color: "#D50000" },
-        { name: "Flexi Leave", value: 8, color: "#FFC107" },
-      ]);
+
+    const [data, setData] = useState([]);
     
     const data1 = [
         { name: "Worked", value: workedHours },
@@ -49,25 +39,17 @@ function EmployeeDashboard(){
 
     const COLORS = ["#002D3C", "#E0E0E0"]; // Blue for worked hours, grey for remaining
 
+    const [skills, setSkills]=useState([]);
 
-    /*my skills data*/
-    const skills=[
-        {name:"Figma", date:"Updated : 15May2025", percent:95, color:"#002D3C"},
-        {name:"HTML", date:"Updated : 12May2025", percent:95, color:"#00C853"},
-        {name:"CSS", date:"Updated : 13May2025", percent:95, color:"#F57C00"},
-        {name:"Word Press", date:"Updated : 13May2025", percent:65, color:"#D50000"},
-        {name:"Java Script", date:"Updated : 15May2025", percent:75, color:"#FFC107"},
-    ]
-
-    /*task data*/
-    const tasks = [
-        { name: "Patient appointment", status: "On hold", statusColor: "#E1BEE7", pinned: true },
-        { name: "Appointment booking", status: "In progress", statusColor: "#FFCCBC", pinned: false },
-        { name: "Patient and Doctor video", status: "Completed", statusColor: "#C8E6C9", pinned: false },
-        { name: "Private chat module", status: "Pending", statusColor: "#FFF9C4", pinned: false },
-        { name: "Go-live and post support", status: "In Progress", statusColor: "#FFAB91", pinned: false },
-        { name: "Private chat", status: "On hold", statusColor: "#E1BEE7", pinned: false },
-    ];
+  
+    const [tasks, setTasks] = useState([
+        { name: "Patient appointment", status: "On hold", statusColor: "#E1BEE7"},
+        { name: "Appointment booking", status: "In progress", statusColor: "#FFCCBC"},
+        { name: "Patient and Doctor video", status: "Completed", statusColor: "#C8E6C9" },
+        { name: "Private chat module", status: "Pending", statusColor: "#FFF9C4" },
+        { name: "Go-live and post support", status: "In Progress", statusColor: "#FFAB91" },
+        { name: "Private chat", status: "On hold", statusColor: "#E1BEE7"},
+    ]);
 
     const empList=[
         {name:"Alexander Jermai", role:"UI/UX Designer",img:"https://randomuser.me/api/portraits/men/32.jpg"},
@@ -84,7 +66,33 @@ function EmployeeDashboard(){
   
 
     const navigate = useNavigate();
+
+    useEffect(()=>{
+
+        const fetchleaveCount = async () =>{
     
+            try{
+                const respone = await getLeaveCount(empId, token);
+                console.log(respone);
+                  // Map API response to PieChart data format
+                const formattedData = [
+                    { name: "Causal Leave", value: respone.causalLeave, color: "#002D3C" },
+                    { name: "Earned Leave", value: respone.earnedLeave, color: "#00C853" },
+                    { name: "Planned Leave", value: respone.plannedLeave, color: "#F57C00" },
+                    { name: "Sick Leave", value: respone.sickLeave, color: "#D50000" },
+                    { name: "Flexi Leave", value: respone.flexiLeave, color: "#FFC107" },
+                ];
+
+                setData(formattedData);
+            }
+            catch (error) {
+                console.log(error)
+            }
+
+        };
+        fetchleaveCount();
+
+    },[empId, token])
 
     useEffect(()=>{
 
@@ -92,6 +100,9 @@ function EmployeeDashboard(){
     
             try{
                 const respone = await getEmployeeDetails(empId, token);
+                // console.log(respone.tasks);
+                setSkills(respone.skills)
+                setTasks(respone.tasks)
                 SetEmployee(respone);
 
             }
@@ -103,6 +114,8 @@ function EmployeeDashboard(){
         fetchEmployeeDetails();
 
     },[empId, token])
+
+  
     
 
     const handleButtonSubmit = ()=>{
@@ -110,7 +123,7 @@ function EmployeeDashboard(){
     }
 
     return(
-        <div className="empDashboard">
+        <div className="empDashboard ">
             <div className="titleE">
                 <h1>Employee Dashboard</h1>
             </div>
@@ -130,7 +143,7 @@ function EmployeeDashboard(){
                     <li className="breadcrumb-current">Employee Dashboard</li>
                 </ul>
             </div>
-            <div className="emp-container">
+            <div className="emp-container mb-4">
                 <div className="emp-cards">
 
                     {/* first card*/}
@@ -269,43 +282,43 @@ function EmployeeDashboard(){
 
                 <div className="roww-2">
                     <div className="emp-card">
-                    <div className="attendance-card">
-                        <h6>Attendance</h6>
-                        <h6 className="my-2">Good Morning, <b>{employee.name}</b></h6>
-                        <p><b>{punchInDate || "Not Punched In"}</b></p>
-                        <div className="chart-container1" >
-                        <PieChart width={220} height={180} className="piecha" >
-                            <Pie data={data1} cx="63%" cy="50%" innerRadius={70} outerRadius={80} 
-                                startAngle={90} endAngle={-270} fill="#8884d8" dataKey="value"  >
-                                {data1.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                                ))}
-                            </Pie>
-                        </PieChart>
-                        
-                            <p style={{
-                            transform: "translate(-139%, -0%)",
-                            fontSize: "14px",
+                        <div className="attendance-card">
+                            <h6>Attendance</h6>
+                            <h6 className="my-2">Good Morning, <b>{employee.name}</b></h6>
+                            <p><b>{punchInDate || "Not Punched In"}</b></p>
+                            <div className="chart-container1" >
+                            <PieChart width={220} height={180} className="piecha" >
+                                <Pie data={data1} cx="63%" cy="50%" innerRadius={70} outerRadius={80} 
+                                    startAngle={90} endAngle={-270} fill="#8884d8" dataKey="value"  >
+                                    {data1.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                                    ))}
+                                </Pie>
+                            </PieChart>
                             
-                        }}>Total Hours<br/><b>5:45:32</b></p>
-                        
+                                <p style={{
+                                transform: "translate(-139%, -0%)",
+                                fontSize: "14px",
+                                
+                            }}>Total Hours<br/><b>5:45:32</b></p>
                             
+                                
+                            </div>
+                            <p className="production-info">Production: {totalHours1} hrs</p>
+                            <p style={{ fontSize: '14px', paddingBottom: '5px' }}>
+                                {isPunchedIn ? `Punched In at ${punchInTime}` : "Not Punched In"}
+                            </p>
+                            {isPunchedIn ? (
+                                <>
+                            
+                                    <button onClick={handlePunch}>Punch Out</button>
+                                </>
+                            ) : (
+                                <button onClick={handlePunch}>Punch In</button>
+                            )}
                         </div>
-                        <p className="production-info">Production: {totalHours1} hrs</p>
-                        <p style={{ fontSize: '14px', paddingBottom: '5px' }}>
-                            {isPunchedIn ? `Punched In at ${punchInTime}` : "Not Punched In"}
-                        </p>
-                        {isPunchedIn ? (
-                            <>
-                          
-                                <button onClick={handlePunch}>Punch Out</button>
-                            </>
-                        ) : (
-                            <button onClick={handlePunch}>Punch In</button>
-                        )}
                     </div>
-                    </div>
-                    {/*row2 col2*/}
+                   
                     <div className="r2-c2">
                         <div className="insiderow">
                             <div className="emp-card">
@@ -404,8 +417,8 @@ function EmployeeDashboard(){
 
                 <div className="roww-3">
                     <div className="myskills">
-                        <div className="leave-header">
-                                <p>My Skills</p>
+                        <div className="leave-header my-2">
+                                <h5 >My Skills</h5>
                                 {/*calender*/}
                                 <div className="dropdown">
                                     <button
@@ -445,8 +458,8 @@ function EmployeeDashboard(){
                                 <div className="chart-container1" >
                                     <PieChart width={80} height={90} className="piecha" >
                                         <Pie data={[
-                                            { value: entry.percent },
-                                            { value: 100 - entry.percent },
+                                            { value: entry.percentage },
+                                            { value: 100 - entry.percentage },
                                             ]} 
                                             cx="50%" cy="60%" innerRadius={20} outerRadius={28} 
                                             startAngle={90} endAngle={-270} fill="#8884d8" dataKey="value"  
@@ -460,43 +473,38 @@ function EmployeeDashboard(){
                                     <b style={{
                                         transform: "translate(-180%, 40%)",
                                         fontSize: "11px",                                                                                          
-                                    }}>{entry.percent}%</b>
+                                    }}>{entry.percentage}%</b>
                                 </div>                                    
                             </div>
                         ))}
                     </div>
                     
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tasks</th>
-                                <th>All Projects</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div className="task-table">
+                    
+                        <div className="task-heading d-flex align-items-center justify-content-between">
+                            <h5 className="ps-5">Tasks</h5>
+                            <h5 className="pe-5">All Projects</h5>
+                        </div>
                             {tasks.map((task, index) => (
-                                <tr key={index}>
-                                    <td>
+                                <div key={index}className="d-flex align-items-center justify-content-between px-3 task-body" >
+                                    <div className="task-name ps-2 ">
                                         {task.name}
-                                    </td>
-                                    <td>
-                                        <span className="status" style={{ backgroundColor: task.statusColor }}>
+                                    </div>
+                                    <div className="task-status ">
+                                        <span className="status-label" style={{ backgroundColor: task.statusColor }}>
                                             {task.status}
                                         </span>
-                                        {/* <span className="avatars ms-2">
-                                            <img src={profilePic} alt="User 1" />
-                                            <img src={profilePic} alt="User 2" />
-                                            <img src={profilePic} alt="User 3" />
-                                        </span> */}
-                                    </td>
-                                </tr>
+                                       
+                                    </div>
+                                </div>
                             ))}
-                        </tbody>
-                    </table>
+                      
+                    </div>
+
 
                     <div className="team-member">
-                        <div className="leave-header">
-                                    <p>Team Members</p>
+                        <div className="leave-header my-2">
+                                    <h5>Team Members</h5>
                                     
                                     <div className="dropdown">
                                         <button

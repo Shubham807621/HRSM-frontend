@@ -1,11 +1,12 @@
-import React ,{useState}from "react";
+import React ,{useEffect, useState}from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 import profilePic from "../../../../Images/profilePic.jpeg"
 import { MdCalendarMonth } from "react-icons/md";
 import { MdEditSquare } from "react-icons/md";
 import './attendance.css'
+import { getEmployeesList } from "../../../APIService/apiservice";
 
-export default function AttendanceDashboard() {
+export default function AttendanceDashboard({}) {
 
   const profiles = [
     { id: 1, name: "Daniel Esbella", role: "UI/UX Designer", time:"🕒 09:15"},
@@ -20,10 +21,49 @@ export default function AttendanceDashboard() {
     { value: 15, color: "#FF0000" }, // Absent
   ];
 
+
   const [activeProfile, setActiveProfile] = useState(null);
+  const [employeeList, setEmployeeList] = useState([]);
+  const token = localStorage.getItem('token');
+
+
+   useEffect(()=>{
+  
+        const fetchEmployeesList = async () =>{
+        
+            try{
+            const respone = await getEmployeesList(token);
+            console.log(respone)
+            setEmployeeList(respone);
+            
+          }
+          catch (error) {
+            console.log(error)
+          }
+          
+        };
+        fetchEmployeesList();
+        
+      },[])
+      const departmentBgColors = {
+        Backend: "#EBF4FF",
+        Development: "#FAE7E7",
+        "Quality Assurance": "#F7EEF9",
+        DevOps: "#EBF4FF",
+        "UI/UX": "pink",
+      };
+      const departmenttextColors = {
+        Backend: "blue",
+        Development: "#E70D0D",
+        "Quality Assurance": "#AB47BC",
+        DevOps: "#1B84FF",
+        "UI/UX": "#E70D0D",
+      };
+
+
   return (
     <>
-    <div className="dashboard-container">                
+    <div className="dashboard-container mt-3">                
       <div className="cards-container">
         {/* Attendance Overview */}
         <div className="card">
@@ -143,7 +183,7 @@ export default function AttendanceDashboard() {
             <button className="view-details-small"> View All</button>
           </div>
           <div className="job-container">
-            <div className="job-header">
+            <div className="job-header mt-3">
               <p className="opening">Opening</p>
               <p className="applicants">Applicants</p>
             </div>
@@ -152,7 +192,19 @@ export default function AttendanceDashboard() {
                 <img src={profilePic} alt="Doglas"  style={{width:'40px', height:'40px'}}/>
                 <div>
                   <h5>Junior React Developer</h5>
-                  <p style={{fontSize:'10px'}}>No. Of Openings: 30</p>
+                  <p style={{fontSize:'12px'}}>No. Of Openings: 30</p>
+                </div>
+              </div>
+              <div>
+                <MdEditSquare/>
+              </div>
+            </div>
+            <div className="job-opening mt-2">
+              <div className="job-list">
+                <img src={profilePic} alt="Doglas"  style={{width:'40px', height:'40px'}}/>
+                <div>
+                  <h5>Junior React Developer</h5>
+                  <p style={{fontSize:'12px'}}>No. Of Openings: 30</p>
                 </div>
               </div>
               <div>
@@ -165,26 +217,37 @@ export default function AttendanceDashboard() {
 
         {/* Employees */}
         <div className="card">
-          <div className="card-header-emp">
+          <div className="card-header-emp ">
               <h6>Employees</h6>
               <button className="view-details-small"> View All</button>
           </div>
-          <div className="employee-data">
+          <div className="employee-data px-5">
             <p className="name">Employees Name</p>
             <p className="dept">Department</p>
           </div>
-          <div className="job-opening">
-              <div className="job-list">
-                <img src={profilePic} alt="Doglas"  style={{width:'40px', height:'40px'}}/>
-                <div>
-                  <h5>Nutan Kurkute</h5>
-                  <p style={{fontSize:'10px'}}>Java Developer</p>
-                </div>
+       
+             
+          {employeeList.slice(0, 4).map((emp, index) => (
+            <div className="employee-item" key={index}>
+              {/* <img src={emp.profilePic} alt={emp.name} className="profile-pic" /> */}
+              <div className="employee-details ms-5">
+                <p className="emp-title">{emp.name}</p>
+                <p className="designation">{emp.designation}</p>
               </div>
-              <div>
-                <p className="dept-box">Development</p>
-              </div>
-          </div>
+              <span
+                className="department-badge me-5"
+                style={
+                  {
+                     backgroundColor: departmentBgColors[emp.team] || "#FFEDF6",
+                     color: departmenttextColors[emp.team] || "#FD3995"
+
+                  }}
+              >
+                {emp.team}
+              </span>
+            </div>
+          ))}
+         
         </div>
       </div>
     </div>

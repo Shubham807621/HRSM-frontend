@@ -4,13 +4,14 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
-    /* background: linear-gradient(305deg, rgba(203,236,255,1) 0%, rgba(223,199,246,1) 71%); */
+    background-attachment:fixed ;
     margin: 0;
   }
 .header{
     width: 100%;
     z-index: 1000;
-    /* margin-left: 22%; */
+ 
+    position: fixed;
     height: 70px;
     background-color: rgb(255, 255, 255);
     display: flex;
@@ -24,7 +25,7 @@ a{
     color:black !important;
 }
 
-/* Search Box */
+
 .search-box {
     width: 280px;
     margin-left: 25%;

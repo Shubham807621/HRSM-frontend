@@ -43,6 +43,7 @@
     const hideElement = ["/", "/register", "/reset-password", "/verify", "/NewPassword"].includes(location.pathname);
     const userRole = localStorage.getItem("role");
 
+    const empID = localStorage.getItem("empId"); // Get logged-in employee ID
 
     
     const toggleMenu = (menu) => {
@@ -256,8 +257,8 @@
                 >
                   <p className="py-1">Employee List</p>
                 </Link>
-                <Link to='/employee-details'
-                    className={`submenu-item ${location.pathname === "/employee-details" ? "active" : ""}`}
+                <Link to={`/employee-details/${empID}`} 
+                    className={`submenu-item ${location.pathname === `/employee-details/${empID}`  ? "active" : ""}`}
                 >
                   <p className="py-1">Employee Details</p>
                 </Link>

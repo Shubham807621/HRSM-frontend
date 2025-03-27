@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./EmpLeave.css";
-import { Table, Form,  Modal, Button } from "react-bootstrap";
+import { Table, Form, Modal, Button } from "react-bootstrap";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { FaCalendarAlt, FaBriefcaseMedical, FaUmbrellaBeach, FaRegClipboard } from "react-icons/fa";
-
+import {
+  FaCalendarAlt,
+  FaBriefcaseMedical,
+  FaUmbrellaBeach,
+  FaRegClipboard,
+} from "react-icons/fa";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const leaveStats = [
   { title: "Annual Leaves", count: 5, remaining: 7, color: "dark", icon: <FaCalendarAlt /> },
@@ -17,8 +23,9 @@ const leaveStats = [
   { title: "Other Leaves", count: 7, remaining: 5, color: "pink", icon: <FaRegClipboard /> },
 ];
 
-
 export default function EmpLeave() {
+  const emLeaveRef = useRef();
+
   const [leaves, setLeaves] = useState([
     {
       id: 1,
@@ -57,38 +64,25 @@ export default function EmpLeave() {
       status: "Pending",
     },
   ]);
-  
-   // Modal state
-   const [showLeaveModal, setShowLeaveModal] = useState(false);
 
-   // Data state for leave form
-   const [leaveData, setLeaveData] = useState({
-     employee: "",
-     leaveType: "",
-     fromDate: "",
-     toDate: "",
-     days: "",
-     remainingDays: "",
-     reason: "",
-     status: "Pending",
-   });
- 
-   // Handling input changes in leave form
-   const handleInputChange = (e) => {
-     const { name, value } = e.target;
-     setLeaveData({ ...leaveData, [name]: value });
-   };
- 
-   // Handling save leave
-   const handleLeaveSave = () => {
-     console.log("Leave Data Submitted:", leaveData);
-     setShowLeaveModal(false);
-   };
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
 
+  const [leaveData, setLeaveData] = useState({
+    employee: "",
+    leaveType: "",
+    fromDate: "",
+    toDate: "",
+    reason: "",
+    status: "Pending",
+  });
 
-   const sendLeaveData = async () => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLeaveData({ ...leaveData, [name]: value });
+  };
+
+  const sendLeaveData = async () => {
     console.log("Sending Leave Data:", leaveData);
-
     try {
       const response = await fetch("/api/leave/add", {
         method: "POST",
@@ -102,27 +96,46 @@ export default function EmpLeave() {
       console.log("Response:", result);
       alert("Leave request submitted!");
 
-      setShowLeaveModal(false); // Close modal on success
+      setShowLeaveModal(false);
     } catch (error) {
       console.error("Error submitting leave:", error);
       alert("Failed to submit leave request.");
     }
   };
 
+  const downloadPDF = () => {
+    if (!emLeaveRef.current) return;
+
+    html2canvas(emLeaveRef.current, { scale: window.devicePixelRatio }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`leave_list.pdf`);
+    });
+  };
 
   return (
     <div className="mainempleave">
-              <div className="button-wrapper1 mt-2">
-                <h1 className="titleE">Employee Leave</h1>
+      <div className="button-wrapper1 mt-2">
+        <h1 className="titleE">Employee Leave</h1>
 
-                {/* Right Section: Buttons */}
-                <div className="button-wrapper d-flex">
-                  <Button className="export-btn">
-                    <FileDownloadIcon className="icon" />
-                    Export <ExpandMoreIcon className="expand-icon" />
-                  </Button>
+        <div className="button-wrapper d-flex">
+          <div>
+            <Form.Select
+              onChange={(e) => {
+                if (e.target.value === "pdf") {
+                  downloadPDF();
+                  e.target.value = "";
+                }
+              }}
+            >
+              <option value="">Export</option>
+              <option value="pdf">PDF</option>
+            </Form.Select>
+          </div>
 
-                  {/* Add Leave Button */}
           <Button className="add-employee-btn" onClick={() => setShowLeaveModal(true)}>
             <AddIcon className="icon" />
             Add Leave
@@ -130,72 +143,62 @@ export default function EmpLeave() {
         </div>
       </div>
 
-                {/* Add Leave Modal */}
-                <Modal show={showLeaveModal} onHide={() => setShowLeaveModal(false)} centered>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Add Employee Leave</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <Form>
-                          {/* Employee Name */}
-                          <Form.Group className="mb-3">
-                            <Form.Label>Employee Name</Form.Label>
-                            <Form.Select name="employee" onChange={handleInputChange}>
-                              <option>Select Employee</option>
-                              <option>John Doe</option>
-                              <option>Jane Smith</option>
-                              <option>Brian Villalobos</option>
-                            </Form.Select>
-                          </Form.Group>
+      {/* Add Leave Modal */}
+      <Modal show={showLeaveModal} onHide={() => setShowLeaveModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Employee Leave</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Employee Name</Form.Label>
+              <Form.Select name="employee" onChange={handleInputChange}>
+                <option>Select Employee</option>
+                <option>John Doe</option>
+                <option>Jane Smith</option>
+                <option>Brian Villalobos</option>
+              </Form.Select>
+            </Form.Group>
 
-                          {/* Employee Email Address */}
-                          <Form.Group className="mb-3">
-                            <Form.Label>Employee Email</Form.Label>
-                            <Form.Control type="email" name="employeeEmail" placeholder="Enter employee email" onChange={handleInputChange} />
-                          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Leave Type</Form.Label>
+              <Form.Select name="leaveType" onChange={handleInputChange}>
+                <option>Select Leave Type</option>
+                <option>Sick Leave</option>
+                <option>Casual Leave</option>
+                <option>Annual Leave</option>
+              </Form.Select>
+            </Form.Group>
 
-                          {/* Leave Type */}
-                          <Form.Group className="mb-3">
-                            <Form.Label>Leave Type</Form.Label>
-                            <Form.Select name="leaveType" onChange={handleInputChange}>
-                              <option>Select Leave Type</option>
-                              <option>Sick Leave</option>
-                              <option>Casual Leave</option>
-                              <option>Annual Leave</option>
-                            </Form.Select>
-                          </Form.Group>
+            <div className="d-flex gap-2">
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>From</Form.Label>
+                <Form.Control type="date" name="fromDate" onChange={handleInputChange} />
+              </Form.Group>
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>To</Form.Label>
+                <Form.Control type="date" name="toDate" onChange={handleInputChange} />
+              </Form.Group>
+            </div>
 
-                          {/* From & To Date */}
-                          <div className="d-flex gap-2">
-                            <Form.Group className="mb-3 w-50">
-                              <Form.Label>From</Form.Label>
-                              <Form.Control type="date" name="fromDate" onChange={handleInputChange} />
-                            </Form.Group>
-                            <Form.Group className="mb-3 w-50">
-                              <Form.Label>To</Form.Label>
-                              <Form.Control type="date" name="toDate" onChange={handleInputChange} />
-                            </Form.Group>
-                          </div>
-
-                          {/* Reason for Leave */}
-                          <Form.Group className="mb-3">
-                            <Form.Label>Reason</Form.Label>
-                            <Form.Control as="textarea" name="reason" rows={2} onChange={handleInputChange} />
-                          </Form.Group>
-                        </Form>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShowLeaveModal(false)}>
-                          Cancel
-                        </Button>
-                        <Button
-                          style={{ backgroundColor: "orange", borderColor: "orange", color: "white" }}
-                          onClick={() => sendLeaveData(leaveData)} // Send API Request
-                        >
-                          Add Leave
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
+            <Form.Group className="mb-3">
+              <Form.Label>Reason</Form.Label>
+              <Form.Control as="textarea" name="reason" rows={2} onChange={handleInputChange} />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowLeaveModal(false)}>
+            Cancel
+          </Button>
+          <Button
+            style={{ backgroundColor: "orange", borderColor: "orange", color: "white" }}
+            onClick={sendLeaveData}
+          >
+            Add Leave
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
 
               {/* Breadcrumb Navigation */}
@@ -261,7 +264,7 @@ export default function EmpLeave() {
                   </div>
                 </div>
 
-                            <div className="table-responsive">
+                            <div className="table-responsive" ref={emLeaveRef}>
                             <Table hover className="align-middle">
                                 <thead className="table-light">
                                 <tr>

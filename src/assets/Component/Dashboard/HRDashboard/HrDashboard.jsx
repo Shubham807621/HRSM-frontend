@@ -4,9 +4,37 @@ import HomeIcon from '@mui/icons-material/Home';
 import "./hrStyle.css"
 import AttendanceDashboard from './Attendance/AttendanceDashboard.jsx';
 import { Link } from 'react-router-dom';
+import { getEmployeeDashboardDetails } from '../../APIService/apiservice.jsx';
 
 export default function HrDashboard() {
 
+
+  const token = localStorage.getItem('token');
+  const empId = localStorage.getItem('empId');
+  const [employee ,SetEmployee] = useState({})
+
+   useEffect(()=>{
+  
+          const fetchEmployeeDetails = async () =>{
+      
+              try{
+                  const respone = await getEmployeeDashboardDetails(empId, token);
+                 
+                  SetEmployee(respone)
+                  
+  
+              }
+              catch (error) {
+                  console.log(error)
+              }
+  
+          };
+          fetchEmployeeDetails();
+  
+      },[empId, token])
+
+
+      // console.log(employee);
   return (
     <>
            <div className='HR-dashboard-wrapper'>
@@ -32,12 +60,12 @@ export default function HrDashboard() {
                     <img src='https://randomuser.me/api/portraits/men/32.jpg' alt="profile pic" width={50} height={50}/>
                   </div>
                   <div className='info-wrapper'>
-                      <h5 >Welcome Back, Username</h5>
-                      <p >You have <span>pending</span> pending Approvals & <span>requests</span> Leave Requests</p>
+                      <h5 >Welcome Back, {employee.name}</h5>
+                      <p >You have  pending Approvals &  Leave Requests</p>
                   </div>
               </div>
                 <Department/>
-                <AttendanceDashboard/>
+                <AttendanceDashboard />
            </div>
     </>
   )

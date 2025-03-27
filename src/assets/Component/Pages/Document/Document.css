@@ -20,8 +20,15 @@
 .document-wrap .header-container .header-right-left .header-container-right .homeicon-document .document{
     color: gray;
 }
+
+
+.document-wrap .header-container .header-right-left .header-container-left .export-btn .form-select{
+        height: 40px;
+        
+}
 .document-wrap .header-container .header-right-left .header-container-left  .document-btn{
-    padding: 10px;
+    width: 150px;
+  
     color: white;
     background-color: orangered;
     border-radius: 5px;

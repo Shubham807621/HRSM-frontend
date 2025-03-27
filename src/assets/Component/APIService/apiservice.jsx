@@ -71,7 +71,7 @@ export const confirmPassword= async (body) =>{
 export const getDocument = async (token)=>{
 
     const url = `${API_BASE_URL}${API_URLs.GETDOC}`
-
+    console.log(token)
 
     try{
 
@@ -306,6 +306,27 @@ export const getEmployeeDetails = async(empId,token) =>{
 
 }
 
+export const getEmployeeDashboardDetails = async(empId,token) =>{
+
+    const url = `${API_BASE_URL}${API_URLs.Get_HR_Dashboard_Details}/${empId}`
+    // console.log(url);
+    try{
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+         );
+         return response.data;
+
+    }catch(error){
+        console.error('Error:', error.response || error.message);
+        return [];
+    }
+
+}
 export const sendSupportRequest = async (body, token) => {
 
     const url = `${API_BASE_URL}${API_URLs.Support}`;
@@ -412,14 +433,14 @@ export const punchOut = async (token,empId)=>{
 
 export const getLeaveCount = async (empId,token)=>{
 
-    const url = `${API_BASE_URL}${API_URLs.Punch_Out}/${empId}`;
-    // console.log(url);
-    // console.log(token);
+    const url = `${API_BASE_URL}${API_URLs.Leave_Count}/${empId}`;
+    console.log(url);
+    console.log(token);
     // console.log(empId);
 
     try{
 
-        const response = await axios .get(url,{},
+        const response = await axios .get(url,
             {headers:
                 {
                     Authorization: `Bearer ${token}`,
@@ -427,7 +448,7 @@ export const getLeaveCount = async (empId,token)=>{
                 }
             }
         )
-        // console.log(response);
+        console.log(response);
         return response.data;
 
     } catch(error){

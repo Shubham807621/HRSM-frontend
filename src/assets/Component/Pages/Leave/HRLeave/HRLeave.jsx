@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import './HrLeave.css'
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
@@ -9,10 +9,13 @@ import { FaUserCheck, FaUserTimes, FaUserClock, FaUsers } from "react-icons/fa";
 import { Button } from '@mui/material';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Table, Form, Pagination} from "react-bootstrap";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 
 export default function HRLeave() 
 {
+    const hrLeaveRef = useRef();
     const stats = [
         { title: "Total Present", count: "180/200", icon: <FaUserCheck />, color: "#03c95a" },
         { title: "Planned Leaves", count: "10", icon: <FaUsers />, color: "#fd3995" },
@@ -62,6 +65,19 @@ export default function HRLeave()
           currentPage * itemsPerPage
         );
   
+
+            const downloadPDF = () => {
+                if (!hrLeaveRef.current) return;
+            
+                html2canvas(hrLeaveRef.current, { scale: window.devicePixelRatio }).then((canvas) => {
+                  const imgData = canvas.toDataURL("image/png");
+                  const pdf = new jsPDF("p", "mm", "a4");
+                  const pdfWidth = pdf.internal.pageSize.getWidth();
+                  const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                  pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+                  pdf.save('hrLeave_list.pdf');
+                });
+              };
     return (
     
     <>
@@ -71,10 +87,17 @@ export default function HRLeave()
                  {/* Right Section: Buttons */}
                 
                  <div className="button-wrapper d-flex">
-                   <Button className="export-btn">
-                      <FileDownloadIcon className="icon" />
-                      Export <ExpandMoreIcon className="expand-icon"/>
-                    </Button>
+                   <Form.Select
+                                 onChange={(e) => {
+                                   if (e.target.value === 'pdf') {
+                                     downloadPDF();
+                                     e.target.value = '';
+                                   }
+                                 }}
+                               >
+                                 <option value="">Export</option>
+                                 <option value="pdf">PDF</option>
+                               </Form.Select>
                     <Button className="add-employee-btn">
                       <AddIcon className="icon" />
                       Add Leave
@@ -134,7 +157,7 @@ export default function HRLeave()
                     </div>
 
                     {/* Table Section */}
-                    <div className="table-responsive">
+                    <div className="table-responsive" ref={hrLeaveRef}>
                         <Table  hover className="align-middle">
                         <thead className="table-light">
                             <tr>

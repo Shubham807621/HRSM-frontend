@@ -76,7 +76,7 @@
   .empDashboard .emp-container .emp-cards{
       display: flex;
       gap: 20px;
-  
+      
   }
   
   /*first card*/
@@ -85,6 +85,7 @@
       border: 1px solid rgba(128, 128, 128, 0.514);
       border-radius: 10px;
       background-color: white;
+      box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
   }
   
   .empDashboard .emp-container .emp-cards .emp-card .emp-header{
@@ -156,6 +157,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+    
   }
   
   .empDashboard .emp-container .emp-cards .emp-card .leave-summary .summary-grid{
@@ -196,6 +198,7 @@
     text-align: center;
     font-family: Arial, sans-serif;
     border: 1px solid rgba(128, 128, 128, 0.514);
+    box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
   }
   
   .empDashboard .emp-container .roww-2 .emp-card .attendance-card h6 {
@@ -265,6 +268,7 @@
     border-radius: 10px;
     border: 1px solid rgba(128, 128, 128, 0.514);
     flex: 1;
+    box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
   }
   
   /*timeline*/
@@ -275,6 +279,7 @@
     border-radius: 8px;
     border: 1px solid rgba(128, 128, 128, 0.514);
     flex: 1;
+    box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
   }
   
   /*roww-3*/
@@ -286,8 +291,10 @@
   /*myskills*/
   .empDashboard .emp-container .roww-3 .myskills{
     flex: 1;
+    background-color: white;
     border: 1px solid rgba(128, 128, 128, 0.514);
     border-radius: 8px;
+    box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
   }
   
   .empDashboard .emp-container .roww-3 .leave-header{
@@ -333,64 +340,50 @@
   
   
   /*tasks*/
-  .empDashboard .emp-container .roww-3 table {
-    flex: 1.5;
-    border-radius: 8px;
-    border-collapse: collapse;
+  .empDashboard .emp-container .roww-3 .task-table {
+    width: 38%;
+   
     background: white;
     border-radius: 8px;
-    overflow: hidden;
-    outline: 1px solid #5555555f; /* Outer outline border */
-  }
+
+    outline: 1px solid #0000005b;
+    box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
+}
+ 
+.empDashboard .emp-container .roww-3 .task-table .task-heading{
+  height: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.253);
+}
+
+.empDashboard .emp-container .roww-3 .task-table .task-body{
+  height: auto ;
+  margin: 20px 10px;
+  border-radius: 8px;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.201);
   
-  .empDashboard .emp-container .roww-3 table th, td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .empDashboard .emp-container .roww-3 table th {
-    background: #f9f9f9;
-    font-weight: bold;
-  }
-  
-  .empDashboard .emp-container .roww-3 table tr:last-child td {
-    border-bottom: none;
-  }
-  
-  .empDashboard .emp-container .roww-3 table tbody tr td .checkbox {
-    margin-right: 8px;
-    transform: scale(1.2);
-  }
-  
-  .empDashboard .emp-container .roww-3 table tbody tr td .pin-icon {
-    margin-right: 5px;
-    font-size: 14px;
-  }
-  
-  .empDashboard .emp-container .roww-3 table tbody tr td .status {
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-    margin-right: 20px;
-  }
-  
-  .empDashboard .emp-container .roww-3 table tbody tr td  .avatars img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    margin-left: -8px;
-    border: 2px solid white;
-  }
+  /* padding-top: 20px; */
+ /* background-color: #008d45; */
+
+}
+.empDashboard .emp-container .roww-3 .task-table .task-body .task-name{
+ width: 70%;
+ padding: 5px;
+ /* height: 50px; */
+}
+.empDashboard .emp-container .roww-3 .task-table .task-body .task-status{
+  width: 30%;
+  padding: 5px;
+  /* height: 50px; */
+ }
 
   
 .empDashboard .emp-container .roww-3 .team-member{
   flex: 1;
+  background-color: white;
   border: 1px solid rgba(128, 128, 128, 0.514);
   border-radius: 8px;
+  box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
 }
 .empDashboard .emp-container .roww-3 .team-member .custom-legend .chart-container1 {
   display: flex;
