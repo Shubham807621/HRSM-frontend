@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./HrAttendance.css"
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
@@ -10,56 +10,14 @@ import { getAttendanceList } from '../../../APIService/apiservice';
 
 function HrAttendance(){
     const token = localStorage.getItem('token')
-    const employees = [
-        {
-          name: "Anthony Lewis",
-          role: "Manager",
-          email: "anthony@example.com",
-          CheckIn: "09:00 AM",
-          Status: "Present",
-          CheckOut: "09:17 PM",
-          Production: "8.35Hrs",
-          profileImg: "https://randomuser.me/api/portraits/men/32.jpg",
-        },
-        // Duplicate entries for display (mock data)
-        {
-            name: "Anthony Lewis",
-            role: "Manager",
-            email: "anthony@example.com",
-            CheckIn: "09:00 AM",
-            Status: "Present",
-            CheckOut: "09:17 PM",
-            Production: "8.35Hrs",
-            profileImg: "https://randomuser.me/api/portraits/men/32.jpg",
-          },
-          {
-            name: "Anthony Lewis",
-            role: "Manager",
-            email: "anthony@example.com",
-            CheckIn: "09:00 AM",
-            Status: "Present",
-            CheckOut: "09:17 PM",
-            Production: "8.35Hrs",
-            profileImg: "https://randomuser.me/api/portraits/men/32.jpg",
-          },
-          {
-            name: "Anthony Lewis",
-            role: "Manager",
-            email: "anthony@example.com",
-            CheckIn: "09:00 AM",
-            Status: "Present",
-            CheckOut: "09:17 PM",
-            Production: "8.35Hrs",
-            profileImg: "https://randomuser.me/api/portraits/men/32.jpg",
-          },
-          
-      ];
+    const [employees, setEmployees ]= useState([]);
 
     useEffect(() => {
         const fetchAttendanceList = async () => {
         try {
             const response = await getAttendanceList(token);
             console.log(response);
+            setEmployees(response);
         } catch (error) {
             console.error("Error fetching documents:", error);
         }
@@ -67,6 +25,10 @@ function HrAttendance(){
         fetchAttendanceList();
     }, []);
 
+    const totalMinutes = Math.round(employees.totalHours * 60); // Convert to minutes
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`; // Format as HH:MM
 
     return(
     <div className='hr-attendance'>
@@ -157,56 +119,63 @@ function HrAttendance(){
                     <table className="table table-hover align-middle">
                         <thead>
                         <tr>
-                            <th><input type="checkbox" /></th>
-                            <th>Employee</th>
+                
+                            <th className='ps-4'>Employee</th>
                             <th>Check In</th>
                             <th>Check Out</th>
                             <th>Status</th>
                             <th>Production Hours</th>
-                            <th>Action</th>
                         </tr>
                         </thead>
-                    <tbody>
-                    {employees.map((emp, index) => (
+                        <tbody>
+                    {employees.map((emp, index) => {
+                        // Convert totalHours to HH-MM format
+                        const totalMinutes = Math.round(emp.totalHours * 60); // Convert to minutes
+                        const hours = Math.floor(totalMinutes / 60);
+                        const minutes = totalMinutes % 60;
+                        const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`; // Format as HH:MM
+
+                        return (
                         <tr key={index}>
-                            <td><input type="checkbox" /></td>
-                            <td>
-                                <div className="d-flex align-items-center">
-                                <img
-                                    src={emp.profileImg}
-                                    alt="Profile"
-                                    className="rounded-circle me-2"
-                                    width="40"
-                                    height="40"
-                                />
+                            <td className='ps-4'>
+                            <div className="d-flex align-items-center">
                                 <div>
-                                    <p className='emp-title my-0'>{emp.name}</p>
-                                    <p className="text-muted my-0">{emp.role}</p>
+                                <p className='emp-title my-0'>{emp.name}</p>
+                                <p className="text-muted my-1" style={{ fontSize: '13px' }}>{emp.designation}</p>
                                 </div>
-                                </div>
+                            </div>
                             </td>
-                            <td style={{color:'gray'}}>{emp.CheckIn}</td>
-                            <td style={{color:'gray'}}>{emp.CheckOut}</td>
+                            <td style={{ color: 'gray' }}>{emp.punchIn}</td>
+                            <td style={{ color: 'gray' }}>{emp.punchOut}</td>
                             <td>
-                                <span
-                                    className="badge"
-                                    style={{ backgroundColor: emp.Status === "Present" ? "#62d59d7f" : "#dc3545", color: emp.Status === "Present" ? "#2c6e4ed5" : "white" }}
-                                >
-                                    {emp.Status}
-                                </span>
-                                </td>
-                            <td>
-                                <span 
-                                    style={{backgroundColor:"#03c95a", color: "white", padding:'5px',borderRadius:'5px', fontSize:'13px', fontWeight:'bold'}}>
-                                    <AccessTimeIcon fontSize="inhert" style={{paddingBottom:'1px'}}/> {emp.Production}
-                                </span></td>
-                            <td>
-                                <EditIcon className="fs-5 me-2 cursor-pointer" />
+                            <span
+                                className="badge"
+                                style={{
+                                backgroundColor: emp.present ? "#62d59d7f" : "#dc3545",
+                                color: emp.present ? "#2c6e4ed5" : "white"
+                                }}
+                            >
+                                {emp.present ? "Present" : "Absent"}
+                            </span>
                             </td>
-                            
+                            <td>
+                            <span
+                                style={{
+                               
+                                padding: '5px',
+                                borderRadius: '5px',
+                                fontSize: '13px',
+                                fontWeight: 'bold'
+                                }}
+                            >
+                                <AccessTimeIcon fontSize="inherit" style={{ paddingBottom: '1px' }} /> {formattedTime} hrs
+                            </span>
+                            </td>
                         </tr>
-                    ))}
+                        );
+                    })}
                     </tbody>
+
                 </table>
                 </div>
 

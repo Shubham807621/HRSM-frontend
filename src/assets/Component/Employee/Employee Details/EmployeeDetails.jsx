@@ -17,7 +17,7 @@ import "./EmployeeDetails.css";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import CustomeModal from "../Modal/CustomeModal";
-import { getEmployeeDetailsById } from "../../APIService/apiservice";
+import { getEmployeeDetailsById, updateBasicInfo, updateEducationInfo, updateExperienceInfo, updateFamilyInfo } from "../../APIService/apiservice";
 import { format } from "date-fns";
 
 function EmployeeDetails() {
@@ -41,24 +41,30 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
   const handleEducationSave = (updatedData) =>{
     setShowEducationModal(false);
     setEducationData(updatedData)
+    UpdateEducationInfoDetails(updatedData);
   }
   
   const handleExperienceSave = (updatedData) =>{
     setShowExperienceModal(false);
     setExperienceData(updatedData)
+    UpdateExperienceInfoDetails(updatedData);
   }
 
 
   const handleFamilySave = (updatedData) => {
     setFamilyData(updatedData);
     setShowFamilyModal(false);
+    UpdateFamilyInfoDetails(updatedData);
   };
 
   const handleSave1 = (updatedData) => {
     setBankData(updatedData);
     setShowModal(false);
+    UpdateBasicInfoDetails(updatedData);
   };
 
+
+  // Get Employee Details
     useEffect(() => {
       const fetchEmployeeDetails = async () => {
           try {
@@ -77,7 +83,7 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
   
       fetchEmployeeDetails();
   }, [empId, empID, token]);
-    console.log(employee);
+    // console.log(employee);
     
   const formatDate = (dateString) => {
     if (!dateString) return "N/A"; // Handle empty date values
@@ -85,6 +91,47 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
     return format(date, "yyyy / MMM / dd"); // Format as YYYY-Month-DD
   };
 
+
+  // To update Employee Details
+ 
+    const UpdateBasicInfoDetails = async (updatedData) => {
+        try {
+             const response = await updateBasicInfo(token, updatedData, empId);
+            // console.log(response)
+        
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const UpdateEducationInfoDetails = async (updatedData) => {
+        try {
+             const response = await updateEducationInfo(token, updatedData, empId);
+            // console.log(response)
+        
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const UpdateFamilyInfoDetails = async (updatedData) => {
+        try {
+             const response = await updateFamilyInfo(token, updatedData, empId);
+            // console.log(response)
+        
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const UpdateExperienceInfoDetails = async (updatedData) => {
+        try {
+             const response = await updateExperienceInfo(token, updatedData, empId);
+            // console.log(response)
+        
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+  // console.log(employee);
   return (
     <>
       <div className="employeedetails-wrapper">
@@ -94,14 +141,8 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
             </Button>
             <h3 className="page-title">Employee Details</h3>
           </div>
-        
-          <div className="button-container">
-            <button className="bank-button">
-              <AddCircleOutlineIcon /> Bank & Statutory
-            </button>
-          </div>
 
-          <div className="container d-flex justify-content-between mt-2">
+          <div className="container d-flex justify-content-between mt-4">
       
             <div className="main-content">
               {/* Left - Profile Card */}
@@ -257,7 +298,7 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                 title="Edit Bank Information" 
                 fields={[
                   { name: "bankName", label: "Bank Name", required: true },
-                  { name: "accountNo", label: "Bank Account No" },
+                  { name: "accountNumber", label: "Bank Account No" },
                   { name: "ifscCode", label: "IFSC Code" },
                   { name: "branch", label: "Branch Address" }
                 ]}
@@ -283,11 +324,15 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                             <div className="col-md-3 pe-0 bank-info-value">{formatDate(familyData.dob)}</div>
                             <div className="col-md-3 pe-0 bank-info-value">{familyData.phoneNumber}</div>
                           </div>
-                          <div className="mt-3 text-end">
-                            <button className="btn btn-warning btn-sm" onClick={() => setShowFamilyModal(true)}>
-                              Edit  Family Information
-                            </button>
-                          </div>
+                          {/* ✅ Show Edit Button Only if Viewing Own Profile */}
+                          {isOwnProfile && (
+                        <div className="mt-3 text-end">
+                          <button className="btn btn-warning btn-sm" onClick={() => setShowModal(true)}>
+                            Edit Family Details
+                          </button>
+                        </div>
+                            
+                          )}
                       </div>
                     </div>
                     <CustomeModal 
@@ -349,9 +394,14 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                             </div>
                           ))}
                         </div>
-                          <button className="btn btn-warning btn-sm" onClick={() => setShowEducationModal(true)}>
-                              Edit Education Information
+                        {isOwnProfile && (
+                        <div className="mt-3 text-end">
+                          <button className="btn btn-warning btn-sm" onClick={() => setShowModal(true)}>
+                            Edit Education Details
                           </button>
+                        </div>
+                            
+                          )}
                         </div>
                       </div>
 
@@ -411,9 +461,14 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                                   </div>
                                 ))}
                               </div>
-                              <button className="btn btn-warning btn-sm" onClick={() => setShowExperienceModal(true)}>
-                                  Edit Experience Information
-                              </button>
+                              {isOwnProfile && (
+                        <div className="mt-3 text-end">
+                          <button className="btn btn-warning btn-sm" onClick={() => setShowModal(true)}>
+                            Edit Experience Details
+                          </button>
+                        </div>
+                            
+                          )}
                         </div>
                       </div>
                       <CustomeModal 

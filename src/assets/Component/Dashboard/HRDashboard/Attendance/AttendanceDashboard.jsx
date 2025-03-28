@@ -63,7 +63,7 @@ export default function AttendanceDashboard({}) {
 
   return (
     <>
-    <div className="dashboard-container mt-3">                
+    <div className="dashboard-container my-3">                
       <div className="cards-container">
         {/* Attendance Overview */}
         <div className="card">
@@ -177,7 +177,7 @@ export default function AttendanceDashboard({}) {
 
 
         {/* Jobs Applicants */}
-        <div className="card">
+        <div className="card" style={{height:"370px"}}>
           <div className="card-header">
             <h6>Job Applicants</h6>
             <button className="view-details-small"> View All</button>
@@ -216,7 +216,7 @@ export default function AttendanceDashboard({}) {
 
 
         {/* Employees */}
-        <div className="card">
+        <div className="card mb-5">
           <div className="card-header-emp ">
               <h6>Employees</h6>
               <button className="view-details-small"> View All</button>
@@ -227,7 +227,7 @@ export default function AttendanceDashboard({}) {
           </div>
        
              
-          {employeeList.slice(0, 4).map((emp, index) => (
+          {employeeList.slice(0, 3).map((emp, index) => (
             <div className="employee-item" key={index}>
               {/* <img src={emp.profilePic} alt={emp.name} className="profile-pic" /> */}
               <div className="employee-details ms-5">

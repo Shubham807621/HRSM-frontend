@@ -454,15 +454,10 @@ export const addRole = async (roleData, token) => {
       throw error;
     }
 };
-export const updateRole = async (updateData, token) => {
+export const updateRole = async (updateData) => {
     const url = `${API_BASE_URL}${API_URLs.EDITROLE}`;
     try {
-      const response = await axios.put(url, updateData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.put(url, updateData);
       return response.data;
     } catch (error) {
       console.error('Error updating role:', error.response || error.message);
@@ -521,6 +516,193 @@ export const getAttendanceListById = async (token, empId)=>{
     try{
 
         const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+
+export const getLeaveById = async (token, empId)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.EMP_Leave_list}/${empId}`
+    // console.log(token)
+
+    try{
+
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+
+export const getLeaveList = async (token)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.EMP_Leave_list}`
+    // console.log(token)
+
+    try{
+
+        const response = await axios .get(url,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+export const updateBasicInfo = async (token, body, empId)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.Update_bank_Info}/${empId}`
+    // console.log(token)
+
+    try{
+
+        const response = await axios .put(url,body,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+export const updateEducationInfo = async (token, body, empId)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.Update_education_Info}/${empId}`
+    // console.log(token)
+
+    try{
+
+        const response = await axios .put(url,body,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+export const updateExperienceInfo = async (token, body, empId)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.Update_experience_Info}/${empId}`
+    // console.log(token)
+
+    try{
+
+        const response = await axios .put(url,body,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+export const updateFamilyInfo = async (token, body, empId)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.Update_family_Info}/${empId}`
+    // console.log(token)
+
+    try{
+
+        const response = await axios .put(url,body,
+            {headers:
+                {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+export const getUserList = async ()=>{
+
+    const url = `${API_BASE_URL}${API_URLs.User_List}`
+    // console.log(token)
+
+    try{
+
+        const response = await axios .get(url)
+
+        return response.data;
+
+    } catch(error){
+        console.error('Error:', error.response || error.message);
+        throw error;
+    }
+
+}
+export const updateLeaveStatus = async (token, body, id, empId)=>{
+
+    const url = `${API_BASE_URL}${API_URLs.update_leave}/${empId}/${id}/status`
+    console.log(url);
+
+    try{
+
+        const response = await axios .put(url,body,
             {headers:
                 {
                     Authorization: `Bearer ${token}`,

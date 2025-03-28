@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState,useRef, useEffect } from "react";
 import './HrLeave.css'
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
@@ -11,11 +11,14 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Table, Form, Pagination} from "react-bootstrap";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { getLeaveList, updateLeaveStatus } from "../../../APIService/apiservice";
 
 
 export default function HRLeave() 
 {
     const hrLeaveRef = useRef();
+    const [leaveData, setLeaveData ]= useState([]);
+
     const stats = [
         { title: "Total Present", count: "180/200", icon: <FaUserCheck />, color: "#03c95a" },
         { title: "Planned Leaves", count: "10", icon: <FaUsers />, color: "#fd3995" },
@@ -23,39 +26,6 @@ export default function HRLeave()
         { title: "Pending Requests", count: "15", icon: <FaUserClock />, color: "#0dcaf0" },
       ];
   
-      const leaveData = [
-        {
-          id: 1,
-          name: "Anthony Lewis",
-          role: "Finance",
-          leaveType: "Medical Leave",
-          from: "14 Jan 2024",
-          to: "15 Jan 2024",
-          days: "2 Days",
-          profileImg: "https://randomuser.me/api/portraits/men/1.jpg",
-        },
-        {
-          id: 2,
-          name: "Brian Villalobos",
-          role: "Developer",
-          leaveType: "Casual Leave",
-          from: "21 Jan 2024",
-          to: "25 Jan 2024",
-          days: "5 Days",
-          profileImg: "https://randomuser.me/api/portraits/men/2.jpg",
-        },
-        {
-          id: 3,
-          name: "Harvey Smith",
-          role: "Developer",
-          leaveType: "Medical Leave",
-          from: "20 Feb 2024",
-          to: "22 Feb 2024",
-          days: "3 Days",
-          profileImg: "https://randomuser.me/api/portraits/men/3.jpg",
-        },
-    
-      ];
         const [currentPage, setCurrentPage] = useState(1);
         const itemsPerPage = 3;
       
@@ -66,43 +36,77 @@ export default function HRLeave()
         );
   
 
-            const downloadPDF = () => {
-                if (!hrLeaveRef.current) return;
-            
-                html2canvas(hrLeaveRef.current, { scale: window.devicePixelRatio }).then((canvas) => {
-                  const imgData = canvas.toDataURL("image/png");
-                  const pdf = new jsPDF("p", "mm", "a4");
-                  const pdfWidth = pdf.internal.pageSize.getWidth();
-                  const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-                  pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-                  pdf.save('hrLeave_list.pdf');
-                });
-              };
+    const downloadPDF = () => {
+        if (!hrLeaveRef.current) return;
+    
+        html2canvas(hrLeaveRef.current, { scale: window.devicePixelRatio }).then((canvas) => {
+          const imgData = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("p", "mm", "a4");
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+          pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+          pdf.save('hrLeave_list.pdf');
+        });
+      };
+
+      const token = localStorage.getItem('token');
+    
+    
+        useEffect(() => {
+          const fetchLeaveList = async () => {
+            try {
+              const response = await getLeaveList(token);
+              console.log(response);
+              setLeaveData(response);
+            } catch (error) {
+              console.error("Error fetching documents:", error);
+            }
+          };
+          fetchLeaveList();
+        }, [token]);
+
+        const handleAction = async (status, id , empId,) => {
+          try{
+              const response = await updateLeaveStatus(token, status, id, empId);
+              setLeaveData((prevLeaveData) =>
+                prevLeaveData.map((leave) =>
+                  leave.id === id ? { ...leave, status } : leave
+                )
+              );
+              
+          }
+          catch (error) {
+            console.error("Error fetching documents:", error);
+          }
+      };
+  
+
+
+
+
+
     return (
     
     <>
         <div className="mainhrleave">
-        <div className="button-wrapper1 mt-2">
+        <div className="button-wrapper1 mt-2 ">
                 <h1 className="titleE">HR Leave</h1>
-                 {/* Right Section: Buttons */}
-                
-                 <div className="button-wrapper d-flex">
-                   <Form.Select
-                                 onChange={(e) => {
-                                   if (e.target.value === 'pdf') {
-                                     downloadPDF();
-                                     e.target.value = '';
-                                   }
-                                 }}
-                               >
-                                 <option value="">Export</option>
-                                 <option value="pdf">PDF</option>
-                               </Form.Select>
-                    <Button className="add-employee-btn">
-                      <AddIcon className="icon" />
-                      Add Leave
-                    </Button>
-                 </div>
+        
+                <div className="button-wrapper d-flex me-3">
+                  <div>
+                    <Form.Select
+                      onChange={(e) => {
+                        if (e.target.value === "pdf") {
+                          downloadPDF();
+                          e.target.value = "";
+                        }
+                      }}
+                    >
+                      <option value="">Export</option>
+                      <option value="pdf">PDF</option>
+                    </Form.Select>
+                  </div>
+                </div>
               </div>
               <div className="breadcrumb-wrapper">
                   <ul className="breadcrumb">
@@ -159,54 +163,103 @@ export default function HRLeave()
                     {/* Table Section */}
                     <div className="table-responsive" ref={hrLeaveRef}>
                         <Table  hover className="align-middle">
-                        <thead className="table-light">
-                            <tr>
-                            <th>
-                                <Form.Check type="checkbox" />
-                            </th>
-                            <th>Employee</th>
-                            <th>Leave Type</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>No of Days</th>
-                            <th>Actions</th>
+                        <thead>
+                            <tr >
+                                <th>Employee</th>
+                                <th >Leave Type</th>
+                                <th >From</th>
+                                <th >To</th>
+                                <th >No. of Days</th>
+                                <th >Status</th>
+                                <th >Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {leaveData.map((leave, index) => (
-                            <tr key={index}>
-                                <td>
-                                <Form.Check type="checkbox" />
-                                </td>
-                                <td className="d-flex align-items-center">
-                                <img
-                                    src={leave.profileImg}
-                                    alt="Profile"
-                                    className="rounded-circle me-2"
-                                    width="40"
-                                    height="40"
-                                />
+                       <tbody>
+                          {leaveData.map((leave, index) => (
+                              <tr key={index}>
+                                      <td className="d-flex align-items-center">
+                                        <div>
+                                            <p className="mb-0 fw-semibold">{leave.name}</p>
+                                            <small className="text-muted">{leave.designation}</small>
+                                        </div>
+                                      </td>
+                                      <td>{leave.leaveType}</td>
+                                      <td>{leave.startDate}</td>
+                                      <td>{leave.endDate}</td>
+                                      <td>{leave.numberOfDays}</td>
+                                      <td>{leave.status}</td>
+                                  <td>
+                                {leave.status === "PENDING" && (
+                                    <>
+                                        <button 
+                                            className="btn btn-outline-success me-4"
+                                            onClick={() => handleAction("APPROVED" , leave.id, leave.empId)}
+                                        >
+                                            Approve
+                                        </button>
+                                        <button 
+                                            className="btn btn-outline-danger"
+                                            onClick={() => handleAction( "REJECTED" , leave.id,leave.empId)}
+                                        >
+                                            Reject
+                                        </button>
+                                    </>
+                                )}
+                            </td>
+                            </tr>
+                            ))}
+                        </tbody>
+                        </Table>
+                       
+                        {/* <Table hover className="align-middle">
+                <thead>
+                    <tr className="bg-gray-200">
+                        <th className="border p-2">Employee</th>
+                        <th className="border p-2">Leave Type</th>
+                        <th className="border p-2">From</th>
+                        <th className="border p-2">To</th>
+                        <th className="border p-2">No. of Days</th>
+                        <th className="border p-2">Status</th>
+                        <th className="border p-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {leaveData.map((leave, index) => (
+                        <tr key={index} className="border">
+                             <td className="d-flex align-items-center">
                                 <div>
                                     <p className="mb-0 fw-semibold">{leave.name}</p>
                                     <small className="text-muted">{leave.role}</small>
                                 </div>
                                 </td>
                                 <td>{leave.leaveType}</td>
-                                <td>{leave.from}</td>
-                                <td>{leave.to}</td>
-                                <td>{leave.days}</td>
-                                <td>
-                                <Button variant="outline-primary" size="sm" className="me-2">
-                                    <FaEdit />
-                                </Button>
-                                <Button variant="outline-danger" size="sm">
-                                    <FaTrash />
-                                </Button>
-                                </td>
-                            </tr>
-                            ))}
-                        </tbody>
-                        </Table>
+                                <td>{leave.startDate}</td>
+                                <td>{leave.endDate}</td>
+                                <td>{leave.numberOfDays}</td>
+                                <td>{leave.status}</td>
+                            <td className="border p-2">
+                                {leave.status === "PENDING" && (
+                                    <>
+                                        <button 
+                                            className="btn btn-outline-success me-4"
+                                            onClick={() => handleAction(leave.id, "Approved")}
+                                        >
+                                            Approve
+                                        </button>
+                                        <button 
+                                            className="btn btn-outline-danger"
+                                            onClick={() => handleAction(leave.id, "Rejected")}
+                                        >
+                                            Reject
+                                        </button>
+                                    </>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table> */}
+
                     
                     </div>
 

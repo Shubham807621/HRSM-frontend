@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import HomeIcon from "@mui/icons-material/Home";
 import './Document.css';
-import { Form } from "react-bootstrap";
+import { Button, Form,Pagination } from "react-bootstrap";
 import { getDocument, sendDocument } from "../../APIService/apiservice";
 import CustomeModal from "../../Employee/Modal/CustomeModal";
 import html2canvas from "html2canvas";
@@ -67,6 +67,16 @@ const Document = () => {
     }
   };
 
+        const rowsPerPage = 5;
+          const [currentPage, setCurrentPage] = useState(1);
+          const totalPages = Math.ceil(documents.length / rowsPerPage);
+          
+          // Get the current page data
+          const currentData = documents.slice(
+              (currentPage - 1) * rowsPerPage,
+              currentPage * rowsPerPage
+          );
+
   const userRole = localStorage.getItem("role");
                const downloadPDF = () => {
                   if (!documentRef.current) return;
@@ -77,49 +87,41 @@ const Document = () => {
                     const pdfWidth = pdf.internal.pageSize.getWidth();
                     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
                     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-                    pdf.save('document.pdf');
+                    pdf.save(document.pdf);
                   });
                 };
 
 
   return (
     <div className="document-wrap">
-      <div className="header-container">
-        <h3 className="page-title">Document</h3>
-        <div className="header-right-left">
-          <div className="header-container-right">
-            <div className="homeicon-document">
-              <p>
-                <Link to="/" style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}>
-                  <HomeIcon /> /
-                </Link>
-              </p>
-              <p className="document">Document</p>
+     
+      <div className="button-wrapper1 mt-2 d-flex justify-content-between">
+              <h1 className="titleE">Document </h1>
+      
+              <div className="button-wrapper d-flex">
+                <div>
+                  <Form.Select
+                    onChange={(e) => {
+                      if (e.target.value === "pdf") {
+                        downloadPDF();
+                        e.target.value = "";
+                      }
+                    }}
+                  >
+                    <option value="">Export</option>
+                    <option value="pdf">PDF</option>
+                  </Form.Select>
+                </div>
+      
+                <div className="container-addemp ms-4">
+                    {/* Add Employee Button */}
+                    <Button  className="add-document-btn" variant="warning" >
+                      + Add Document
+                    </Button>
+
+                  </div>
+              </div>
             </div>
-          </div>
-          <div className="header-container-left  d-flex mx-2">
-          <div className="export-btn">
-            <Form.Select
-              onChange={(e) => {
-                if (e.target.value === 'pdf') {
-                  downloadPDF();
-                  e.target.value = '';
-                }
-              }}
-            >
-              <option value="">Export</option>
-              <option value="pdf">PDF</option>
-            </Form.Select>
-          </div>
-          {userRole === "HR" && (
-              <button className="document-btn ms-4" onClick={handleShowModal}>
-              Add Document
-            </button>
-          )}
-            
-          </div>
-        </div>
-      </div>
 
       <div className="body-container" ref={documentRef}>
         <div className="container mt-4">
@@ -135,7 +137,7 @@ const Document = () => {
                 </tr>
               </thead>
               <tbody>
-                {documents.map((doc, index) => (
+                {currentData.map((doc, index) => (
                   <tr key={index}>
                     <td>{doc.fileName}</td>
                     <td><InsertDriveFileIcon /></td>
@@ -151,9 +153,18 @@ const Document = () => {
             </table>
           </div>
 
-          <div className="d-flex justify-content-between">
-            <span>Showing 1 to {documents.length} of {documents.length} entries</span>
-          </div>
+          <div className="d-flex justify-content-between align-items-center px-4 pb-2">
+                        <span>Showing {currentData.length} of {documents.length} entries</span>
+                        <Pagination className="mb-0">
+                            <Pagination.Prev disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} />
+                            {[...Array(totalPages)].map((_, i) => (
+                                <Pagination.Item key={i} active={i + 1 === currentPage} onClick={() => setCurrentPage(i + 1)}>
+                                    {i + 1}
+                                </Pagination.Item>
+                            ))}
+                            <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
+                        </Pagination>
+                    </div>
         </div>
       </div>
 

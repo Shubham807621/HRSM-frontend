@@ -26,6 +26,8 @@
   import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
   import LockResetIcon from '@mui/icons-material/LockReset';
   import { FaCircle } from "react-icons/fa";
+import { getEmployeeDashboardDetails } from '../APIService/apiservice';
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -43,8 +45,9 @@
     const hideElement = ["/", "/register", "/reset-password", "/verify", "/NewPassword"].includes(location.pathname);
     const userRole = localStorage.getItem("role");
 
-    const empID = localStorage.getItem("empId"); // Get logged-in employee ID
-
+    const empId = localStorage.getItem("empId"); // Get logged-in employee ID
+    const token = localStorage.getItem("token"); // Get logged-in employee ID
+    const navigate = useNavigate();
     
     const toggleMenu = (menu) => {
       setOpenMenu(openMenu === menu ? null : menu);
@@ -60,11 +63,6 @@
         backgroundColor: "red"
       },
     }));
-
-
-
-
-   
 
     const handleScroll = () => {
         setIsScrolling(true);
@@ -103,6 +101,29 @@
     { label: "Appear offline", color: "muted" },
   ];
 
+const [employee ,SetEmployee] = useState({})
+
+   useEffect(()=>{
+  
+          const fetchEmployeeDetails = async () =>{
+      
+              try{
+                  const respone = await getEmployeeDashboardDetails(empId, token);
+                 
+                  // console.log(respone)
+                  SetEmployee(respone)
+                  
+  
+              }
+              catch (error) {
+                  console.log(error)
+              }
+  
+          };
+          fetchEmployeeDetails();
+  
+      },[empId, token])
+
     return (
       <>
         {variant === "default" && !hideElement && (
@@ -126,7 +147,7 @@
                           className="profile-img"
                         />
                         <div className="profile-info">
-                          <p className="fw-bold mb-0 d-none d-md-inline">Kevin Larry</p>
+                          <p className="fw-bold mb-0 d-none d-md-inline">{employee.name}</p>
                           <div className="d-flex align-items-center">
                             <FaCircle className={`text-${statuses.find(s => s.label === selectedStatus)?.color} me-2`} />
                             <span>{selectedStatus}</span>
@@ -140,14 +161,14 @@
                           <div className="user-info">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" className="user-img" />
                             <div>
-                              <h6 className="mb-0 fw-bold">Kevin Larry</h6>
-                              <p className="text-muted small mb-0">warren@example.com</p>
+                              <h6 className="mb-0 fw-bold">{employee.name}</h6>
+                              <p className="text-muted small mb-0">{employee.email}</p>
                             </div>
                           </div>
 
-                          <button className="dropdown-item">
+                          <Link className="dropdown-item">
                             <AccountCircleOutlinedIcon className="me-2" /> My Profile
-                          </button>
+                          </Link>
                           <button className="dropdown-item">
                             <SettingsOutlinedIcon className="me-2" /> Settings
                           </button>
@@ -170,14 +191,20 @@
                           <button className="dropdown-item">
                             <ArrowCircleUpOutlinedIcon className="me-2" /> My Account
                           </button>
-                          <button className="dropdown-item">
-                            <QuestionMarkOutlinedIcon className="me-2" /> Knowledge Base
-                          </button>
+                            <Link to='/support/konwledgeBase' className="dropdown-item">
+                              <QuestionMarkOutlinedIcon className="me-2" /> Knowledge Base
+                            </Link>
 
-                          <hr />
-                          <button className="dropdown-item text-danger">
+                            <hr />
+                            <button
+                            className="dropdown-item text-danger"
+                            onClick={() => {
+                            localStorage.clear(); // ✅ Clears all stored data (token, empId, etc.)
+                            navigate("/"); // ✅ Redirect to Login page
+                            }}
+                            >
                             <ExitToAppOutlinedIcon className="me-2" /> Logout
-                          </button>
+                          </button>
                         </div>
                       )}
                     </div>
@@ -232,202 +259,202 @@
     
           <div className='main-item1'>
           <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-4 mb-3">HRSM</h3>
-          <div>
-            <div
-              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "employee" ? "bg-body-secondary" : ""}`}  
-              
-            >
-              <div className="d-flex align-items-center">
+            <div>
+              <div
+                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "employee" ? "bg-body-secondary" : ""}`}  
+                
+              >
+                <div className="d-flex align-items-center">
+                  <PeopleIcon className="fs-5 me-2" />
+                  <p className="fw-semibold main-title">Employee</p>
+                </div>
+                <div onClick={() => toggleMenu("employee")} className="cursor-pointer">
+                    {openMenu === "employee" ? (
+                      <ExpandLessIcon className="transition" />
+                    ) : (
+                      <ExpandMoreIcon className="transition" />
+                    )}
+                  </div>
+              </div>
+              {openMenu === "employee" && (
+                <div className="ms-5 sub-menu open">
+                        
+                  <Link to='/employee'
+                    className={`submenu-item ${location.pathname === "/employee" ? "active" : ""}`}
+                  >
+                    <p className="py-1">Employee List</p>
+                  </Link>
+                  <Link to={`/employee-details/${empId}`} 
+                      className={`submenu-item ${location.pathname === `/employee-details/${empId}`  ? "active" : ""}`}
+                  >
+                    <p className="py-1">Employee Details</p>
+                  </Link>
+                
+                </div>
+              )}
+            </div>
+            <div className='main-item1'>
+              <div
+                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "attendance" ? "bg-body-secondary" : ""}`} 
+                
+              >
+                <div className="d-flex align-items-center">
                 <PeopleIcon className="fs-5 me-2" />
-                <p className="fw-semibold main-title">Employee</p>
-              </div>
-              <div onClick={() => toggleMenu("employee")} className="cursor-pointer">
-                  {openMenu === "employee" ? (
-                    <ExpandLessIcon className="transition" />
-                  ) : (
-                    <ExpandMoreIcon className="transition" />
-                  )}
+                  <p className="fw-semibold main-title">Attendance</p>
                 </div>
-            </div>
-            {openMenu === "employee" && (
-              <div className="ms-5 sub-menu open">
-                      
-                <Link to='/employee'
-                  className={`submenu-item ${location.pathname === "/employee" ? "active" : ""}`}
-                >
-                  <p className="py-1">Employee List</p>
-                </Link>
-                <Link to={`/employee-details/${empID}`} 
-                    className={`submenu-item ${location.pathname === `/employee-details/${empID}`  ? "active" : ""}`}
-                >
-                  <p className="py-1">Employee Details</p>
-                </Link>
-              
+                <div onClick={() => toggleMenu("attendance")} className="cursor-pointer">
+                    {openMenu === "attendance" ? (
+                      <ExpandLessIcon className="transition" />
+                    ) : (
+                      <ExpandMoreIcon className="transition" />
+                    )}
+                  </div>
               </div>
-            )}
-          </div>
-          <div className='main-item1'>
-            <div
-              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "attendance" ? "bg-body-secondary" : ""}`} 
-              
-            >
-              <div className="d-flex align-items-center">
-              <PeopleIcon className="fs-5 me-2" />
-                <p className="fw-semibold main-title">Attendance</p>
-              </div>
-              <div onClick={() => toggleMenu("attendance")} className="cursor-pointer">
-                  {openMenu === "attendance" ? (
-                    <ExpandLessIcon className="transition" />
-                  ) : (
-                    <ExpandMoreIcon className="transition" />
-                  )}
+              {openMenu === "attendance" && (
+                <div className="ms-5 sub-menu open">
+
+                      {userRole === "HR" && (
+                        <Link to='/attendance/hr-attendance'
+                                        className={`submenu-item ${location.pathname === "/attendance/hr-attendance" ? "active" : ""}`}
+                                      >
+                                        <p className="py-1 ps-0">HR Attendance</p>
+                                      </Link>
+                      )}
+                
+                  <Link to='/attendance/emp-attendance'
+                    className={`submenu-item ${location.pathname === "/attendance/emp-attendance" ? "active" : ""}`}
+                  >
+                    <p className="py-1 ps-0">Employee Attendance</p>
+                  </Link>
+                
                 </div>
+              )}
             </div>
-            {openMenu === "attendance" && (
-              <div className="ms-5 sub-menu open">
+            <div className='main-item1'>
+              <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "Leave" ? "bg-body-secondary" : ""}`} 
+              >
+                <div className="d-flex align-items-center">
+                <PeopleIcon className="fs-5 me-2" />
+                  <p className="fw-semibold main-title">Leave</p>
+                </div>
+                <div onClick={() => toggleMenu("Leave")} className="cursor-pointer">
+                    {openMenu === "Leave" ? (
+                      <ExpandLessIcon className="transition" />
+                    ) : (
+                      <ExpandMoreIcon className="transition" />
+                    )}
+                  </div>
+              </div>
+              {openMenu === "Leave" && (
+                <div className="ms-5 sub-menu open">
 
                     {userRole === "HR" && (
-                      <Link to='/attendance/hr-attendance'
-                                      className={`submenu-item ${location.pathname === "/attendance/hr-attendance" ? "active" : ""}`}
+                      <Link to='/leave/hr-Leave'
+                                      className={`submenu-item ${location.pathname === "/leave/hr-Leave" ? "active" : ""}`}
                                     >
-                                      <p className="py-1 ps-0">HR Attendance</p>
+                                      <p className="py-1 ps-0">HR Leave</p>
                                     </Link>
                     )}
-               
-                <Link to='/attendance/emp-attendance'
-                  className={`submenu-item ${location.pathname === "/attendance/emp-attendance" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">Employee Attendance</p>
-                </Link>
               
-              </div>
-            )}
-          </div>
-          <div className='main-item1'>
-            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "Leave" ? "bg-body-secondary" : ""}`} 
-            >
-              <div className="d-flex align-items-center">
-              <PeopleIcon className="fs-5 me-2" />
-                <p className="fw-semibold main-title">Leave</p>
-              </div>
-              <div onClick={() => toggleMenu("Leave")} className="cursor-pointer">
-                  {openMenu === "Leave" ? (
-                    <ExpandLessIcon className="transition" />
-                  ) : (
-                    <ExpandMoreIcon className="transition" />
-                  )}
-                </div>
-            </div>
-            {openMenu === "Leave" && (
-              <div className="ms-5 sub-menu open">
-
-                  {userRole === "HR" && (
-                    <Link to='/leave/hr-Leave'
-                                    className={`submenu-item ${location.pathname === "/leave/hr-Leave" ? "active" : ""}`}
-                                  >
-                                    <p className="py-1 ps-0">HR Leave</p>
-                                  </Link>
-                  )}
-            
+                  
+                  <Link to='/leave/emp-Leave'
+                    className={`submenu-item ${location.pathname === "/leave/emp-Leave" ? "active" : ""}`}
+                  >
+                    <p className="py-1 ps-0">Employee Leave</p>
+                  </Link>
                 
-                <Link to='/leave/emp-Leave'
-                  className={`submenu-item ${location.pathname === "/leave/emp-Leave" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">Employee Leave</p>
-                </Link>
-              
-              </div>
-            )}
-          </div>
-          <div className='main-item1'>
-          <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "training" ? "bg-body-secondary" : ""}`} 
-            >
-              <div className="d-flex align-items-center">
-              <AssignmentIcon className="fs-5 me-2" />
-                <p className="fw-semibold main-title">Training</p>
-              </div>
-              <div onClick={() => toggleMenu("training")} className="cursor-pointer">
-                  {openMenu === "training" ? (
-                    <ExpandLessIcon className="transition" />
-                  ) : (
-                    <ExpandMoreIcon className="transition" />
-                  )}
                 </div>
+              )}
             </div>
-            {openMenu === "training" && (
-              <div className="ms-5 sub-menu open">
-                    <Link to='/training-dashboard'
-                  className={`submenu-item ${location.pathname === "/training-dashboard" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">Training Dashboard</p>
-                </Link>
-                <Link to='/trainings-list'
-                  className={`submenu-item ${location.pathname === "/trainings-list" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">Training List</p>
-                </Link>
-              </div>
-            )}
-          </div>
-          {/* <div className='main-item1'>
-          <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "performance" ? "bg-body-secondary" : ""}`} 
-            >
-              <div className="d-flex align-items-center">
-              <SchoolIcon className="fs-5 me-2" />
-                <p className="fw-semibold main-title">Performance</p>
-              </div>
-              <div onClick={() => toggleMenu("performance")} className="cursor-pointer">
-                  {openMenu === "performance" ? (
-                    <ExpandLessIcon className="transition" />
-                  ) : (
-                    <ExpandMoreIcon className="transition" />
-                  )}
+            <div className='main-item1'>
+            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "training" ? "bg-body-secondary" : ""}`} 
+              >
+                <div className="d-flex align-items-center">
+                <AssignmentIcon className="fs-5 me-2" />
+                  <p className="fw-semibold main-title">Training</p>
                 </div>
-            </div>
-            {openMenu === "performance" && (
-              <div className="ms-5 sub-menu open">
-                <p className="py-1">Performance report</p>
-                <p className="py-1">Card</p>   
+                <div onClick={() => toggleMenu("training")} className="cursor-pointer">
+                    {openMenu === "training" ? (
+                      <ExpandLessIcon className="transition" />
+                    ) : (
+                      <ExpandMoreIcon className="transition" />
+                    )}
+                  </div>
               </div>
-            )}
-          </div> */}
-          <div className='main-item1'>
-          <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "payroll" ? "bg-body-secondary" : ""}`} 
-            >
-              <div className="d-flex align-items-center">
-              <AccountBalanceWalletIcon className="fs-5 me-2" />
-                <p className="fw-semibold main-title">Payroll</p>
-              </div>
-              <div onClick={() => toggleMenu("payroll")} className="cursor-pointer">
-                  {openMenu === "payroll" ? (
-                    <ExpandLessIcon className="transition" />
-                  ) : (
-                    <ExpandMoreIcon className="transition" />
-                  )}
+              {openMenu === "training" && (
+                <div className="ms-5 sub-menu open">
+                      <Link to='/training-dashboard'
+                    className={`submenu-item ${location.pathname === "/training-dashboard" ? "active" : ""}`}
+                  >
+                    <p className="py-1 ps-0">Training Dashboard</p>
+                  </Link>
+                  <Link to='/trainings-list'
+                    className={`submenu-item ${location.pathname === "/trainings-list" ? "active" : ""}`}
+                  >
+                    <p className="py-1 ps-0">Training List</p>
+                  </Link>
                 </div>
+              )}
             </div>
-            {openMenu === "payroll" && (
-              <div className="ms-5 sub-menu open">
-                  <Link to='/salary/payslip'
-                  className={`submenu-item ${location.pathname === "/salary/payslip" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">PaySlip</p>
-                </Link>
-                
-                <Link to='/salary/payroll'
-                  className={`submenu-item ${location.pathname === "/salary/payroll" ? "active" : ""}`}
-                >
-                  <p className="py-1 ps-0">Payrolls</p>
-                </Link>   
+            {/* <div className='main-item1'>
+            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "performance" ? "bg-body-secondary" : ""}`} 
+              >
+                <div className="d-flex align-items-center">
+                <SchoolIcon className="fs-5 me-2" />
+                  <p className="fw-semibold main-title">Performance</p>
+                </div>
+                <div onClick={() => toggleMenu("performance")} className="cursor-pointer">
+                    {openMenu === "performance" ? (
+                      <ExpandLessIcon className="transition" />
+                    ) : (
+                      <ExpandMoreIcon className="transition" />
+                    )}
+                  </div>
               </div>
-            )}
-          </div >
-          <div className={`d-flex align-items-center justify-content-start p-2 cursor-pointer`} 
-            >
-              <DocumentScannerIcon className="fs-5 me-2" />
-              <Link to='/document'>
-                <p className="fw-semibold main-title">Document</p>
-              </Link>
+              {openMenu === "performance" && (
+                <div className="ms-5 sub-menu open">
+                  <p className="py-1">Performance report</p>
+                  <p className="py-1">Card</p>   
+                </div>
+              )}
+            </div> */}
+            <div className='main-item1'>
+            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "payroll" ? "bg-body-secondary" : ""}`} 
+              >
+                <div className="d-flex align-items-center">
+                <AccountBalanceWalletIcon className="fs-5 me-2" />
+                  <p className="fw-semibold main-title">Payroll</p>
+                </div>
+                <div onClick={() => toggleMenu("payroll")} className="cursor-pointer">
+                    {openMenu === "payroll" ? (
+                      <ExpandLessIcon className="transition" />
+                    ) : (
+                      <ExpandMoreIcon className="transition" />
+                    )}
+                  </div>
+              </div>
+              {openMenu === "payroll" && (
+                <div className="ms-5 sub-menu open">
+                    <Link to='/salary/payslip/:year/:month'
+                    className={`submenu-item ${location.pathname.startsWith("/salary/payslip") ? "active" : ""}`}
+                  >
+                    <p className="py-1 ps-0">PaySlip</p>
+                  </Link>
+                  
+                  <Link to='/salary/payroll'
+                    className={`submenu-item ${location.pathname === "/salary/payroll" ? "active" : ""}`}
+                  >
+                    <p className="py-1 ps-0">Payrolls</p>
+                  </Link>   
+                </div>
+              )}
+            </div >
+            <div className={`d-flex align-items-center justify-content-start p-2 cursor-pointer`} 
+              >
+                <DocumentScannerIcon className="fs-5 me-2" />
+                <Link to='/document'>
+                  <p className="fw-semibold main-title">Document</p>
+                </Link>
             </div>   
           </div>
 

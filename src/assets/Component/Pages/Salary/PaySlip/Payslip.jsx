@@ -1,24 +1,50 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import DownloadIcon from "@mui/icons-material/Download";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { getPayslip, getEmployeeDetailsById } from "../../../APIService/apiservice";
+import { getPayslip, getEmployeeDetailsById, getEmployeeDashboardDetails } from "../../../APIService/apiservice";
 import "./Payslip.css";
 
 const Payslip = () => {
   const payslipRef = useRef();
-  const [payslipData, setPayslipData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const [searchParams] = useSearchParams();
-  const year = searchParams.get("year");
-  const month = searchParams.get("month");
+
+  const { year, month } = useParams();
 
   const token = localStorage.getItem("token");
-  const empID = localStorage.getItem("empID");
+ 
+
+  const payslipData = {
+    payslipNo: '#MZ-116',
+    date: '2025-01-08',
+    employee: {
+      name: 'Ethan Mitchell',
+      position: 'Business Intelligence Analyst',
+      department: 'Information Technology Department',
+      email: 'ethanmitchell@namez.com',
+      phone: '+1(800) 642 7676',
+      address: '100 Terminal, Fort Lauderdale, Miami 33315, United States',
+    },
+    earnings: [
+      { label: 'Basic Salary', amount: 3000 },
+      { label: 'House Rent Allowance (H.R.A.)', amount: 1000 },
+      { label: 'Conveyance', amount: 200 },
+      { label: 'Other Allowance', amount: 100 },
+    ],
+    deductions: [
+      { label: 'Tax Deducted at Source (T.D.S.)', amount: 200 },
+      { label: 'Provident Fund', amount: 300 },
+      { label: 'ESI', amount: 150 },
+      { label: 'Loan', amount: 50 },
+    ],
+  };
+  // Calculate totals
+  const totalEarnings = payslipData.earnings.reduce((sum, item) => sum + item.amount, 0);
+  const totalDeductions = payslipData.deductions.reduce((sum, item) => sum + item.amount, 0);
+
+
 
   const defaultEarnings = [
     { label: "Basic Salary", amount: 3000 },
@@ -34,37 +60,6 @@ const Payslip = () => {
     { label: "Loan", amount: 50 },
   ];
 
-  useEffect(() => {
-    if (!token || !empID || !year || !month) {
-      setError("Missing required parameters.");
-      setLoading(false);
-      return;
-    }
-
-    const fetchData = async () => {
-      try {
-        const [employeeResponse, payslipResponse] = await Promise.all([
-          getEmployeeDetailsById(empID, token),
-          getPayslip(token, empID, year, month),
-        ]);
-
-        setPayslipData({
-          employee: employeeResponse,
-          earnings: payslipResponse.earnings || defaultEarnings,
-          deductions: payslipResponse.deductions || defaultDeductions,
-          payslipNo: payslipResponse.payslipNo,
-          date: payslipResponse.date,
-        });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setError("Failed to fetch payslip data.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [token, empID, year, month]);
 
   const downloadPDF = () => {
     if (!payslipRef.current) return;
@@ -79,13 +74,38 @@ const Payslip = () => {
     });
   };
 
-  if (loading) return <p>Loading payslip...</p>;
-  if (error) return <p className="error-message">Error: {error}</p>;
-  if (!payslipData) return <p>No payslip available for {month} {year}.</p>;
 
-  const totalEarnings = payslipData.earnings.reduce((sum, item) => sum + item.amount, 0);
-  const totalDeductions = payslipData.deductions.reduce((sum, item) => sum + item.amount, 0);
-  const netSalary = totalEarnings - totalDeductions;
+  const [employee ,SetEmployee] = useState({})
+  
+  const empId = localStorage.getItem("empId"); // Get logged-in employee ID
+
+  
+     useEffect(()=>{
+    
+            const fetchEmployeeDetails = async () =>{
+        
+                try{
+                    const respone = await getEmployeeDashboardDetails(empId, token);
+                   
+                    console.log(respone)
+                    SetEmployee(respone)
+                    
+    
+                }
+                catch (error) {
+                    console.log(error)
+                }
+    
+            };
+            fetchEmployeeDetails();
+    
+        },[empId, token])
+
+  
+
+  // const totalEarnings = payslipData.earnings.reduce((sum, item) => sum + item.amount, 0);
+  // const totalDeductions = payslipData.deductions.reduce((sum, item) => sum + item.amount, 0);
+  // const netSalary = totalEarnings - totalDeductions;
 
   return (
    <>
@@ -104,7 +124,7 @@ const Payslip = () => {
                              </div>
                       
                       <div className="header-container-left">
-                         <button className="download-btn" onClick={downloadPDF}>
+                         <button className="download-btn" onClick={downloadPDF}> 
                 <DownloadIcon /> Download
               </button>
                       </div>
@@ -114,15 +134,17 @@ const Payslip = () => {
 
 
 
-    <div className="container" ref={payslipRef}>
-      {/* Download button */}
+    <div className="container" 
+      ref={payslipRef}
+    >
+
       
 
-      {/* Title */}<div className='row'>
+<div className='row'>
       <h2 className="emp-payslip">Employee Payslip</h2>
       </div>
       
-      {/* Header row: To (address) on left, Payslip No and Date on right */}
+
       <div className="row">
         
         <div className="col-md-10 text-md-end">
@@ -131,7 +153,7 @@ const Payslip = () => {
         </div>
       </div>
 
-      {/* Billing Address section */}
+
       
       <div className='bill-address'>
       <div className="row mb-3">
@@ -139,28 +161,27 @@ const Payslip = () => {
       <div className="col-md-5">
           <p>To:</p>
           <p>{payslipData.employee.address}</p>
-          <p>{payslipData.employee.email}</p>
+          <p>{employee.email}</p>
           <p>{payslipData.employee.phone}</p>
         </div>
         <div className="col-md-6">
-          <h5>Billing Address</h5>
-          <p>{payslipData.employee.name}</p>
-          <p>Position: {payslipData.employee.position}</p>
-          <p>Department: {payslipData.employee.department}</p>
-          <p>Email: {payslipData.employee.email}</p>
+          <h5>Billing Details</h5>
+          <p>{employee.name}</p>
+          <p>Position: {employee.designation}</p>
+          <p>Department: {employee.team}</p>
+          <p>Email: {employee.email}</p>
           <p>Phone: {payslipData.employee.phone}</p>
         </div>
       </div>
       </div>
     
 
-      {/* Payslip month heading */}
       
-      <h5 className="text-center ">Payslip for the month of October 2024</h5>
+      <h5 className="text-center ">Payslip for the month of {month} {year}</h5>
       
-      {/* Earnings and Deductions in two columns */}
+
       <div className="row">
-        {/* Earnings Table */}
+
         <div className="col-md-6 mb-3">
           <div className="card">
             <div className="card-header bg-light">
@@ -185,7 +206,7 @@ const Payslip = () => {
           </div>
         </div>
 
-        {/* Deductions Table */}
+
         <div className="col-md-6 mb-3">
           <div className="card">
             <div className="card-header bg-light">
@@ -215,6 +236,7 @@ const Payslip = () => {
       
     </div>
     </div>
+    
   
     </>
   );

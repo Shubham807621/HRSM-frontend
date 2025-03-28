@@ -34,7 +34,7 @@ const Payroll = () => {
       return;
     }
     console.log("Navigating to:", `/payslip?year=${selectedYear}&month=${selectedMonth}`);
-    navigate(`/payslip?year=${selectedYear}&month=${selectedMonth}`);
+    navigate(`/salary/payslip/${selectedYear}/${selectedMonth}`);
   };
 
   return (
@@ -97,7 +97,7 @@ const Payroll = () => {
         </div>
       </div>
 
-      <div className="button-container mt-4">
+      <div className="button-container my-4">
         <Button
           variant="contained"
           color="primary"

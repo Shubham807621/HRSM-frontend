@@ -20,7 +20,7 @@ import { getEmployeeDetails, getLeaveCount } from "../../APIService/apiservice";
 
 function EmployeeDashboard(){
 
-        const { isPunchedIn, punchInTime, punchInDate, totalHours1, handlePunch } = useAttendance();
+    const { isPunchedIn, punchInTime, punchInDate, totalHours1, handlePunch } = useAttendance();
  
     const [isOpen, setIsOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState(2024);

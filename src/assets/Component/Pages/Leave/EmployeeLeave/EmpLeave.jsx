@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./EmpLeave.css";
 import { Table, Form, Modal, Button } from "react-bootstrap";
 import HomeIcon from "@mui/icons-material/Home";
@@ -7,6 +7,8 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import {  Pagination} from "react-bootstrap";
+
 import {
   FaCalendarAlt,
   FaBriefcaseMedical,
@@ -15,6 +17,7 @@ import {
 } from "react-icons/fa";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { getLeaveById } from "../../../APIService/apiservice";
 
 const leaveStats = [
   { title: "Annual Leaves", count: 5, remaining: 7, color: "dark", icon: <FaCalendarAlt /> },
@@ -26,44 +29,7 @@ const leaveStats = [
 export default function EmpLeave() {
   const emLeaveRef = useRef();
 
-  const [leaves, setLeaves] = useState([
-    {
-      id: 1,
-      leaveType: "Medical Leave",
-      from: "14 Jan 2024",
-      to: "15 Jan 2024",
-      approvedBy: { name: "Douglas Martini", role: "Manager", img: "https://randomuser.me/api/portraits/men/1.jpg" },
-      days: "2 Days",
-      status: "Approved",
-    },
-    {
-      id: 2,
-      leaveType: "Annual Leave",
-      from: "21 Jan 2024",
-      to: "25 Jan 2024",
-      approvedBy: { name: "Douglas Martini", role: "Manager", img: "https://randomuser.me/api/portraits/men/2.jpg" },
-      days: "5 Days",
-      status: "Approved",
-    },
-    {
-      id: 3,
-      leaveType: "Medical Leave",
-      from: "20 Feb 2024",
-      to: "22 Feb 2024",
-      approvedBy: { name: "Warren Morales", role: "Admin", img: "https://randomuser.me/api/portraits/men/3.jpg" },
-      days: "3 Days",
-      status: "Declined",
-    },
-    {
-      id: 4,
-      leaveType: "Casual Leave",
-      from: "12 Apr 2024",
-      to: "16 Apr 2024",
-      approvedBy: { name: "Douglas Martini", role: "Manager", img: "https://randomuser.me/api/portraits/men/4.jpg" },
-      days: "5 Days",
-      status: "Pending",
-    },
-  ]);
+  const [leaves, setLeaves] = useState([]);
 
   const [showLeaveModal, setShowLeaveModal] = useState(false);
 
@@ -115,6 +81,33 @@ export default function EmpLeave() {
       pdf.save(`leave_list.pdf`);
     });
   };
+
+  const token = localStorage.getItem('token');
+  const empId = localStorage.getItem('empId');
+
+
+    useEffect(() => {
+      const fetchLeaveList = async () => {
+        try {
+          const response = await getLeaveById(token , empId);
+          console.log(response);
+          setLeaves(response);
+        } catch (error) {
+          console.error("Error fetching documents:", error);
+        }
+      };
+      fetchLeaveList();
+    }, [token , empId]);
+
+  
+    const rowsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(leaves.length / rowsPerPage);
+   
+    // Get the current page data
+    const currentData = leaves.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  
+
 
   return (
     <div className="mainempleave">
@@ -270,48 +263,48 @@ export default function EmpLeave() {
                                 <tr>
                                     <th><Form.Check type="checkbox" /></th>
                                     <th>Leave Type</th>
-                                    <th>Approved By</th>
+                                   
                                     <th>From</th>
                                     <th>To</th>
                                     <th>No of Days</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                   
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {leaves.map((leave) => (
+                                {currentData.map((leave) => (
                                         <tr key={leave.id}>
                                         <td><Form.Check type="checkbox" /></td>
                                         <td>{leave.leaveType}</td>
-                                        <td className="d-flex align-items-center">
-                                            <img
-                                            src={leave.approvedBy.img}
-                                            alt="Profile"
-                                            className="rounded-circle me-2"
-                                            width="40"
-                                            height="40"
-                                            />
-                                            <div>
-                                            <p className="mb-0 fw-semibold">{leave.approvedBy.name}</p>
-                                            <small className="text-muted">{leave.approvedBy.role}</small>
-                                            </div>
-                                        </td>
-                                        <td>{leave.from}</td>
                                         
-                                        <td>{leave.to}</td>
+                                        <td>{leave.startDate}</td>
+                                        
+                                        <td>{leave.endDate}</td>
                                         <td>{leave.days}</td>
                                         <td>{leave.status}
                                         </td>
-                                        <td>
-                                            <Button variant="outline-primary" size="sm" className="me-2"><FaEdit /></Button>
-                                            <Button variant="outline-danger" size="sm"><FaTrash /></Button>
-                                        </td>
+                                        
                                         </tr>
                                     ))}
                                     </tbody>
 
                             </Table>
                             </div>
+                            <div className="d-flex justify-content-between align-items-center px-4 pb-2">
+                                                    <span>Showing {currentData.length} of {leaveData.length} entries</span>
+                                                    <Pagination className="mb-0">
+                                                        <Pagination.Prev disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} />
+                                                        {[...Array(totalPages)].map((_, i) => (
+                                                            <Pagination.Item key={i} active={i + 1 === currentPage} onClick={() => setCurrentPage(i + 1)}>
+                                                                {i + 1}
+                                                            </Pagination.Item>
+                                                        ))}
+                                                        <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
+                                                    </Pagination>
+                                                </div>
+                    
+              
+
                     
               </div>
 
