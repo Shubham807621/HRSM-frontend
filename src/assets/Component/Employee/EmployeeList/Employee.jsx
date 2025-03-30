@@ -13,12 +13,12 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from '@mui/material';
-import { getEmployeesCount, getEmployeesList } from '../../APIService/apiservice';
+import { createEmployee, getEmployeesCount, getEmployeesList } from '../../APIService/apiservice';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 
-export default function Employee() {
+export default function   Employee() {
   const employeeRef = useRef();
 
   const [employeeList, setEmployeeList] = useState([]);
@@ -53,8 +53,44 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
     icon: <PersonAddIcon style={{ color: "purple", fontSize: "30px", marginLeft: "10px" }} /> 
   },
 ];
+const [formData, setFormData] = useState({
+  firstName: "",
+  lastName: "",
+  joiningDate: "",
+  username: "",
+  clientId: "",
+  totalExperience: "",
+  password: "",
+  confirmPassword: "",
+  phoneNumber: "",
+  reportingOffice: "",
+  department: "",
+  designation: "",
+  about: ""
+});
 
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+};
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      const response = await createEmployee(formData, token);
+      console.log(response);
+
+    }
+    catch (err) {
+      console.log(err.response?.data?.message || "Failed to send message.");
+    } 
+
+ 
+  // You can send formData to backend API here
+};
     
     useEffect(()=>{
 
@@ -121,14 +157,17 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
 
   // Functions to show/hide modal
   const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const handleClose = () =>{ 
+    
+    console.log()
+    setShow(false)};
 
 
   return (
     <>
      <div className="maindiv">
      <div className="button-wrapper1 mt-2">
-        <h1 className="titleE">Employee </h1>
+        <h1 className="titleE text-primary">Employee </h1>
 
         <div className="button-wrapper d-flex">
           <div>
@@ -158,119 +197,110 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
                           </Modal.Header>
                           
                           <Modal.Body>
-                            <Form>
-                              <div className="row">
-                                {/* First Name & Last Name */}
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>First Name *</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter first name" required />
-                                  </Form.Group>
-                                </div>
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Last Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter last name" />
-                                  </Form.Group>
-                                </div>
-
-                                {/* Employee ID & Joining Date */}
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Employee ID *</Form.Label>
-                                    <Form.Control type="text" placeholder="EMP-XXXX" required />
-                                  </Form.Group>
-                                </div>
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Joining Date *</Form.Label>
-                                    <Form.Control type="date" required />
-                                  </Form.Group>
-                                </div>
-
-                                {/* Username & Email */}
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Username *</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter username" required />
-                                  </Form.Group>
-                                </div>
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Email *</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" required />
-                                  </Form.Group>
-                                </div>
-
-                                {/* Password & Confirm Password */}
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Password *</Form.Label>
-                                    <Form.Control type="password" required />
-                                  </Form.Group>
-                                </div>
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Confirm Password *</Form.Label>
-                                    <Form.Control type="password" required />
-                                  </Form.Group>
-                                </div>
-
-                                {/* Phone Number & Company */}
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Phone Number</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter phone number" />
-                                  </Form.Group>
-                                </div>
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Company *</Form.Label>
-                                    <Form.Control type="text" required />
-                                  </Form.Group>
-                                </div>
-
-                                {/* Department & Designation */}
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Department</Form.Label>
-                                    <Form.Select>
-                                      <option>Select</option>
-                                      <option>HR</option>
-                                      <option>Engineering</option>
-                                      <option>Sales</option>
-                                    </Form.Select>
-                                  </Form.Group>
-                                </div>
-                                <div className="col-md-6">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>Designation</Form.Label>
-                                    <Form.Select>
-                                      <option>Select</option>
-                                      <option>Manager</option>
-                                      <option>Developer</option>
-                                      <option>Analyst</option>
-                                    </Form.Select>
-                                  </Form.Group>
-                                </div>
-
-                                {/* About */}
-                                <div className="col-12">
-                                  <Form.Group className="mb-3">
-                                    <Form.Label>About *</Form.Label>
-                                    <Form.Control as="textarea" rows={3} placeholder="Brief about the employee" required />
-                                  </Form.Group>
-                                </div>
+                          <Form onSubmit={handleSubmit}>
+                            <div className="row">
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>First Name *</Form.Label>
+                                  <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+                                </Form.Group>
                               </div>
-                            </Form>
-                          </Modal.Body>
-
-                          <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Last Name *</Form.Label>
+                                  <Form.Control type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Joining Date *</Form.Label>
+                                  <Form.Control type="date" name="joiningDate" value={formData.joiningDate} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Username *</Form.Label>
+                                  <Form.Control type="text" name="username" value={formData.username} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Client Id</Form.Label>
+                                  <Form.Control type="text" name="clientId" value={formData.clientId} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Total Experience</Form.Label>
+                                  <Form.Control type="text" name="totalExperience" value={formData.totalExperience} onChange={handleChange} />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Password *</Form.Label>
+                                  <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Confirm Password *</Form.Label>
+                                  <Form.Control type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Phone Number</Form.Label>
+                                  <Form.Control type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Reporting Office *</Form.Label>
+                                  <Form.Control type="text" name="reportingOffice" value={formData.reportingOffice} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Department</Form.Label>
+                                  <Form.Select name="department" value={formData.department} onChange={handleChange}>
+                                    <option value="">Select</option>
+                                    <option value="HR">HR</option>
+                                    <option value="Engineering">Development</option>
+                                    <option value="Sales">UI/UX</option>
+                                  </Form.Select>
+                                </Form.Group>
+                              </div>
+                              <div className="col-md-6">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Designation</Form.Label>
+                                  <Form.Select name="designation" value={formData.designation} onChange={handleChange}>
+                                    <option value="">Select</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Developer">Developer</option>
+                                    <option value="Analyst">Analyst</option>
+                                  </Form.Select>
+                                </Form.Group>
+                              </div>
+                              <div className="col-12">
+                                <Form.Group className="mb-3">
+                                  <Form.Label>About *</Form.Label>
+                                  <Form.Control as="textarea" rows={3} name="about" value={formData.about} onChange={handleChange} required />
+                                </Form.Group>
+                              </div>
+                              <div className="col-12 text-center">
+                              <Button variant="secondary" onClick={handleClose}>
                               Cancel
                             </Button>
+                                <Button type="submit">Submit</Button>
+                              </div>
+                            </div>
+                          </Form>
+                          </Modal.Body>
+
+                          {/* <Modal.Footer>
+                           
                             <Button variant="warning">Save</Button>
-                          </Modal.Footer>
+                          </Modal.Footer> */}
                         </Modal>
                       </div>
         </div>
@@ -326,11 +356,6 @@ const inactiveEmployees = employeeList.filter(emp => emp.status === "INACTIVE").
                     <option value="Inactive">Inactive</option>
               </select>
 
-
-              
-              <select className="form-select w-auto me-3 ">
-                <option>Sort by: Last 7 Days</option>
-              </select>
             </div>
           </div>
           <div className="table-responsive emp-table" ref={employeeRef}>

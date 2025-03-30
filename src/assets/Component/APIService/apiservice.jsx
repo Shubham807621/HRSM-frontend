@@ -316,23 +316,22 @@ export const getEmployeeDashboardDetails = async(empId,token) =>{
 export const sendSupportRequest = async (body, token) => {
 
     const url = `${API_BASE_URL}${API_URLs.Support}`;
+   
     console.log(body);
-    console.log(url);
-    console.log(token);
-    // try {
-    //     const response = await axios.post(url,
-    //         {
-    //             headers: {
-    //                 Authorization: Bearer ${token},
-    //                 "Content-Type": "application/json",
-    //             },
-    //         }
-    //     );
-    //     return response.data;
-    // } catch (error) {
-    //     console.error("Error:", error.response?.data || error.message);
-    //     throw error;
-    // }
+    try {
+        const response = await axios.post(url,body,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error:", error.response?.data || error.message);
+        throw error;
+     }
 }
 export const sendDocument = async (body,token)=>{
 

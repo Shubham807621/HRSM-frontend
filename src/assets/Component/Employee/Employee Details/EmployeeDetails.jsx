@@ -148,7 +148,8 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
               {/* Left - Profile Card */}
               <div className="profile-card">
                 <div className="profile-header">
-                  <img src={employee.profileImg} className="profile-avatar" />
+                  {/* <img src={employee.profileImg} className="profile-avatar" /> */}
+                  <img src='https://randomuser.me/api/portraits/men/32.jpg' className="profile-avatar" alt="profile pic"/>
                 </div>
 
                 <div className="profile-content">
@@ -282,7 +283,7 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                   {/* ✅ Show Edit Button Only if Viewing Own Profile */}
                     {isOwnProfile && (
                   <div className="mt-3 text-end">
-                    <button className="btn btn-warning btn-sm" onClick={() => setShowModal(true)}>
+                    <button className="btn btn-primary btn-sm" onClick={() => setShowModal(true)}>
                       Edit Bank Details
                     </button>
                   </div>
@@ -327,7 +328,7 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                           {/* ✅ Show Edit Button Only if Viewing Own Profile */}
                           {isOwnProfile && (
                         <div className="mt-3 text-end">
-                          <button className="btn btn-warning btn-sm" onClick={() => setShowModal(true)}>
+                          <button className="btn btn-primary btn-sm" onClick={() => setShowModal(true)}>
                             Edit Family Details
                           </button>
                         </div>
@@ -396,7 +397,7 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                         </div>
                         {isOwnProfile && (
                         <div className="mt-3 text-end">
-                          <button className="btn btn-warning btn-sm" onClick={() => setShowModal(true)}>
+                          <button className="btn btn-primary btn-sm" onClick={() => setShowModal(true)}>
                             Edit Education Details
                           </button>
                         </div>
@@ -463,7 +464,7 @@ const [showExperienceModal, setShowExperienceModal] = useState(false);
                               </div>
                               {isOwnProfile && (
                         <div className="mt-3 text-end">
-                          <button className="btn btn-warning btn-sm" onClick={() => setShowModal(true)}>
+                          <button className="btn btn-primary btn-sm" onClick={() => setShowModal(true)}>
                             Edit Experience Details
                           </button>
                         </div>

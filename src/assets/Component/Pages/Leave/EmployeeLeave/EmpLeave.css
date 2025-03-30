@@ -14,6 +14,7 @@
 
 .mainempleave .button-wrapper1 .titleE{
     font-size: 28px !important; 
+    color: blue;
 }
 
   /* Right Section: Buttons */
@@ -30,7 +31,7 @@
   height: 38px;
     display: flex;
     align-items: center;
-    background: #f26522;
+    background: linear-gradient(to left, #673AB7 0%, #2196F3 100%);
     border: none;
     padding: 8px 15px;
     border-radius: 5px;
@@ -116,11 +117,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    /* background-color: white; */
     padding: 10px;
-    border-radius: 12px;
+    border-radius: 15px;
     transition: all 0.4s ease-in-out;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
   
   .mainempleave .container1 .leave-card:hover {
@@ -161,10 +165,13 @@
     background-color: #fd3995 !important;
   }
   .mainempleave .container2{
-    background-color: #ffffff;
+    
     height: auto;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
 
   .mainempleave .container2 .table-responsive {
@@ -175,7 +182,7 @@
   }
   
   .mainempleave .container2 .table-responsive  thead {
-    background: #f8f9fa;
+    /* background: #f8f9fa; */
   }
   
   .mainempleave .container2 .table-responsive  td img {

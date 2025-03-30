@@ -142,7 +142,7 @@ export default function HRLeave()
                 </div>
                 </div>
 
-            <div className="container1 bg-light mt-4">
+            <div className="container1  mt-4">
                 {/* Header Section */}
                     <div className="d-flex justify-content-between align-items-center mb-3 pt-4 px-4">
                         <h5 className="fw-bold">Leave List</h5>

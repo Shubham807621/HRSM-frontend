@@ -62,9 +62,9 @@ const KnowledgeBase = () => {
 
   return (
     <div className="Knowledge-base-wrap">
-        <div className="page">
+        <div className="page mb-4">
       <div className="header-container">
-        <h3>Knowledgebase</h3>
+        <h3 className="page-title">Knowledgebase</h3>
         <div className="header-left-right">
           <div className="header-left">
             <p><HomeIcon/></p>

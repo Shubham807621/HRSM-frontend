@@ -38,7 +38,7 @@ export default function HrDashboard() {
   return (
     <>
            <div className='HR-dashboard-wrapper'>
-              <h2 className="titleE">HR Dashboard</h2>
+              <h2 className="titleE text-primary">HR Dashboard</h2>
               <div className="breadcrumb-wrapper">
                 <ul className="breadcrumb">
                   <li className='me-2'>

@@ -174,7 +174,7 @@ function Users() {
 
                 {/* Pagination */}
                 <div className="d-flex justify-content-end align-items-end me-3">
-                    <button style={{ border: 'none', backgroundColor: 'white', paddingRight: '10px', color: 'gray' }}>&lt;</button>
+                    <button style={{ border: 'none', paddingRight: '10px', color: 'gray' }}>&lt;</button>
                     <span style={{
                         backgroundColor: 'orangered',
                         borderRadius: '70px',
@@ -182,7 +182,7 @@ function Users() {
                         color: 'white',
                         paddingLeft: '7px'
                     }}> 1</span>
-                    <button style={{ border: 'none', backgroundColor: 'white', paddingLeft: '10px', color: 'gray' }}>&gt;</button>
+                    <button style={{ border: 'none', paddingLeft: '10px', color: 'gray' }}>&gt;</button>
                 </div>
             </div>
         </div>

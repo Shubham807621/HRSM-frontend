@@ -10,7 +10,7 @@ export const API_URLs = {
     GETEMPLIST:'/api/employeelist',
     EMPCOUNT :'/api/emp-count',
     EMPCOUNTBYDEPARTMENT :'/api/emp-count-department',
-    Support:'/support/report',
+    Support:'/api/support/report',
     SENDDOC:'/api/document',
     GETTOTALCOUNT:'/api/project/getCounts',
     Get_EMP_DashBoard_Details :'/api/emp-dashboard-details',

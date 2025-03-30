@@ -142,7 +142,7 @@ const [employee ,SetEmployee] = useState({})
                       {/* Profile Button */}
                       <button className="profile-btn" onClick={() => setMenuOpen(!menuOpen)}>
                         <img
-                          src="https://randomuser.me/api/portraits/women/44.jpg"
+                          src='https://randomuser.me/api/portraits/men/32.jpg'
                           alt="User"
                           className="profile-img"
                         />
@@ -159,7 +159,8 @@ const [employee ,SetEmployee] = useState({})
                       {menuOpen && (
                         <div className="dropdown-menu show">
                           <div className="user-info">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" className="user-img" />
+                            {/* <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" className="user-img" /> */}
+                            <img src='https://randomuser.me/api/portraits/men/32.jpg'  className="user-img" alt="profile pic"/>
                             <div>
                               <h6 className="mb-0 fw-bold">{employee.name}</h6>
                               <p className="text-muted small mb-0">{employee.email}</p>
@@ -220,7 +221,7 @@ const [employee ,SetEmployee] = useState({})
           <div  className='main-item1 pt-4'>
             <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-5">Main</h3>
               <div
-                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "dashboard" ? "bg-body-secondary" : ""}`}  
+                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "dashboard" ? "bg-primary text-light" : ""}`}  
               >
                 <div className="d-flex align-items-center ">
                   <HomeIcon className="fs-5 me-2" />
@@ -261,7 +262,7 @@ const [employee ,SetEmployee] = useState({})
           <h3 className="text-secondary text-uppercase fs-6 fw-bold mt-4 mb-3">HRSM</h3>
             <div>
               <div
-                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "employee" ? "bg-body-secondary" : ""}`}  
+                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "employee" ? "bg-primary text-light" : ""}`}  
                 
               >
                 <div className="d-flex align-items-center">
@@ -295,7 +296,7 @@ const [employee ,SetEmployee] = useState({})
             </div>
             <div className='main-item1'>
               <div
-                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "attendance" ? "bg-body-secondary" : ""}`} 
+                className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "attendance" ? "bg-primary text-light" : ""}`} 
                 
               >
                 <div className="d-flex align-items-center">
@@ -331,7 +332,7 @@ const [employee ,SetEmployee] = useState({})
               )}
             </div>
             <div className='main-item1'>
-              <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "Leave" ? "bg-body-secondary" : ""}`} 
+              <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "Leave" ? "bg-primary text-light" : ""}`} 
               >
                 <div className="d-flex align-items-center">
                 <PeopleIcon className="fs-5 me-2" />
@@ -367,7 +368,7 @@ const [employee ,SetEmployee] = useState({})
               )}
             </div>
             <div className='main-item1'>
-            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "training" ? "bg-body-secondary" : ""}`} 
+            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "training" ? "bg-primary text-light" : ""}`} 
               >
                 <div className="d-flex align-items-center">
                 <AssignmentIcon className="fs-5 me-2" />
@@ -397,7 +398,7 @@ const [employee ,SetEmployee] = useState({})
               )}
             </div>
             {/* <div className='main-item1'>
-            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "performance" ? "bg-body-secondary" : ""}`} 
+            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "performance" ? "bg-primary text-light" : ""}`} 
               >
                 <div className="d-flex align-items-center">
                 <SchoolIcon className="fs-5 me-2" />
@@ -419,7 +420,7 @@ const [employee ,SetEmployee] = useState({})
               )}
             </div> */}
             <div className='main-item1'>
-            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "payroll" ? "bg-body-secondary" : ""}`} 
+            <div className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "payroll" ? "bg-primary text-light" : ""}`} 
               >
                 <div className="d-flex align-items-center">
                 <AccountBalanceWalletIcon className="fs-5 me-2" />
@@ -464,7 +465,7 @@ const [employee ,SetEmployee] = useState({})
           {userRole === "HR" && (
             <div className='main-item1'>
             <div
-              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "user-management" ? "bg-body-secondary" : ""}`} >
+              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "user-management" ? "bg-primary text-light" : ""}`} >
               <div className="d-flex align-items-center">
               <ManageAccountsIcon className="fs-5 me-2" />
                 <p className="fw-semibold main-title">User Management</p>
@@ -497,7 +498,7 @@ const [employee ,SetEmployee] = useState({})
           
           <div className='main-item1'>
             <div
-              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "support" ? "bg-body-secondary" : ""}`} 
+              className={`d-flex align-items-center justify-content-between p-2 cursor-pointer rounded-3 ${openMenu === "support" ? "bg-primary text-light" : ""}`} 
               
             >
               <div className="d-flex align-items-center">

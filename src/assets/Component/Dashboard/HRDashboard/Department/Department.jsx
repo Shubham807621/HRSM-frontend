@@ -164,6 +164,13 @@ const data = [
             data={empCount}
             margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
           >
+             <defs>
+    <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="11%" stopColor="rgba(0,116,255,1)" />
+      <stop offset="35%" stopColor="rgba(22,150,253,1)" />
+      <stop offset="80%" stopColor="rgba(39,138,250,1)" />
+    </linearGradient>
+  </defs>
               <XAxis  
                   type="number" 
                   tick={{ fontSize: 12 }}  />
@@ -176,7 +183,7 @@ const data = [
               <Tooltip />
               <Bar 
                 dataKey="count" 
-                fill="#ff7300" 
+                fill="url(#barGradient)" 
                 barSize={10} 
                 isAnimationActive={false} 
                 

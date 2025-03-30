@@ -104,9 +104,9 @@ function HrAttendance(){
                             <option>Present</option>
                             <option>Absent</option>
                         </select>
-                        <select className="form-select w-auto" style={{fontSize:'14px'}}>
+                        {/* <select className="form-select w-auto" style={{fontSize:'14px'}}>
                             <option>Designation</option>
-                        </select>
+                        </select> */}
                         <select className="form-select w-auto" style={{fontSize:'14px'}}>
                             <option>Sort by: Last 7 Days</option>
                         </select>
@@ -145,8 +145,12 @@ function HrAttendance(){
                                 </div>
                             </div>
                             </td>
-                            <td style={{ color: 'gray' }}>{emp.punchIn}</td>
-                            <td style={{ color: 'gray' }}>{emp.punchOut}</td>
+                            <td style={{ color: 'gray' }}>
+                                {new Date(emp.punchIn).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </td>
+                            <td style={{ color: 'gray' }}>
+                                {new Date(emp.punchOut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </td>
                             <td>
                             <span
                                 className="badge"

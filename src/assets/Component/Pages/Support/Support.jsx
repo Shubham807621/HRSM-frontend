@@ -12,6 +12,7 @@ const Support=()=>{
         empId: "",
         name: "",
         email: "",
+        subjectLine:"",
         message: "",
     });
     const token = localStorage.getItem("token");
@@ -33,7 +34,7 @@ const Support=()=>{
         try {
             const response=await sendSupportRequest(formData, token); // Call the API function
             setSuccess("Message sent successfully!");
-            setFormData({ empId: "", name: "", email: "", message: "" }); // Reset form
+            setFormData({ empId: "", name: "", email: "",  subjectLine:"", message: "" }); // Reset form
             } catch (err) {
                 setError(err.response?.data?.message || "Failed to send message.");
             } finally {
@@ -69,7 +70,7 @@ const Support=()=>{
                    <Button type="submit" className="submit-button">Submit</Button>
                 </form> */}
                  <form onSubmit={handleSubmit}>
-                            <div className="value">
+                            <div className="value mb-3">
                                 <label>EmpID</label>
                                 <input
                                     type="text"
@@ -81,7 +82,7 @@ const Support=()=>{
                                     required
                                 />
                             </div>
-                            <div className="value">
+                            <div className="value mb-3">
                                 <label>Name</label>
                                 <input
                                     type="text"
@@ -101,6 +102,18 @@ const Support=()=>{
                                     placeholder="Enter your Email"
                                     className="txt"
                                     value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="value my-3">
+                                <label>Subject Line</label>
+                                <input
+                                    type="text"
+                                    name="subjectLine"
+                                    placeholder="Enter the Subject Line"
+                                    className="txt"
+                                    value={formData.subjectLine}
                                     onChange={handleChange}
                                     required
                                 />

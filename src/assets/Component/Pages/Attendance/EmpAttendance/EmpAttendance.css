@@ -16,6 +16,7 @@
     /* margin-left: 320px;
     margin-top: 30px; */
     font-size: 30px;
+    color: blue;
 }
 
 .emp-attendance .breadcrumb-wrapper .breadcrumb {
@@ -79,12 +80,16 @@
 
 .emp-attendance .emp-container .row1 .emp-card .attendance-card {
     width: 300px;
-    background: #ffffff;
+    
     border-radius: 12px;
     padding: 40px 20px 40px 20px;
     text-align: center;
     font-family: Arial, sans-serif;
     border: 1px solid rgba(128, 128, 128, 0.514);
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
   
   .emp-attendance .emp-container .row1 .emp-card .attendance-card h6 {
@@ -141,30 +146,42 @@
 
 /*4 boxes*/
 .emp-attendance .emp-container .row1 .r1-c2 .insiderow .emp-card{
-    background-color: white;
+    /* background-color: white; */
     padding: 10px 0px 5px 20px;
     border-radius: 10px;
     border: 1px solid rgba(128, 128, 128, 0.514);
     flex: 1;
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 /*timeline*/
 .emp-attendance .emp-container .row1 .r1-c2 .timeline{
     font-family: Arial, sans-serif;
     padding: 20px;
-    background: #fff;
+    /* background: #fff; */
     border-radius: 8px;
     border: 1px solid rgba(128, 128, 128, 0.514);
     flex: 1;
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 /*row2*/
 .emp-attendance .emp-container .row2{
-    background-color: white;
+    /* background-color: white; */
     font-family: Arial, sans-serif;
     border-radius: 8px;
     padding: 10px 0px 10px 0px;
     border: 1px solid rgba(128, 128, 128, 0.514);
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .emp-attendance .emp-container .row2 .emp-list-contrainer{
@@ -204,7 +221,7 @@ color: #000 !important;
 .emp-attendance .emp-container .row2 .emp-table table th{
 padding-left: 15px;
 border: none;
-background-color: #e5e7eb !important;
+/* background-color: #e5e7eb !important; */
 
 }
 

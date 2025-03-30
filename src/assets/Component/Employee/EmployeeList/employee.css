@@ -26,7 +26,8 @@
   height: 38px;
     display: flex;
     align-items: center;
-    background: #f26522;
+    background: linear-gradient(to left, #673AB7 0%, #2196F3 100%);
+
     border: none;
     padding: 8px 15px;
     border-radius: 5px;
@@ -123,10 +124,12 @@ height: 85px;
 border: 1px solid rgba(0, 0, 0, 0.17);
   display: flex;
   align-items: center;
-  background: #fff;
+  /* background: #fff; */
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.627);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .maindiv .infoE .icon1 {
@@ -138,7 +141,7 @@ border: 1px solid rgba(0, 0, 0, 0.17);
     font-size: 15px;
     margin-left: 10px;
     margin-bottom: 0 !important;
-    color: #0000005c;
+    color: #000000;
   }
   
   .maindiv .infoE .stat-card  .ptag {
@@ -150,11 +153,13 @@ border: 1px solid rgba(0, 0, 0, 0.17);
   
  .maindiv .emp-list-contrainer {
     width: 100%;
-    background: white;
+    /* background: white; */
     border: 1px solid rgba(0, 0, 0, 0.171);
     padding: 15px 0;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
   
   /* Filters Section */
@@ -170,9 +175,14 @@ border: 1px solid rgba(0, 0, 0, 0.17);
 
   .maindiv .emp-list-contrainer .emp-table{
     width: 100%;
+    background-color: transparent;
   }
   .maindiv .emp-list-contrainer .emp-table table{
     width: 100%;
+  }
+
+  .table>:not(caption)>*>*{
+    background-color: transparent !important;
   }
 .maindiv .emp-list-contrainer .emp-table table tbody tr td .emp-title{
   color: #000 !important;
@@ -181,7 +191,7 @@ border: 1px solid rgba(0, 0, 0, 0.17);
 .maindiv .emp-list-contrainer .emp-table table th{
   padding-left: 15px;
   border: none;
-  background-color: #e5e7eb !important;
+  /* background-color: #e5e7eb !important; */
 }
 
 .maindiv .emp-list-contrainer .emp-table table td{

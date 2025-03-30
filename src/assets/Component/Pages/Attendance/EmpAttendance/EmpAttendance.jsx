@@ -64,6 +64,12 @@ const employees = [
         fetchAttendanceListById();
     }, []);
 
+    const formatHours = (decimalHours) => {
+        const totalMinutes = Math.floor(decimalHours * 60);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+      };
     return(
     <div className='emp-attendance'>
                 <div className="titleE">
@@ -91,7 +97,7 @@ const employees = [
                             <h6>Good Morning, Adrian</h6>
                             <p><b>{localPunchInDate  || "Not Punched In"}</b></p>
                             <img src={profilePic} alt='Profile' width={100} height={100} />
-                            <p className="production-info">Production: {totalHours} hrs</p>
+                            <p className="production-info">Production: {formatHours(totalHours)} hrs</p>
                             <p style={{ fontSize: '14px', paddingBottom: '5px' }}>
                                 {isPunchedIn ? `Punched In at ${localPunchInTime}` : "Not Punched In"}
                             </p>
@@ -194,7 +200,7 @@ const employees = [
             
                     <div className="container row2  mt-4">
                         <div className='emp-list-contrainer'>
-                            <h6>Leave List</h6>
+                            <h6>Attendance List</h6>
                             {/* Filters & Sorting */}
                             <div className=" mb-3 emp-filters">
                             <select className="form-select w-auto" style={{fontSize:'14px'}}>

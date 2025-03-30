@@ -96,7 +96,7 @@ const Document = () => {
     <div className="document-wrap">
      
       <div className="button-wrapper1 mt-2 d-flex justify-content-between">
-              <h1 className="titleE">Document </h1>
+              <h1 className="titleE text-primary">Document </h1>
       
               <div className="button-wrapper d-flex">
                 <div>

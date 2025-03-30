@@ -115,7 +115,7 @@ function Roles(){
                             </ul>
                         </div>
                     </div>
-                    <button className='adduser' onClick={() => setShowModal(true)}><AddCircleOutlineIcon fontSize="inherit"/> Add Users</button>
+                    <button className='adduser px-3' onClick={() => setShowModal(true)}><AddCircleOutlineIcon className="me-2"fontSize="inherit"/> Add Roles</button>
 
                     {showModal && (
                     <div className="modal-backdrop">
@@ -228,13 +228,13 @@ function Roles(){
 
                         {/* Pagination */}
                     <div className="d-flex justify-content-end align-items-end me-3">
-                        <button style={{border:'none',backgroundColor:'white',paddingRight:'10px',color:'gray'}}>&lt;</button>
+                        <button style={{border:'none',paddingRight:'10px',color:'gray'}}>&lt;</button>
                         <span style={{backgroundColor:'orangered',
                                     borderRadius:'70px', 
                                     width:'25px',
                                     color:'white',
                                     paddingLeft:'7px'}}> 1</span>
-                        <button style={{border:'none',backgroundColor:'white',paddingLeft:'10px',color:'gray'}}>&gt;</button>
+                        <button style={{border:'none',paddingLeft:'10px',color:'gray'}}>&gt;</button>
                         </div>
                     </div>
             </div>)

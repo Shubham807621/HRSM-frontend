@@ -58,14 +58,15 @@
       width: 390px;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      background-color: white;
-      border: 1px solid rgba(0, 0, 0, 0.171);
+      background: rgba(255, 255, 255, 0.627);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
 
   .employeedetails-wrapper .main-content .profile-card  .profile-header {
     /* background-color: #FF7F00; */
-    background: linear-gradient(305deg, rgba(229,87,0,1) 25%, rgba(255,167,0,1) 50%, rgba(229,87,0,1) 75%);
+    background: linear-gradient(270deg, rgba(0, 116, 255, 1) 11%, rgba(22, 150, 253, 1) 35%, rgba(39, 138, 250, 1) 80%);
     height: 85px;
     display: flex;
     justify-content: center;
@@ -169,7 +170,8 @@
   }
   
   .employeedetails-wrapper .main-content .profile-card .profile-content .button-group  .message-button {
-      background-color: #FF7F00 !important;
+      /* background-color: #FF7F00 !important; */
+      background: linear-gradient(to right, #673AB7 0%, #2196F3 100%);
       color: white !important;
       padding: 7px 40px !important;
       border-radius: 8px !important;
@@ -246,12 +248,17 @@
 
 .employeedetails-wrapper .right-side .right-custom .accordion .accordion-item {
   border-radius: 8px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.112)
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.112);
+  background: rgba(255, 255, 255, 0.627);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .employeedetails-wrapper .right-side .right-custom .accordion .accordion-item .accordion-header button{
   font-weight: 600;
   font-size: 17px;
+  background-color: transparent;
 }
 
 
@@ -294,9 +301,10 @@ font-family: "Roboto", sans-serif !important;
 
 .employeedetails-wrapper .personal-info-card{
   width: 47.5%;
-  background-color: #ffffff;
-  border-radius: 8px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.112);
+  background: rgba(255, 255, 255, 0.627);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .employeedetails-wrapper .personal-info-card .section-header{

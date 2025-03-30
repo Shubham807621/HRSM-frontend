@@ -37,7 +37,7 @@ const CustomeModal = ({ show, handleClose, data, handleSave, title, fields }) =>
         <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="warning" onClick={() => handleSave(formData)}>
+        <Button variant="primary" onClick={() => handleSave(formData)}>
           Save
         </Button>
       </Modal.Footer>

@@ -1,5 +1,6 @@
 body {
-    background-image: url("src/assets/Images/tt-work-bg.jpg"); 
+    /* background-image: url("src/assets/Images/tt-work-bg.jpg");  */
+     
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -13,10 +14,14 @@ body {
  
     position: fixed;
     height: 70px;
-    background-color: rgb(255, 255, 255);
+
     display: flex;
     justify-content: space-between;
     box-shadow: 5px 5px 15px rgba(0 0 0/ 20%);
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+
     
 }
 
@@ -78,7 +83,7 @@ a{
   }
   
   .profile-btn {
-    background-color: white;
+    background-color:transparent;
     border: none;
     display: flex;
     align-items: center;
@@ -164,7 +169,10 @@ a{
 
 /* Sidebar */
 .sidebar {
-    background-color: rgb(255, 255, 255);
+  box-shadow: 5px 5px 15px rgba(0 0 0/ 20%);
+  background: rgba(255, 255, 255, 0.627);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
     width: 280px;
     height: 100vh;
     border-right: 2px solid rgba(0, 0, 0, 0.108);
@@ -216,7 +224,7 @@ a{
     transition: color 0.3s;
   }
   .submenu-item.active {
-    color: #f26522 !important;
+    color: #2260f2 !important;
     font-weight: bold;
   }
   
@@ -234,13 +242,14 @@ a{
 .sidebar h1 {
     width: 240px;
     font-size: 50px;
-    color: rgb(252, 117, 21);
+    color: rgb(21, 94, 252);
+    
     font-family: Georgia, 'Times New Roman', Times, serif;
     position: fixed;
     top: 0;
     z-index: 10;
     padding: 0px 13px;
-   background-color: white;
+   /* background-color: white; */
 }
 .sidebar .main-item1{
     height: auto;

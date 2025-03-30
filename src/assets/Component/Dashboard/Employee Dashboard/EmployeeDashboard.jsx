@@ -100,7 +100,7 @@ function EmployeeDashboard(){
     
             try{
                 const respone = await getEmployeeDetails(empId, token);
-                // console.log(respone.tasks);
+                console.log(respone);
                 setSkills(respone.skills)
                 setTasks(respone.tasks)
                 SetEmployee(respone);
@@ -124,8 +124,8 @@ function EmployeeDashboard(){
 
     return(
         <div className="empDashboard ">
-            <div className="titleE">
-                <h1>Employee Dashboard</h1>
+            <div className="titleE ">
+                <h1 className="text-primary">Employee Dashboard</h1>
             </div>
 
             <div className="breadcrumb-wrapper mb-2">
@@ -322,24 +322,24 @@ function EmployeeDashboard(){
                     <div className="r2-c2">
                         <div className="insiderow">
                             <div className="emp-card">
-                                <p><AccessTimeFilledIcon/> &nbsp; <b>8.36/9</b></p>
+                                <p className="mt-4 ms-3"><AccessTimeFilledIcon/> &nbsp; <b>8.36/9</b></p>
                                 <p>Total Hours Today</p>
-                                <p><ArrowUpwardIcon sx={{ color: 'green' }}/><b>5% Last Week</b></p>
+                        
                             </div>
                             <div className="emp-card">
-                                <p><AccessTimeFilledIcon/> &nbsp; <b>10/40</b></p>
+                                <p className="mt-4 ms-3"><AccessTimeFilledIcon/> &nbsp; <b>10/40</b></p>
                                 <p>Total Hours Week</p>
-                                <p><ArrowUpwardIcon sx={{ color: 'green' }}/><b>7% Last Week</b></p>
+                
                             </div>
                             <div className="emp-card">
-                                <p><TodayIcon/> &nbsp; <b>75/90</b></p>
+                                <p className="mt-4 ms-3"><TodayIcon/> &nbsp; <b>75/90</b></p>
                                 <p>Total Hours Today</p>
-                                <p><ArrowDownwardIcon sx={{ color: 'red' }}/><b>5% Last Week</b></p>
+        
                             </div>
                             <div className="emp-card">
-                                <p><TodayIcon/> &nbsp; <b>16/28</b></p>
+                                <p className="mt-4 ms-3"><TodayIcon/> &nbsp; <b>16/28</b></p>
                                 <p>OverTime this Month</p>
-                                <p><ArrowDownwardIcon sx={{ color: 'red' }}/><b>6% Last Week</b></p>
+   
                             </div>
                         </div>
 

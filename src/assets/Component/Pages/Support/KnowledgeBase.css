@@ -4,6 +4,9 @@
     top: 12%;
     
 }
+.page-title{
+    color: blue;
+}
 .Knowledge-base-wrap .page .header-container{
     padding: 20px;
     font-family: Arial, Helvetica, sans-serif;
@@ -13,6 +16,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-right: 50px;
     margin-top: 10px;
+}
+.Knowledge-base-wrap .page .filter .card{
+    box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
+    background: rgba(255, 255, 255, 0.627);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    
 }
 .Knowledge-base-wrap .page .header-container .header-left-right{
     display: flex;
@@ -55,7 +65,7 @@
     height: 230px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: white;
+    background: rgba(255, 255, 255, 0.627);
     border: 1px solid rgba(0, 0, 0, 0.171);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
    

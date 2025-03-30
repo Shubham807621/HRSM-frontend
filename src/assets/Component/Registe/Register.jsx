@@ -116,7 +116,7 @@ function Register() {
 
                             {error && <p className="text-danger mt-3 pb-0">{error}</p>}
 
-                            <Divider textAlign="center" style={{ margin: '20px 0', color: '#555' }}>
+                            {/* <Divider textAlign="center" style={{ margin: '20px 0', color: '#555' }}>
                                 Or Sign Up With
                             </Divider>
 
@@ -129,7 +129,7 @@ function Register() {
                                         />
                                     </GoogleOAuthProvider>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="signup-link">
                                 Already have an account? <Link to="/"> Log In</Link>
