@@ -4,7 +4,8 @@ import './App.css'
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
 import Login from './assets/Component/Login/Login'
 import Register from './assets/Component/Registe/Register'
-import Navbar from './assets/Component/Header/navbar'
+
+import  Navbar1 from './assets/Component/Header/Navbar'
 import Employee from './assets/Component/Employee/EmployeeList/Employee'
 import Verify from './assets/Component/Registe/Verify'
 import ResetPassword from './assets/Component/Login/ResetPassword'
@@ -34,7 +35,7 @@ function App() {
   return (
     <>
     <BrowserRouter>
-      <Navbar variant="default"/>
+      <Navbar1 variant="default"/>
      <AttendanceProvider>
         <Routes>
           <Route path="/"element={<Login/>}/>
