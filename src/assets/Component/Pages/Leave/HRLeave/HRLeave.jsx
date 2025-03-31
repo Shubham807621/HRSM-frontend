@@ -1,5 +1,5 @@
 import React, { useState,useRef, useEffect } from "react";
-import './HrLeave.css'
+import './HRLeave.css'
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
