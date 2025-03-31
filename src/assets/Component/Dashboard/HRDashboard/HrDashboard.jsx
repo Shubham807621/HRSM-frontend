@@ -6,8 +6,7 @@ import AttendanceDashboard from './Attendance/AttendanceDashboard.jsx';
 import { Link } from 'react-router-dom';
 import { getEmployeeDashboardDetails } from '../../APIService/apiservice.jsx';
 
-export default function HrDashboard() {
-
+export default function HRDashboard() {
 
   const token = localStorage.getItem('token');
   const empId = localStorage.getItem('empId');

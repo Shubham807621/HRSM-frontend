@@ -9,7 +9,7 @@ import Employee from './assets/Component/Employee/EmployeeList/Employee'
 import Verify from './assets/Component/Registe/Verify'
 import ResetPassword from './assets/Component/Login/ResetPassword'
 import NewPassword from './assets/Component/Login/NewPassword'
-import HrDashboard from './assets/Component/Dashboard/HRDashboard/hrDashboard'
+
 import EmployeeDetails from './assets/Component/Employee/Employee Details/EmployeeDetails'
 import Document from './assets/Component/Pages/Document/Document'
 import HRLeave from './assets/Component/Pages/Leave/HRLeave/HRLeave'
@@ -26,6 +26,7 @@ import Payroll from './assets/Component/Pages/Salary/Payroll/Payroll'
 import KonwledgeBase from './assets/Component/Pages/Support/KnowledgeBase'
 import Users from './assets/Component/Pages/User Mangement/Users/Users'
 import { AttendanceProvider } from './assets/Component/Pages/Attendance/AttendanceProvider'
+import HRDashboard from './assets/Component/Dashboard/HRDashboard/hrDashboard'
 
 function App() {
 
@@ -41,7 +42,7 @@ function App() {
           <Route path="/NewPassword" element={<NewPassword/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/employee" element={<Employee/>}/>
-          <Route path='/hrdashboard' element={<HrDashboard/>}/>
+          <Route path='/hrdashboard' element={<HRDashboard/>}/>
           <Route path='/employeedashboard' element={<EmployeeDashboard/>}/>
           <Route path='/employee-details/:empId' element={<EmployeeDetails/>}/>
           <Route path='/document' element={<Document/>} />
